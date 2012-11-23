@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt]{report}
+
+\usepackage[pdftex, 	 
+bookmarks = true, 	% Signets
+bookmarksnumbered = true, 	% Signets numérotés
+pdfpagemode = None, 	% Signets/vignettes fermé à l'ouverture
+pdfstartview = FitH, 	% La page prend toute la largeur
+pdfpagelayout = SinglePage, 	% Vue par page
+colorlinks = true, 	% Liens en couleur
+urlcolor = magenta, 	% Couleur des liens externes
+pdfborder = {0 0 0} 	% Style de bordure : ici, pas de bordure
+]{hyperref} 	% Utilisation de HyperTeX
+\usepackage{verbatim} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{epstopdf}
+\usepackage{epsfig}
+\hypersetup{
+	colorlinks,
+	citecolor=red,
+	linkcolor=black,
+	urlcolor=blue}
+
+
+\begin{document}
+
+
+
+\section{\emph{Official Boost Documentation}}
+
+
+
+Boost is a C++ library used by famous companies like Adobe or Nvidia which has been written exclusively with basic templates in order to decrease  the run time and reusability.
+
+\section{Resume}
+
+The reading of the official boost documentation is required to successfully run the project, in order to capitalize on the possibilities of Boost and to respect the constraints brought up by the DGtal library. \\
+The documentation is composed of source code and comments about it, for example inside the .hpp files that are well commented and contains definition and implementation of functions.
+That allows someone to understand why is this library so generic and why are the CX00X norms inspirated by this one. 
+We can especially foresee a future implementation of smart pointers like shared\_ptr or scoped\_ptr in the future norms. 
+
+
+\section{Analyse}
+
+This documentation is divided into different sort of data structures, containers, iterators and algorithms. \\
+The classes and all parent ones are described by comments and source code. \\
+This documentation doesn't have many examples, but  if the user knows what he wants to use, he will be able to find precise documentation, as long as he knows the name of the class he's searching for. \\
+The syntax about general data structures is very close to the syntax of standard libraries of C++. For example, smart\_ptr have kept the implementation of operator "->" .
+
+consulté le 02/10/2012 : http://www.boost.org/doc/libs/1\_51\_0/
+
+@manual{boostdocumentation,
+title={Official Documentation  Boost},
+author={Beman Dawes, David Abrahams, Rene Rivera},
+note={Revised Date 2010-05-06},
+year={2012}
+}
+
+\end{document}
+

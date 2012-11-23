@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\title{Compte Rendu de Reunion}
+\author{Matéo Rémi \& Plasse Vincent}
+\date{Jeudi 13/09/2012}
+\begin{document}
+\maketitle
+
+\section{Étaient présents}
+Nicolas NORMAND \\
+Eric REMY \\
+Rémi MATEO \\
+Vincent PLASSE \\
+
+
+\section{Points abordées}
+\subsection{Explication du PRED }
+-	Fonctionnement par binômes, rendu final fin décembre et soutenance début janvier \\
+-	3 étapes : bibliographie, modélisation et développement \\
+-	Suivi par fiches hebdomadaires \\
+
+\subsection{Contraintes ajoutées par N. NORMAND }
+-	Livrables  en anglais \\
+-	Utilisation de \LaTex et Markdown \\
+-	Versioning sur le code et sur les livrables \\
+Pour les fiches hebdomadaires, il est conseillé d’utiliser les logs du versioning pour préremplir la fiche \\
+-	75% des sources bibliographiques doivent être pérennes \\
+
+\subsection{Présentation de DGtal }
+-	Bibliothèque de géométrie discrète \\
+-	Développé par une communauté française \\
+N. NORMAND a déjà implémenté un module pour exporter des objets géométriques en tikZ, il sera à utiliser pour le rapport \\
+Rappel : \\
+En Juin 2012 il y a eu une réunion DGtal dans laquelle E. REMY a proposé une extension : un algorithme de transformation en axe médian et un algorithme de transformation en distance. Le PRED concerne ce dernier. \\
+
+\subsection{But }
+Intégrer les algorithmes crées dans DGtal pour une plus grande visibilité et une utilisation simplifiée tout en pouvant effectuer des comparaisons avec d’autres algorithmes. \\
+
+\subsection{Point sur DGtal }
+-	Très forte utilisation de templates \\
+-	Utilise la bibliothèque Boost \\
+-	Permet d’implémenter des algorithmes de traitement indépendamment du format/de la dimension d’image en entrée \\
+-	Utilise un système de concepts : on attache une signification (ex : est énumérable) à une ou plusieurs classes \\
+
+\subsection{Intégration à DGtal }
+Créer un outil qui utilisera la bibliothèque DGtal dans un premier temps afin de laisser les core développeurs choisir s’il y a lieu d’intégrer le code produit et de quelle façon \\
+\\
+Pour les choix structurels, il faudra le voir et les confirmer avec E.REMY qui propose d’ailleurs son code de test. \\
+
+\subsection{A faire }
+-	Lire la documentation de DGtal \\
+-	Lire la liste d’ouvrages que N.NORMAND va fournir \\
+
+\subsection{Point sur la communication }
+-	Tout le monde reçoit tous les messages \\
+-	L’objet des emails a pour préfixe [PRED DGtal] \\
+-	Les prochaines réunions se feront avec Skype \\
+
+\subsection{Introduction aux transformations en distance }
+-	Rappel sur les notions de distance et de chemin \\
+-	Distance euclidienne \\
+-	Rappel sur les espaces discrets \\
+-	Voisinage 4 et 8 connexe \\
+-	Disque dans l’espace discret et problèmes \\
+-	Nouvelles connexités et ajout de poids différents (ex : distance de chanfrein) \\
+-	Combinaison de voisinages et de poids : distances basées sur des chemins \\
+-	Présentation de l’algorithme parallèle \\
+-	Présentation de l’algorithme de transformation en distance \\
+
+      
+\end{document}

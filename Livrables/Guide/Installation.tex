@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{verbatim} 
+\title{Guide d'installation}
+\author{Matéo Rémi}
+\date{12/10/2012}
+\begin{document}
+\maketitle
+
+\section{General installation for DGtal}
+
+\subsection{Unix}
+\begin{verbatim}
+sudo apt-get install cmake g++ libboost-dev libboost-program-options-dev
+sudo apt-get install libgmp-dev libcairo2-dev libqglviewer-qt4-dev
+libgraphicsmagick++1-dev libinsighttoolkit3-dev libgdcm2-dev doxygen graphviz git
+\end{verbatim}
+
+after that you have to download the DGtal sources. You may need to register at this \href{https://github.com/}{website.}\\
+
+
+\begin{verbatim}
+git clone https://github.com/YOUR\_LOGIN\_GITHUB/DGtal.git
+\end{verbatim}
+
+after that you can cd on DGtal sources and create a temporary folder like tmp.
+\begin{verbatim}
+mkdir tmp
+cd tmp
+cmake ..
+make
+sudo make install
+\end{verbatim}
+
+ps : DO not install the lastest version about Boost because that is not compatible with DGtal
+
+after that you can  make a dir like workspace where you will work.
+
+
+create a file with the name CMakeLists.txt
+and put this content.
+\begin{verbatim}
+PROJECT(Helloworld)
+#Required in DGtal
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+FIND_PACKAGE(DGtal REQUIRED)
+INCLUDE_DIRECTORIES(${DGTAL_INCLUDE_DIRS})
+LINK_DIRECTORIES(${DGTAL_LIBRARY_DIRS})
+ADD_EXECUTABLE(helloworld helloworld)
+TARGET_LINK_LIBRARIES(helloworld ${DGTAL_LIBRARIES})
+\end{verbatim}
+
+when you are on unix link or copy the file DGtalConfig.cmake you can find it on /usr/local/share/DGtal
+
+after that create files helloworld.cpp copy and paste the code below.
+
+\begin{verbatim}
+#include <DGtal/base/Common.h>
+int main(int argc, char** argv)
+{
+DGtal::trace.info() << "Helloworld from DGtal ";
+DGtal::trace.emphase() << "(version "<< DGTAL_VERSION << ")"<< std::endl;
+return 0;
+}
+\end{verbatim}
+
+and after that open terminal and go to the current directory and run cmake with the command:
+\begin{verbatim}
+cmake .
+make
+./helloworld
+\end{verbatim}
+
+\subsection{Windows}
+
+On windows you can install it but you need a compiler so you have to choose between mingw or visual studio.
+
+In the section getting started as I see it look like if you choose Visual that is more easy to configure.
+
+
+
+\end{document} 

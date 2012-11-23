@@ -1,0 +1,49 @@
+\documentclass[a4paper,11pt]{report}
+
+\usepackage[pdftex, 	 
+bookmarks = true, 	% Signets
+bookmarksnumbered = true, 	% Signets numérotés
+pdfpagemode = None, 	% Signets/vignettes fermé à l'ouverture
+pdfstartview = FitH, 	% La page prend toute la largeur
+pdfpagelayout = SinglePage, 	% Vue par page
+colorlinks = true, 	% Liens en couleur
+urlcolor = magenta, 	% Couleur des liens externes
+pdfborder = {0 0 0} 	% Style de bordure : ici, pas de bordure
+]{hyperref} 	% Utilisation de HyperTeX
+\usepackage{verbatim} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{epstopdf}
+\usepackage{epsfig}
+\hypersetup{
+	colorlinks,
+	citecolor=red,
+	linkcolor=black,
+	urlcolor=blue}
+
+
+\begin{document}
+
+
+\section{\emph{Les distances de chanfrein en analyse d'image fondements et applications}}
+
+\section{Résumé}
+
+This thesis' goal is to present a state of the art of the knowledge and algorithms related to the Chamfer distances. Chamfer distances are a type of distances such as Euclidian distances used in discrete geometrie. After a presentation of what Chamfer distances are, this thesis works on algorithmic optimizations, research of optimal masks, etc.
+
+\section{Analyse}
+
+Since one of our first goals will be to integrate Chamfer distances into DGtal, this thesis is a good opportunity for us to discover what are those distances and to discover different algorithms. Our tutor, M. Normand, has already offered us the algorithm he wanted us to implement but with this thesis we can understand why his solution is more adapted for computing.
+
+
+@book{lesdistancesdechanfreinenanalysedimagefondementsetapplications,
+title={Les distances de chanfrein en analyse d'image fondements et applications},
+author={Edouard Thiel},
+  year={1994},
+  publisher={Thesis for the University Joseph Fourier - Grenoble},
+	url={http://tel.archives-ouvertes.fr/docs/00/04/63/82/PDF/tel-00005113.pdf}
+}
+
+
+\end{document}

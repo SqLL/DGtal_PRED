@@ -1,0 +1,58 @@
+\documentclass[a4paper,11pt]{report}
+
+\usepackage[pdftex, 	 
+bookmarks = true, 	% Signets
+bookmarksnumbered = true, 	% Signets numérotés
+pdfpagemode = None, 	% Signets/vignettes fermé à l'ouverture
+pdfstartview = FitH, 	% La page prend toute la largeur
+pdfpagelayout = SinglePage, 	% Vue par page
+colorlinks = true, 	% Liens en couleur
+urlcolor = magenta, 	% Couleur des liens externes
+pdfborder = {0 0 0} 	% Style de bordure : ici, pas de bordure
+]{hyperref} 	% Utilisation de HyperTeX
+\usepackage{verbatim} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{epstopdf}
+\usepackage{epsfig}
+\hypersetup{
+	colorlinks,
+	citecolor=red,
+	linkcolor=black,
+	urlcolor=blue}
+
+
+\begin{document}
+
+\section{\emph{Path-Based Distance with Varying Weights and Neighborhood Sequences}}
+
+This paper is about Path Distance and cost. it's written by Nicolas Normand, Robin Stand, Pierre Evenou and Aurore Arlicot. 
+
+\section{Résumé}
+
+In this papers there is many definition about discret distance and some explication about symetric and discret circle.
+After that they describe and explain what is transformed distance to introduce the notion of neighboorood.
+There is a link between cost and path and transformed distance.
+The link is a properties: The increasing of path cost by adding an element is equal at the distance of the last element added within a determined mask.
+There is some rules about path-based distance.
+You have simple algorithm according to the previous properties and definitions.
+the interest is by using the cost of relative move you can get the same path-based distance using the normal move (for the same mask).
+You can also make complex-forme using translated distance with mask iteration.
+
+
+
+\section{Analyse}
+
+This paper is really really close about our project that is almost the same idea. the source is safe because that paper is writting by our tutor. This paper is useful to get the idea to know precisely with theorical model.
+
+
+@inproceedings{normand2011dgci,
+	Author = {Normand, Nicolas and Strand, Robin and Evenou, Pierre and Arlicot, Aurore},
+	Crossref = {dgci2011},
+	Doi = {10.1007/978-3-642-19867-0\_17},
+	Hal = {http://hal.archives-ouvertes.fr/hal-00581815/},
+	Pages = {199-210},
+	Title = {Path-Based Distance with Varying Weights and Neighborhood Sequences}}
+
+\end{document}

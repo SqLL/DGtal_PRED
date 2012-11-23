@@ -1,0 +1,1130 @@
+\documentclass[12pt, screen, english]{report-rd-info}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+%%configuration de listings
+\lstset{
+language=c++,
+basicstyle=\ttfamily\small, %
+identifierstyle=\color{red}, %
+keywordstyle=\color{blue}, %
+stringstyle=\color{black}, %
+columns=flexible, %
+tabsize=2, %
+extendedchars=true, %
+showspaces=false, %
+showstringspaces=false, %
+numbers=left, %
+numberstyle=\tiny, %
+breaklines=true, %
+breakautoindent=true, %
+captionpos=b
+}
+
+
+% définitions propres au contenu actuel
+\usepackage{enumerate}
+\usepackage{amsmath, amssymb}
+%\usepackage{algorithm}
+\usepackage{algorithm2e}
+	%\floatname{algorithme}{Algorithme}
+	%\renewcommand{\listalgorithmname}{Liste des algorithmes}
+%\usepackage{algorithmic}
+	%\renewcommand{\algorithmicrequire}{\textbf{Précondition:}}
+	%\renewcommand{\algorithmicensure}{\textbf{Post-condition:}}
+	%\renewcommand{\algorithmiccomment}[1]{\emph{// #1}}
+	%\renewcommand{\algorithmicend}{\textbf{fin}}
+	%\renewcommand{\algorithmicif}{\textbf{si}}
+	%\renewcommand{\algorithmicthen}{\textbf{alors}}
+	%\renewcommand{\algorithmicelse}{\textbf{sinon}}
+	%\renewcommand{\algorithmicelsif}{\algorithmicelse\ \algorithmicif}
+	%\renewcommand{\algorithmicendif}{\algorithmicend\ \algorithmicif}
+	%\renewcommand{\algorithmicfor}{\textbf{pour}}
+	%\renewcommand{\algorithmicforall}{\textbf{pour chaque}}
+	%\renewcommand{\algorithmicdo}{\textbf{faire}}
+	%\renewcommand{\algorithmicendfor}{\algorithmicend\ \algorithmicfor}
+	%\renewcommand{\algorithmicwhile}{\textbf{tant que}}
+	%\renewcommand{\algorithmicendwhile}{\algorithmicend\ \algorithmicwhile}
+	%\renewcommand{\algorithmicloop}{\textbf{fin tant que}}
+	%\renewcommand{\algorithmicendloop}{\algorithmicend\ \algorithmicloop}
+	%\renewcommand{\algorithmicrepeat}{\textbf{répéter}}
+	%\renewcommand{\algorithmicuntil}{\textbf{jusqu'à}}
+	%\renewcommand{\algorithmicprint}{\textbf{afficher}}
+	%\renewcommand{\algorithmicreturn}{\textbf{renvoyer}}
+	%\renewcommand{\algorithmictrue}{\textbf{vrai}}
+	%\renewcommand{\algorithmicfalse}{\textbf{fraux}}
+
+\newenvironment{typographie}{\begin{quote}\textbf{Typographie}. }{\end{quote}}
+\newenvironment{structuration}{\begin{quote}\textbf{Structuration}. }{\end{quote}}
+
+\newtheorem{theoreme}{Théorème}
+\newtheorem{preuve}{Preuve}
+
+\begin{document}
+
+\title{PRED Report}
+\subtitle{Distance calculation for the DGtal library}
+\authorA{Rémi}{Matéo}
+\authorB{Vincent}{Plasse}
+\supervisor{Nicolas}{Normand}
+\cosupervisor{Eric}{Remy}
+   % Si plusieurs co-encadrants, alors utiliser la forme suivante :
+   %    \cosupervisor{Alter}{Ego \& {\normalfont AutrePrénom} AutreNom}
+\institution{IRCCyN}
+   % - LINA  pour un encadrement par les membres des équipes GRIM et COD (voire d'autres) ;
+   % - IRCCyN pour un encadrement par les membres des équipes IVC ;
+   % - XXX pour un encadrement dans le cadre d'un autre organisme
+   %   (il faut alors fournir dans le répertoire "logos" les fichiers correspondant : XXX.pdf -- à défaut XXX.jpeg ou XXX.png -- pour pdflatex *et* XXX.eps pour latex) ;
+   % - laisser vide pour un encadrement qui relève d'un travail de recherche non affecté à une équipe.
+\theme{IVC}
+   % - à fournir dans le cas d'un laboratoire (GRIM, COD ou IVC pour les équipes du département)
+   % - laisser vide autrement
+\date{version 1.0 du 26 octobre 2012}
+
+%-------------------------------------------------------------------------------------------------------------
+
+\begin{abstract}
+The purpose of this project is to realize an implementation of distance calculation such as the chamfer distances in the DGtal library. Our objective is to implement as much distance calculation as possible during this project, as they all have a similar pattern due to the nature of discrete geometry. Our researches mainly focus on the 4 and 8 connexity, chamfer distances and distance transform as they all are linked.\\
+work in progress
+
+\end{abstract}
+
+
+\maketitle
+
+%-------------------------------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+We would like to thank Nicolas Normand and Eric Remy for their help and feedbacks during this project.\\
+We would also like to thank José Martinez for allowing us to use his report model in \LaTeX .
+\end{acknowledgements}
+
+%-------------------------------------------------------------------------------------------------------------
+
+\newpage
+
+\tableofcontents
+
+
+
+%-------------------------------------------------------------------------------------------------------------
+
+\chapter{Introduction}
+
+The implementation of discrete distance calculation in the DGtal library. This is a very specific subject that responds to shortage in this library. First of all, we will make a short presentation of the different elements that compose this subject: discrete geometry and distance and the DGtal library.
+
+\section{Discrete Geometry}
+
+Discrete geometry has seen its utilisation grown up with the development of digital material, especially with the use of digital representations. In these spaces, we aren't any more in a classic plan but in a discrete plan, mostly because of the pixel-based representations. The classic geometry does no longer apply to this kind of structure that's why discrete geometry has seen its utilisation explode with the computer sciences. \\
+Discrete geometry is strongly related to the discrete pictures, from 2 to n dimensions. They are the origin of discrete geometry because discrete geometry's objective is to analyse these pictures for different purposes such as identification or distance calculation.
+
+
+\section{What is a distance in discrete geometry?}
+
+Classical distance is linked to the notion of path. That is why we talk of path-based distances. The distance between two points is generally associated to the shortest path that links these points. That is why a distance is defined this way:\\
+In an ensemble E, the distance d is a E x E -> R+ function with these rules:\\
+\begin{itemize}
+	\item $d(x,y)  \ge 0$
+	\item $d(x,y) = 0 \Leftrightarrow x=y$
+	\item $d(x,y) = d(y,x)$
+\end{itemize}
+For the French scientists, a distance is also defined by another rule:\\
+\begin{itemize}
+	\item $d(x,y) \le d(x,z)+d(z,y)$
+\end{itemize}
+which allows us to talk of a metric.\\
+With this definition we can understand what a distance is but the way it is calculated isn't explained because it depends of the ensemble.\\
+Even in the discrete plan, the way a distance is calculated change, depending on several conditions:\\
+\begin{itemize}
+	\item 4 or 8 connexity
+	\item Values associated of the distance between two neighbor points
+	\item The utilisation of neighbourhood sequence path 
+\end{itemize}
+
+
+\section{What is the DGtal library?}
+
+A short presentation based on the DGtal 0.6.devel introduction (link: http://liris.cnrs.fr/dgtal/doc/nightly/ - consulted on Monday, October the 29th 2012)\\
+It is an open source generic library which responds to a need in discrete geometry software development or experimentation. With its generic structure and 	various algorithms this library was thought for a researching environment. Indeed, it is very easy-to-use library that can help people to test the result of their researches or to compare the efficiency of different algorithms into a strict and standard environment. On a more specific aspect, DGtal is a C++ library due to its capability to produce generic structures and code and to its quickness compared to other high-level programming languages.
+
+
+\section{Why do we need the implementation of discrete distance calculation in this library?}
+
+First of all, in order to understand the value of such an implementation, it is important to know what its uses are. As we said earlier, discrete geometry is used in digital material where more and more issues are appearing. To answer these issues, a part of the algorithms used needs the utilization of discrete distance calculation. Even if we described earlier what is a distance, there are several ways of calculating it in the discrete plan. We talked about, for example, of 4 or 8 connexity. This is the easiest example of the different ways of understanding why the discrete geometry is a proper research framework due to its specifics.
+
+\section{The purpose of our PRED}
+By implementing new discrete distance calculations such as the Chamfer distances, we will give to the discrete geometry research community new easy-to-use tools which would be a new step into the genericity of the DGtal library. People won't need to redefine the way they want their distances to be calculated but they would be able to use one of the distances we implemented. We also hope that we could present with them a proper way to define what is a distance calculation in the DGtal library and what elements it require in order to help future distance implementation, as we know it isn't possible for us to cover all the distances that can exist in the discrete geometry, which brings us to our state of the art in discrete distance calculation.
+
+\section{Plan}
+
+In this report, the chapter ~\ref{chap:EtatArt} will be a state of the art concerning the discrete distance calculation, accompanied with more general documents about the discrete geometry in order to allow the reader to understand the context in which this study is. We also hope it would help the lector to find other research fields.\\
+The chapter ~\ref{chap:Propositions} will be a theoretical analyze of our work, from the algorithm we decided to choose to the modeling of our solution. This work will be made with an argumentation of the decisions we took.\\
+The chapter ~\ref{chap:Experimentations} will be an analyze of the results given by the experimentations on our solution.
+The conclusion will let us close our study with the contributions we hope we have made and will provide new research fields.
+
+
+%-------------------------------------------------------------------------------------------------------------
+
+\chapter{State of the Art}
+\label{chap:EtatArt}
+
+The state of the art mainly focus on the different types of distance calculation in a discrete space, especially the chamfer distances as it will be the first part of our project. Moreover, this state of the art will deal with the DGtal (using Boost) library, as it is the context in which our development phase is.
+
+%-------------------
+
+\section{Discrete geometry}
+
+First part of our state of the art, the discrete geometry will deal with the theoretical part of our project, with the different notions which surround our problematic. In this part, we will only talk about the distance related topics as the other discrete geometry would be less related to our project and too many.
+
+\subsection{The elementary connexity}
+In order to calculate a distance, we need to define the way the elements of a discrete space are related. The first question we need to answer is: Are they related or not? In order to answer, we need to add a new rule: the kind of connexity we want to use. Indeed, two elements are related only if they are each other's neighbor, following the definition of the connexity chosen. The definition we made are in a two dimensions space but can easily be extrapolated to N dimensions space.
+
+\subsubsection{4-connexity}
+The 4-connexity is the first and easiest way to decide if two elements of a discrete space are related or not. With this model of connexity, an element is related to its south, north, east and west neighbors, if they exist. As they are neighbors, the distance between them is fixed at 1. Starting from this axiom, it is then possible to create paths and by choosing the shortest to calculate the distance separating two elements of the discrete collection.
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/4connexe.png}
+	\caption{4 connexity}
+\end{figure}
+
+\subsubsection{6-connexity}
+Maybe the less common connexity, the 6-connexity has a hexagonal form. It is less common due to the unusual form of the plan pattern since instead of a square-based pattern, we have a hexagonal one. This connexity will be less present in our project because it is out of our objective as the DGtal library manly focuses on digital images which have a square-based pattern.
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/6connexe.png}
+	\caption{6 connexity}
+\end{figure}
+
+\subsubsection{8-connexity}
+The 8-connexity can be considered as an extension of the 4-connexity. Indeed, the 8-connexity is the 4-connexity plus the north-east, north-west, south-east and south-west neighbors of the element. The distance between the central element and its new related elements is still fixed at 1. 
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/8connexe.png}
+	\caption{8 connexity}
+\end{figure}
+
+
+\subsubsection{Why define all of this?}
+These connexity will be the initial components of every distance calculation we will talk about. Regardless of their simplicity, they still are used a lot in discrete geometry due to their capability to be distorted or modified to answer new needs.
+
+%-------------------
+
+\subsection{Chamfer distances}
+The chamfer distances are only defined in a discrete ensemble. They are specific on their way to calculate a distance. Instead of using the 4 or 8 connexity, the chamfer distances use as basis element a mask composed of integers.
+\subsubsection{Definition}
+The chamfer's masks are defined the following way:
+\begin{itemize}
+	\item an element of the mask is a $(p, w)$ couple where $(p)$ is the position of the element and $w$ its weight
+	\item the mask has a central symmetry property
+	\item all elements of the mask have a non-null positive value (except from the center of the mask)
+\end{itemize} 
+Which allows us to have this kind of mask:
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/chamfer.png}
+	\caption{an example of chamfer mask}
+\end{figure}
+
+
+\subsubsection{Objectives}
+The chamfer distances purpose is to allow a better approximation of the Euclidian distance by using more or less precise and complex masks, according to our needs. It similar utilization for calculation makes it as easy to use as classical 4 or 8 connexity an gives a more precise result.
+
+%-------------------
+
+\subsection{Neighborhood-sequence based path}
+This is a particular utilization of the different kinds of connexity. Instead of using only one during our calculation, we use a sequence of them. For example, there is the octagonal distance which uses an alternation of 4 and 8 connexity.
+\subsubsection{Definition}
+The sequence $B$ is defined by a list of $n$ connexity masks such as chamfer masks or classical 4 or 8 connexity
+\subsubsection{Objectives}
+These sequences and path add a new constraint in the distance calculation in order to use more complex models which would need more than just one kind of connexity.
+
+%-------------------
+
+\subsection{Distance transform}
+A distance transform is a map where each element contains its distance to the nearest edge
+\subsubsection{Definition}
+$ \mathrm{DM}_S^d(x) = \min_{y\not\in S} d(x, y)$ where $x$ is an element of the structure $S$ and $y$ an edge element.
+\subsubsection{Algorithm}
+In order to create this map, we can use a sequential algorithm which will scan the picture in two moves. Instead of using the whole used mask for the distance calculation, we cut it in two: the predecessors and the successor. First, in a classical $x++$ and $y++$ scan, we use the predecessors part because it will only contains known values (edge values or already calculated values). Then we will use the second part of the mask in a $x--$ and $y--$ scan in order to find the same property and use the full mask. \\
+Using this algorithm allows us to have a known complexity calculation, based on the size of the picture and of the mask and not on the configurations of the structures inside the picture which are unknown.
+
+%-------------------
+
+\section{DGtal}
+\subsection{Presentation}
+\subsubsection{What is DGtal}
+
+DGtal is a open Source library for Discrete Geometry Programming.
+The library is accessible by anyone and is a good one for demonstration.
+That is also used to compare different algorithms and their performance. Consequently it is possible to use it as indicator.
+
+\subsubsection{How DGtal works}
+The library is divided in packages.
+Here are some general packages:
+\begin{itemize}
+	\item Mathematical Package(polynomial)
+	\item IO Package (to export/import and visualize with different format)
+	\item Image Package (Linear vector)
+	\item Geometry Package (model and algorithms)
+	\item Topology package
+	\item Kernel Package
+	\item Arithmetic Package
+\end{itemize}
+
+If you want more informations about it, I suggest you to see the David Coeurjolly Presentation \cite{davidcoeurjollypresentation}.
+
+\subsubsection{How DGtal is Develloped}
+The documentation of DGtal is implemented with Doxygen. \\
+The team of DGtal use github for the project so you can access in read only mode to all of the new features. \\
+You have three repository :
+\begin{itemize}
+	\item DGtal (main Library)
+	\item DGtalTools (Command line tools for analyzer etc)
+	\item DGtalScripts (script for developpers)
+\end{itemize}
+
+\subsubsection{What will use in DGtal}
+We will work in Geometry packages for this project more precisely in volumetric nd package. \\
+\href{http://libdgtal.org/doc/stable/moduleVolumetric.html}{source} \\
+
+First of all we have to define our Metric with the class CSeparateMetric and then after that we will use DT or just make our class to it. \\
+\href{http://libdgtal.org/doc/stable/structDGtal_1_1CSeparableMetric.html}{source} \\ %http://libdgtal.org/doc/stable/structDGtal_1_1CSeparableMetric.html
+We will probably work in the first time with Z2i namespace because this is the standard set of types for 2D imagery. \\
+%http://libdgtal.org/doc/stable/namespaceDGtal_1_1Z2i.html#aca523bebdae58eb19385aaefffff8bc5
+\href{http://libdgtal.org/doc/stable/namespaceDGtal_1_1Z2i.html#aca523bebdae58eb19385aaefffff8bc5}{source} \\
+
+Finally to checks our result we will use output image to save our result and export in some format with the package I/O. We can also display it with Board2D from I/O Package. \\
+\href{http://libdgtal.org/doc/stable/classDGtal_1_1DistanceTransformation.html#a01875821fcfd395cee6b2282275d84af}{source}\\
+%http://libdgtal.org/doc/stable/dgtal_dgtalboard.html}{source}
+%http://libdgtal.org/doc/stable/classDGtal_1_1DistanceTransformation.html#a01875821fcfd395cee6b2282275d84af
+%http://libdgtal.org/doc/stable/dgtal_dgtalboard.html
+
+For any further informations I recommend to read the official documentation of DGtal \cite{dgtaldocumentation}.
+
+\subsubsection{Technical View}
+To have a better knowledge about DGtal you have to create a github account.
+That will allow you to fork the project to know the organisation about source module.
+As you can see they use CMake to test their module and compil. they also have a strong organisation.\\
+They separate inline implementation from one and more line.\\
+.ih for inline\\
+.cpp for implementation\\
+.h for description.\\
+You also can see that you have many comments with the Doxygen syntax.
+
+%-------------------
+\section{Boost}
+In this part we will describe some particularities of boost to have a better knowledge about this library.\\
+To understand this part you should at least have a basic knowledge about c++, especially pointers.\\
+Boost is used by famous company like Nvidia, Adobe and Microsoft. It is a gathering of many libraries and algorythms implementations.
+We will now see some new evolutions between the c-pointer and the new pointer.\\
+For any further informations, we refer to the official documentation written by \cite{boostdocumentation}.
+If you have never heard anything about Boost, we recommand to you this book written by \cite{introductionboost}. %test
+
+\subsection{Pointer}
+\subsubsection{auto\_ptr}
+std::auto\_ptr is standard pointer which can automatically call the delete that you should do with old pointer.\\
+It's easy to manipulate this pointer because you can use the same syntax than the old thanks to operator surcharge.
+Now with auto\_ptr you don't have to put delete to every catch to desallocate properly your object.
+
+
+\noindent{\textbf{How does it work?}}\\
+The auto\_ptr have only one ownership and when the life of the variable auto\_ptr is destroyed, the removal is automatically called.\\
+Example :
+\begin{lstlisting}
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class A{
+public:
+~A(){ cout << "A is destroy" << endl;}
+};
+
+
+int main()
+{
+auto_ptr<A> smart_ptr(new A());
+return 0;
+}//A is automaticaly delete because smart_ptr is destroy
+\end{lstlisting}
+
+
+
+
+\noindent{\textbf{Warning}}\\
+When you have multiple auto\_ptr on the same object, the last is the ownership. \\
+Example of typical error: \\
+\begin{lstlisting}
+int main()
+{
+auto_ptr<A> smart_ptr(new A());
+cout << smart_ptr->toString() << endl;
+if(true)
+{
+        auto_ptr<A> smart_ptrB(smart_ptr);
+
+}// here A is destroy
+
+cout << smart_ptr->toString() << endl;//A not exist
+
+return 0;
+}
+\end{lstlisting}
+
+
+\subsubsection{Scoped\_ptr}
+Scoped\_ptr are different smart\_ptr. It's special because you don't need to transfert ownership and it isn't copyable. \\
+So you just have to use it for temporary objects. \\
+So we can use it to say the object that you use is temporaire, it can be destroy at any time.
+
+
+\subsubsection{Shared\_ptr}
+Shared\_ptr is a smart\_ptr really interesting because it doesn't work like auto\_ptr.
+It's an object which have a counter of references. What does that means? %citer la documentation
+When shared\_ptr are destroyed, it simply checks if that was the last or not, if it's he call the destructor for the ressource.
+Moreover that pointer is thread safe. \\
+Note:we will see more informations about thread below. \\
+
+%faire un schéma avec les references
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/Shared_ptr.png}
+	\caption{Shared\_ptr scheme}
+\end{figure}
+\newpage
+Example :\\
+You can have multiple shared\_ptr on one ressource when all of them are destroyed, the ressources are destroyed. There is nothing such as ownership.
+\begin{lstlisting}
+int main()
+{
+boost::shared_ptr<A> smart_ptr(new A());//1
+cout << smart_ptr->toString() << endl;
+if(true)
+{
+	boost::shared_ptr<A> smart_ptrB(smart_ptr);//2
+	cout << smart_ptrB.use_count() << endl;
+
+}
+cout << smart_ptr.use_count() << endl;//1
+cout << smart_ptr->toString() << endl;
+
+return 0;
+}//0 A is destroy 
+\end{lstlisting}
+
+\subsubsection{Weak\_ptr}
+This pointer exist to complete the shared\_ptr.
+the shared pointer can create a weak\_ptr to his ressources which can cancel the delete.
+This weak pointer can be created from lock methode or using shared\_ptr.
+That allows you do transmit a pointer to a ressource even if the old shared\_ptr is destroy.
+
+
+\subsection{Thread}
+
+
+With boost you can initialize a thread and manage to wait the end of a threaded process in your principal process with the method join.
+You also can manage and create thread with included boost::thread in you application or lib.
+You also still can use mutex. Moreover the code than you produce is portable (thread part).
+If you already know pthread you will be able to use the boost::thread as the same names are used for the methods.
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.25]{./IMG/thread-lifecycle.png}
+	\caption{Thread life cycle}
+\end{figure}
+Here is a nice scheme about thread, if you have some difficulties I recommend to you to read this extract of article \cite{demming2010introduction}.
+
+
+%-------------------------------------------------------------------------------------------------------------
+
+\chapter{Propositions}
+\label{chap:Propositions}
+
+\section{\emph{Our proposition \textit{i}}}
+In this part we will explain which algorithm we have to implement and how it works.
+A picture is composed of a set of points. These points can be pixel or something else it doesn't matter.\\
+We have a mask which will be used for the propagation.
+With this propagation we will be able to determine the minimum cost to access from outside of the picture to the point.
+We need to have two propagation to get a map of correct distance for each point. In fact that depends about the mask than you want to use. \\
+
+\subsection{Algorithm Distance} 
+\begin{algorithm}[H]
+
+\KwData{ \\ $X$ set of point \\ $M$ neighborhood with the mask \\ $cost$ minimal cost of the way}
+\KwResult{Number distance}
+
+\ForAll{$point$ in $X$}
+{
+	\eIf{$point$ not in $X$}
+	{
+		$point$($number$)=0 \;
+	}
+	{
+		
+		$point$($number$)=$Infinity$ \;
+		\ForAll{$Neighborhood$ in $M$}
+		{
+			$cost$=min{$Cost$($Neighbordhood$,$point$)}
+		}	
+	
+		$point$($number$)=$mincost$ \;
+	}
+}
+
+\end{algorithm}
+Algorithm from \cite{dgci2011}
+
+
+%-------------------------------------------------------------------------------------------------------------
+
+\chapter{Experimentations and results}
+\section{Test}
+
+In this part we will define some tests in order to confirm our results, so we need to have a minimum of 3 tests.
+
+One will be easy. For example it will be a square. %ici dessin d'un carré avec des petites cases
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/vide.png}
+	\caption{Simple Example test}
+\end{figure}
+
+the second will be a bit more difficult % ici dessiner un carré avec un trou dedans qui remonte à l'extérieur
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/videcomplex.png}
+	\caption{Complex Example test}
+\end{figure}
+
+The third test will be more unusual: squareq separated by a high distance. % ici dessiner un carré et garder que les 4 au coins
+
+\begin{figure}
+	\center
+	\includegraphics[scale=0.5]{./IMG/videcomplex2.png}
+	\caption{Complex Example test number 2}
+\end{figure}
+
+Each test should be have a proper folder. We will have many results because we should do these tests with a list of different masks
+Each tests will produce two files : 
+\begin{itemize}
+	\item log files in case of error
+	\item img files
+\end{itemize}
+
+We will define the Tests and compilation on each plateform to respect the constraint of the project. \\
+That is for why we will use CMake which allows you to compile for different systems like it's already work for Qt. \\
+\label{chap:Experimentations}
+
+
+%-------------------------------------------------------------------------------------------------------------
+
+\chapter{Conclusion}
+
+
+%---------------------------------------------------------------------------------------------------------
+
+\nocite{*}
+
+\bibliography{rapport}
+
+\listoffigures{}
+
+\listoftables{}
+
+\listofalgorithms{}
+
+\appendix
+
+\chapter{Required}
+
+\section{Library compilation}
+       In this project we used some libraries. there are two ways of using it.
+       first you can use a static compilation which include anything the programme needs before the execution. The executable may be big but he is not dependant of libraries' updates.
+       The second way consist in linking your application with the libraries. It is called dynamic compilation. The executable is smaller than the others but he is more fragile to libraries' updates.
+       
+\section{Templates}
+       Today many libraries are implemented with templates that allows you to define a fonction for many types or class you need to use. And then the compilator will generate the specific functions that are used in the application. That explains that the compilation will be longer if you use templates but the execution is faster and the code easier and faster to produce
+
+\chapter{Glossary}
+\label{ann:RappelsInutiles}
+
+"CMake is a cross-platform, open-source build system. CMake is a family of tools designed for building, test and package software. CMake is used to control the software compilation process using simple platform and compiler independent configuration files. CMake generates native makefiles and workspaces that can be used in the compiler environment of your choice."
+\href{http://www.cmake.org/}{source} \\
+
+%Doxygen
+
+Doxygen is a documentation system for C++, C, Java, Objective-C, Python, IDL (Corba and Microsoft flavors), Fortran, VHDL, PHP, C\#, and to some extent D. \\
+It can produce documentation in multiple formats. \\
+\href{http://www.stack.nl/~dimitri/doxygen/}{source}  \\
+
+%Templates
+
+Templates means generic patterns. For example function templates can operate with generic types. we can use it to define one template function instead of one for each type which will need it. \\
+\href{http://www.cplusplus.com/doc/tutorial/templates/}{source} \\
+
+
+\chapter{Books profiles}
+\label{ann:FichesLecture}
+
+\section{\emph{Beyond the standard library an introduction to boost}}
+
+The book is an introductions to boost that means that he will help you
+to discover the library boost. He will introducing the different types
+and functions of boost. The author
+Björn Karlsson is a senior software Engineer at ReadSoft.
+
+\section{Abstract}
+
+In this book Bjorn Karlsson will compare it to the standard library
+and he will explain how it's works with examples.
+He will also details all the possibilities and the difference. For
+examples in the first part of this book he explains, compares all the
+pointer between them. So you can understand which pointer used in
+which situation.
+
+
+\section{Analyse}
+
+This book is useful to have some basic knowledge about boost. You need
+to have C++ skills before reading this book. but he will help you to
+understand boost and to decide why you should use boost.
+It's shows you the assets of boost.
+
+
+\section{\emph{Official Boost Documentation}}
+Boost is a C++ library used by famous companies like Adobe or Nvidia which has been written exclusively with basic templates in order to decrease  the run time and reusability.
+
+\section{Resume}
+
+The reading of the official boost documentation is required to successfully run the project, in order to capitalize on the possibilities of Boost and to respect the constraints brought up by the DGtal library. \\
+The documentation is composed of source code and comments about it, for example inside the .hpp files that are well commented and contains definition and implementation of functions.
+That allows someone to understand why is this library so generic and why are the CX00X norms inspirated by this one. 
+We can especially foresee a future implementation of smart pointers like shared\_ptr or scoped\_ptr in the future norms. 
+
+
+\section{Analyse}
+
+This documentation is divided into different sort of data structures, containers, iterators and algorithms. \\
+The classes and all parent ones are described by comments and source code. \\
+This documentation doesn't have many examples, but  if the user knows what he wants to use, he will be able to find precise documentation, as long as he knows the name of the class he's searching for. \\
+The syntax about general data structures is very close to the syntax of standard libraries of C++. For example, smart\_ptr have kept the implementation of operator "->" .
+
+
+\section{\emph{Géométrie discrète et images numériques}}
+
+
+\section{Abstract}
+
+The purpose of this book is to present a state of the art of the discrete geometry, from its origines to its objectifs. It also defines differents parts of this science such as :
+ - The basements
+ - Arithmetic tools
+ - Topology and surfaces
+ - combinatory maps
+ - discrete distances
+ - discrete layouts
+ - affine transformations
+ - topology transformations
+ - median axis representation
+ - projection-based transformations and reconstructions
+ - ...
+
+\section{Analyse}
+
+This book is a great base for us to understand what discrete geometry is. It is also a good start for our personal state of the art since its presents different notions related to our subject such as discrete distances, median axis representation and projection-based transformations and reconstructions. Since it's a very recent book written by tens of researchers, its informations are very accurate.
+
+
+\section{\emph{Les distances de chanfrein en analyse d'image fondements et applications}}
+
+\section{Abstract}
+
+This thesis' goal is to present a state of the art of the knowledge and algorithms related to the Chamfer distances. Chamfer distances are a type of distances such as Euclidian distances used in discrete geometrie. After a presentation of what Chamfer distances are, this thesis works on algorithmic optimizations, research of optimal masks, etc.
+
+\section{Analyse}
+
+Since one of our first goals will be to integrate Chamfer distances into DGtal, this thesis is a good opportunity for us to discover what are those distances and to discover different algorithms. Our tutor, M. Normand, has already offered us the algorithm he wanted us to implement but with this thesis we can understand why his solution is more adapted for computing.
+
+\section{\emph{Path-Based Distance with Varying Weights and Neighborhood Sequences}}
+
+This paper is about Path Distance and cost. it's written by Nicolas Normand, Robin Stand, Pierre Evenou and Aurore Arlicot. 
+
+\section{Abstract}
+
+In this papers there is many definition about discret distance and some explication about symetric and discret circle.
+After that they describe and explain what is transformed distance to introduce the notion of neighboorood.
+There is a link between cost and path and transformed distance.
+The link is a properties: The increasing of path cost by adding an element is equal at the distance of the last element added within a determined mask.
+There is some rules about path-based distance.
+You have simple algorithm according to the previous properties and definitions.
+the interest is by using the cost of relative move you can get the same path-based distance using the normal move (for the same mask).
+You can also make complex-forme using translated distance with mask iteration.
+
+
+
+\section{Analyse}
+
+This paper is really really close about our project that is almost the same idea. the source is safe because that paper is writting by our tutor. This paper is useful to get the idea to know precisely with theorical model.
+
+
+
+
+
+\chapter{Planification}
+
+La figure~\ref{fig:PlanningPrevisionnel}...
+
+\begin{figure*} % Utiliser la version étoilée des flottants pour les faire tenir sur deux colonnes
+	\centering
+
+
+			\includegraphics[scale=0.4]{./IMG/gantt.png}
+			\caption{Initial Gantt}
+	\label{fig:PlanningPrevisionnel}
+\end{figure*}
+
+La figure~\ref{fig:PlanningEffectif}...
+
+\begin{figure*}
+	\centering
+		\emph{<Insérer le diagramme de Gantt.>}
+	\caption{Planning effectif}
+	\label{fig:PlanningEffectif}
+\end{figure*}
+
+Discussion sur les différences entre les deux plannings et leçons apprises sur la gestion d'un projet de recherche ou de R\&D.
+
+\chapter{Weekly report}
+\label{ann:FichesSuivi}
+
+In order to respond to our school needs, we have written these notes in French. We hope it would not obstruct your comprehension of our project.
+
+\begin{fichesuivi}{17 septembre 2012}{23 septembre 2012}
+	\tempstravailA{2}{10}
+	\tempstravailB{3}{7}
+
+	\begin{travaileffectue}
+		\begin{itemize}
+			\item tâche 1 : Début de recherche bibliographique - 3h Rémi Matéo Vincent Plasse 
+			\item Création des différents outils de réalisation de livrable 2h  Rémi Matéo Vincent Plasse
+			\item Révisions du C++ et mise à jour des innovations, prise en main Boost(Array, smart pointer) 3h Rémi Matéo 
+		\end{itemize}
+	\end{travaileffectue}
+
+	\begin{planification}
+		\begin{itemize}
+			\item Continuer la recherche bibliographique
+			\item Continuer la prise en main des librairies
+			\item Détailler boost (Thread, Pointer) avec des exemples.
+		
+		\end{itemize}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{23 septembre 2012}{30 septembre 2012}
+	\tempstravailA{7}{9}
+	\tempstravailB{5}{4}
+
+	\begin{travaileffectue}
+		\begin{itemize}
+		\item Finalisation des tests de pointeur - 2h Rémi Matéo
+		\item Commencement des threads - 3h  Rémi Matéo
+		\item Etude de livres : "Géométrie discrète et images numériques" et "Beyond the C++ Standard Library An introduction to Boost" 4h  Vincent Plasse Rémi Matéo
+		\end{itemize}	
+	\end{travaileffectue}
+
+	\begin{planification}
+	\begin{itemize}
+		\item Finir les threads 
+		\item	Continuer la recherche bibliographique 
+		\item	Commencer l'étude de la librairie DGtal 
+	\end{itemize}	
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{1 octobre 2012}{7 octobre 2012}
+	\tempstravailA{11}{20}
+	\tempstravailB{9}{55}
+
+	\begin{travaileffectue}
+		\begin{itemize}
+			\item Recherche d'articles et de sources sur Boost 1h 
+			\item Redaction de la partie Thread (2h) 
+      \item Telechargement et lecture du code source de DGtal (3h) 
+			\item Lectures sur la géométrique discrète (3h) 
+				\begin{itemize}
+ 				\item	Algorithmes de tranformation en distance 
+ 				\item Représentation par axe médian 
+ 				\item Transformations et reconstruction par projection
+				\end{itemize}
+		\end{itemize}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+
+	Rémi Matéo : Alors j'ai appris et je pense que nous avons assez de source pour avoir tout les renseignement dont nous pouvons avoir besoins sur Boost \\
+DGtal est une librarie facile d'accés mais difficile à comprendre. Je pense donc chercher des articles utilisant DGtal afin de voir comment ils l'utilisent et pourquoi \\
+La phase de modélisation sera complexe car le niveau de programmation de ces deux librairies est impressionnant\\
+
+
+
+		Vincent Plasse : Je commence à mieux discerner le fonctionnement des différents algorithmes de géométrie discrète et je discerne l'intérêt d'utiliser des algorithmes avec des nombres de parcours connus et restreints.\\ 
+Je n'ai malheureusement pas encore trouvé de source bibliographique précise sur la transformation en distance. C'est donc sur ce point que je vais accentuer mes recherches. \\
+
+	\end{echange}
+
+	\begin{planification}
+	\begin{itemize}
+		\item Trouver des sources bibliographiques plus précises sur la tranformation en distance 
+		\item Trouver des articles traitant de l'utilisation de la librairie DGtal 
+		\item Demander a la communauté utilisatrice leur recommandations de cette librairie 
+	\end{itemize}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{8 octobre 2012}{14 octobre 2012}
+	\tempstravailA{14}{4}
+	\tempstravailB{9}{3}
+
+	\begin{travaileffectue}
+		\begin{itemize}
+			\item Téléchargement de la librairie digital tools et commencement de sa lecture. (2 heure Rémi Matéo) 
+			\item Lecture de livres concernant Boost (2 heure Rémi Matéo) 
+			\item Lecture de sources sur la géométrie discrète (3 h Vincent Plasse) 
+			\item Réunion avec changement d'orientation du projet.  
+		\end{itemize}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+Le projet se trouve être plus simple aprés cette réunion mais aussi beaucoup plus clair. \\
+Nous avons compris commment le premier algorithme que nous allons implémenter marchait. \\
+Il nous reste à trouver des sources et à mettre cela par écrit. \\
+Nous pouvons également une fois que nous auront compris DGtal d'un point de vue technique à songer à la meilleur structure de données à adopter.
+	\end{echange}
+
+	\begin{planification}
+	Mettre sur le rapport ce que l'on a expliqué pendant la réunion et lire des sources les concernant. (Vincent Plasse) \\
+	Améliorer la description de DGtal pour son utilisation mais aussi pour mieux faciliter sa compréhension.\\
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{15 octobre 2012}{21 octobre 2012}
+	\tempstravailA{12}{11}
+	\tempstravailB{3}{12}
+
+	\begin{travaileffectue}
+	\begin{itemize}
+		\item Recherche d'article et mise en forme de fiche de lecture (7h) Rémi Matéo Plasse Vincent
+		\item Tri des articles selon le nouvelles objectifs (2h) Rémi Matéo Plasse Vincent \\
+		\item Débogage du SVN( 2h) Rémi Matéo
+		\item Rédaction d'une partie du rapport final ( 3h) Vincent Plasse\\
+	\end{itemize}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+Comme expliqué la semaine dernière, suite à la réunion avec M. Normand notre objectif et les tâches que nous avons à faire sont beaucoup plus claires. Notre recherche bibliographique est plus ciblée et nous avons désormais des documents plus pertinents et exploitables pour la future partie de developpement, notament un papier rédigé par M. Normand détaillant de façon avancée les notions de distance en géométrie discrète.\\
+	\end{echange}
+
+	\begin{planification}
+	\begin{itemize}
+		\item Ajouter de nouvelles fiches de lectures, traiter les documents que nous avons selectionné 
+		\item Continuer la rédaction du livrable final 
+		\item Continuer les tests de DGtal et Boost
+	\end{itemize}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{21 octobre 2012}{28 octobre 2012}
+	\tempstravailA{7}{6}
+	\tempstravailB{14}{4}
+
+	\begin{travaileffectue}
+		\begin{itemize}
+	\item Réunion  avec Nicolas Normand  Rémi Matéo 
+	\item Recherche d'article et rédaction en ce qui concerne DGtal et le sujet théorique (Matéo Rémi Vincent Plasse) 4h 
+  \item Lecture de tutorial concernant DGtal(2h) Matéo  
+
+		\end{itemize}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+		\begin{itemize}
+	\item Rédaction du rapport en ajoutant autant de details que possible. 
+	\item Description des algorithme Plasse 
+	\item Présentation des plus détaillé de la librairie DGtal Matéo 
+		\end{itemize}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{28 octobre 2012}{4 novembre 2012}
+	\tempstravailA{9}{15}
+	\tempstravailB{13}{45}
+
+	\begin{travaileffectue}
+	\begin{itemize}
+		\item Rédaction du rapport  (Rémi Matéo Vincent Plasse) 20h \\
+		\item Modification du dépot avec les retours de Eric Rémy (Rémi Matéo Vincent plasse) 5h \\
+	\end{itemize}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\begin{itemize}
+	\item faire le diaporama de présentation.
+	\item Affiner la connaissance de DGtal pour pouvoir passer à la modélisation précise
+	\end{itemize}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{18}{40}
+	\tempstravailB{1}{25}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{21}{40}
+	\tempstravailB{17}{10}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{4}{30}
+	\tempstravailB{8}{15}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{10}{10}
+	\tempstravailB{11}{00}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{3}{30}
+	\tempstravailB{2}{10}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{10}{00}
+	\tempstravailB{10}{00}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{3}{45}
+	\tempstravailB{10}{20}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{16}{30}
+	\tempstravailB{18}{15}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{14}{30}
+	\tempstravailB{22}{30}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{17}{45}
+	\tempstravailB{12}{50}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\begin{fichesuivi}{}{}
+	\tempstravailA{13}{10}
+	\tempstravailB{9}{30}
+
+	\begin{travaileffectue}
+	\end{travaileffectue}
+
+	\begin{travailnoneffectue}
+	\end{travailnoneffectue}
+
+	\begin{echange}
+	\end{echange}
+
+	\begin{planification}
+	\end{planification}
+\end{fichesuivi}
+
+\printweeksummary
+
+\chapter{Auto-evaluation}
+
+La figure~\ref{fig:AutoEvaluationTravailIntermediaire} permet d'énumérer un certain nombre de points importants dans les trois composantes du travail ainsi que d'évaluer notre niveau de satisfaction à l'issue de la phase~I :
+\begin{itemize}
+	\item d'étude préalable ;
+	\item d'étude bibliographique ;
+	\item de conception générale.
+\end{itemize} 
+
+\begin{figure*}
+	\centering
+      \ifscreen % macro TeX (issue de la classe report-rd-info.cls) permettant d'ajuster le contenu en fonction du l'orientation du document
+         \rotatebox{90}{\includegraphics[width=0.9\textheight]{Images/Grille-Evaluation-PRD1}}
+      \else
+         \includegraphics[width=0.9\textwidth]{Images/Grille-Evaluation-PRD1}
+      \fi
+	\caption{Points à contrôler à l'issue de la phase I}
+	\label{fig:AutoEvaluationTravailIntermediaire}
+\end{figure*}
+
+La figure~\ref{fig:AutoEvaluationTravailFinal} permet d'énumérer un certain nombre de points importants dans les trois composantes du travail ainsi que d'évaluer notre niveau de satisfaction à l'issue de la phase~II :
+\begin{itemize}
+	\item de conception détaillée ;
+	\item de réalisation ;
+	\item de recette.
+\end{itemize} 
+
+\begin{figure*}
+	\centering
+      \ifscreen
+         \rotatebox{90}{\includegraphics[width=0.9\textheight]{Images/Grille-Evaluation-PRD2}}
+      \else
+         \includegraphics[width=0.9\textwidth]{Images/Grille-Evaluation-PRD2}
+      \fi
+	\caption{Points à contrôler à l'issue de la phase II}
+	\label{fig:AutoEvaluationTravailFinal}
+\end{figure*}
+
+\end{document}

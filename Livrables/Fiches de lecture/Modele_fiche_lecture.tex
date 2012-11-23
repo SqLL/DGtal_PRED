@@ -1,0 +1,49 @@
+\documentclass[a4paper,11pt]{report}
+
+\usepackage[pdftex, 	 
+bookmarks = true, 	% Signets
+bookmarksnumbered = true, 	% Signets numérotés
+pdfpagemode = None, 	% Signets/vignettes fermé à l'ouverture
+pdfstartview = FitH, 	% La page prend toute la largeur
+pdfpagelayout = SinglePage, 	% Vue par page
+colorlinks = true, 	% Liens en couleur
+urlcolor = magenta, 	% Couleur des liens externes
+pdfborder = {0 0 0} 	% Style de bordure : ici, pas de bordure
+]{hyperref} 	% Utilisation de HyperTeX
+\usepackage{verbatim} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{epstopdf}
+\usepackage{epsfig}
+\hypersetup{
+	colorlinks,
+	citecolor=red,
+	linkcolor=black,
+	urlcolor=blue}
+
+
+\begin{document}
+
+\section{\emph{<Le titre d'un article>}}
+
+Pour chaque article et ouvrage de la bibliographie (éventuellement pour un site \emph{web} \emph{complet} et \emph{pérenne}), il faut établir une fiche de lecture -- succincte -- comportant (i)~un résumé << objectif >> et (ii)~une analyse.
+
+\section{Résumé}
+
+Le résumé doit faire apparaître l'idée phare de l'article (ou les idées principales d'un ouvrage plus important -- il peut étre étudié selon ses différents chapitres). Il faut rapporter les analyses, expérimentations et conclusions établies par les auteurs.
+
+\section{Analyse}
+
+C'est dans cette seconde partie que l'analyse de l'article a lieu. Il s'agit de vérifier l'exactitude du document (des erreurs sont toujours possibles, la littérature nous l'apprend !), et d'établir le lien avec le sujet de ce projet.
+
+
+@book{introductionboost,
+title={Beyond the C++ Standard Library an Introduction to Boost},
+author={Björn Karlsson},
+  year={2006},
+  publisher={Upper Saddle River (N.J.) : Addison-Wesley, cop. 2006},
+	url={http://www.sudoc.fr/093832540}
+}
+
+\end{document}

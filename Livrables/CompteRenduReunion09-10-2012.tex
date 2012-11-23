@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\title{Compte Rendu de Reunion}
+\author{Matéo Rémi \& Plasse Vincent}
+\date{09/102012}
+\begin{document}
+\maketitle
+
+\section{Points abordées}
+M. NORMAND a déjà fait un pull request avec DGtal pour son algorithme de transformation en distance
+Problème : DGtal ne dispose pas de fonctions élémentaires (chanfrein, distance simplifiée, etc)
+
+Modèle habituel, utilisé par M. NORMAND dans son pull request : filtre d'images ligne par litre avec un à n filtres consommateurs et en sortie un producteur d'image
+Consommateur : beginOfImage()
+	processPixels()
+	endOfImage()
+Problème : non compatible avec DGtal qui lit l'image d'un coup : i/o indépendant de DGtal, que en 2D
+
+Du coup : mieux essayer de mettre les algos classiques, les utiliser de façon plus générale
+Distance de chanfrein
+Distance de voisinages
+
+Cartes de distance :
+Distance dans un Ensemble E : fonction de E dans E d : ExE -> R+
+d(x,y) >= 0
+d(x,y) = 0 <=> x=y
+d(x,y) = d(y,x)
+Plus en français d(x,y) <= d(x,z)+d(z,y) : métrique
+
+Classe de distance : path-based
+distance = longueur du plus court chemin
+du coup
+qu'est ce qu'un chemin ? Comment en définir sa longueur ?
+Permet de définir une distance
+
+Rosenfeld & Pfalk : 1966 & 1968
+4-voisinage et 8-voisinage
+
+Chemin connexe : ensemble de points connexes deux à deux
+
+Carte des distances DTx(p) = min {d(q,p) : q non inclu ds X} distance du fond vers le point
+DTx(p) = max{r : B<(O,r) inclu dans X} : rayon du plus grand disque de centre p et contenu dans la forme X
+
+d4 : DTx(p) = 0 si pas dans l'image, 1 + min DTx(p-v), v appartenant à N4 (4 voisinage), v vecteur
+
+alorithme séquentiel : on divise en deux balayages : 1er : chemin qui proviennent de haut et gauche, 2nd : bas et droite
+Pour 8-voisinage :
+1er : gauche, haut-gauche, haut et haut-droite, 
+2nd : droite et 3 bas
+
+Pondération : voir chanfrein
+
+Fonctionne car une distance ne change pas si l'ordre du chemin change. Un seul chemin minimal suffit
+
+Chemin à séquence de voisinages : Séquence B avec utilisation de types de voisinage avec un ordre spécifique
+Ex : distance octogonale (4co, 8co, 4co, 8co, etc)
+Pb : l'algo ne marche plus dans ce contexte
+
+      
+\end{document}
