@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/helloworld.dir/helloworld.cpp.o  -o helloworld -rdynamic -L/usr/local/lib /usr/local/lib/libDGtal.so /usr/local/lib/libDGtalIO.so /usr/local/lib/libDGtal.so -Wl,-Bstatic -lboost_program_options-mt -Wl,-Bdynamic -Wl,-rpath,/usr/local/lib 
