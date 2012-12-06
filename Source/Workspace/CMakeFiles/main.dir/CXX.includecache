@@ -20,27 +20,19 @@ boost/ptr_container/ptr_list.hpp
 cmath
 -
 
-/home/remi/Documents/Workspace/./include/Point.h
-iostream
+/home/remi/Documents/Workspace/./include/PointND.h
+sstream
 -
-DGtal/base/Common.h
-/home/remi/Documents/Workspace/./include/DGtal/base/Common.h
-DGtal/io/boards/Board2D.h
-/home/remi/Documents/Workspace/./include/DGtal/io/boards/Board2D.h
-DGtal/helpers/StdDefs.h
-/home/remi/Documents/Workspace/./include/DGtal/helpers/StdDefs.h
-boost/ptr_container/ptr_list.hpp
+iostream
 -
 cmath
 -
 
 /home/remi/Documents/Workspace/main.cpp
-DGtal/base/Common.h
--
 ./include/Picture.h
 /home/remi/Documents/Workspace/./include/Picture.h
-./include/Point.h
-/home/remi/Documents/Workspace/./include/Point.h
+./include/PointND.h
+/home/remi/Documents/Workspace/./include/PointND.h
 
 /usr/local/include/Board/Board.h
 ostream

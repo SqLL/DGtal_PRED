@@ -59,7 +59,7 @@ class CLocalPremetric
 		* \fn ~CLocalPremetric();
 		* \brief To desalloc memory use by the CLocalPremetric
 	*/
-	virtual ~CLocalPremetric();
+	virtual ~CLocalPremetric() = 0;
 	/*!
 		* \fn W	Distance(const T& p1, const T& p2); 
 		* \brief get the vector distance between two points

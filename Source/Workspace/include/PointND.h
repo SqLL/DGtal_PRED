@@ -320,7 +320,6 @@ T PointND<T>::get(const int & number)
 			typename list<T>::iterator it;
 			for (it = (myPositions.begin()); it != myPositions.end() && end!=true; ++it, ++compteur)
 			{
-				cout << *it << endl;
 				if(compteur==number)
 				{
 					result=(*it);
