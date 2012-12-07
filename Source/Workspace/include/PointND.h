@@ -16,7 +16,7 @@
 #include <sstream>
 #include <iostream>
 #include <cmath>
-
+#include <list>
 
 /*! \DGtal
 	* 
@@ -75,17 +75,17 @@ class PointND
 		*	\fn PointND(T);
 		*	\brief Constructor 1D
 	*/
-	PointND(T d);
+	PointND(const T & d);
 	/*!
 		*	\fn PointND(T,T);
 		*	\brief Constructor 2D
 	*/
-	PointND(T d1,T d2);
+	PointND(const T & d1,const T & d2);
 	/*!
 		*	\fn PointND(T,T,T);
 		*	\brief Constructor 3D
 	*/
-	PointND(T d1,T d2,T d3);
+	PointND(const T & d1,const T & d2,const T & d3);
 	/*!
 		* \fn Picture(const Picture &refpicture);
 		* \brief Constructor to make a copy of the picture used as parameters
@@ -168,20 +168,20 @@ PointND<T>::PointND()
 
 //constructeur
 template <typename T>
-PointND<T>::PointND(T d)
+PointND<T>::PointND(const T &d)
 {
 	myPositions.push_back(d);
 }
 
 template <typename T>
-PointND<T>::PointND(T d1,T d2)
+PointND<T>::PointND(const T & d1,const T &d2)
 {
 	myPositions.push_back(d1);
 	myPositions.push_back(d2);
 }
 
 template <typename T>
-PointND<T>::PointND(T d1,T d2,T d3)
+PointND<T>::PointND(const T &d1,const T & d2,const T &d3)
 {
 	myPositions.push_back(d1);
 	myPositions.push_back(d2);
