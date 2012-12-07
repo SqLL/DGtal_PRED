@@ -20,7 +20,7 @@
 
 /*! \DGtal
 	* 
-	* We use datatype of DGtal 
+	* We use datatype of Standard Template 
 	* 
 */
 using namespace std;
@@ -29,6 +29,12 @@ using namespace std;
 /*! \PointND
 	*	
 	* \brief Simple class which represent a list of PointND with dimension
+	*
+*/
+
+/*
+	* Declaration de la classe et des operator friend
+	*
 	*
 */
 
@@ -60,6 +66,10 @@ class PointND
 
 	public:
 
+	/*!
+		*	\fn PointND();
+		*	\brief Simple constructor 
+	*/
 	PointND();
 	/*!
 		*	\fn PointND(T);
@@ -84,6 +94,10 @@ class PointND
 	
 
 
+	/*!
+		* \fn operator<< <>(ostream& os, const PointND<T>& r);
+		* \brief With this operator you can display the class easily
+	*/
 	friend ostream& operator<< <>(ostream& os, const PointND<T>& r);
 
 	/*!
@@ -92,24 +106,56 @@ class PointND
 	*/
 	~PointND();
 
+
+	/*!
+		* \fn operator+=( const PointND<T> & other );
+		* \brief With this operator you can += between two point of the same dimension
+	*/
 	PointND<T> & operator+=( const PointND<T> & other );
 
+	/*!
+		* \fn operator-=( const PointND<T> & other );
+		* \brief With this operator you can -= between two point of the same dimension
+	*/
 	PointND<T> & operator-=( const PointND<T> & other );
 	
+	/*!
+		* \fn operator*=( const PointND<T> & other );
+		* \brief With this operator you can *= between two point of the same dimension
+	*/
 	PointND<T> & operator*=( const PointND<T> & other );
 
 	/**
-	template <typename W>
-	PointND<T> & operator/=( W s );
+		TODO operator / et /=
 	**/
 
+	/*!
+		* \fn get(const int & number);
+		* \brief You can easily extract X , Y or Z from the point using this method
+	*/
 	T get(const int & number);
 
+	/*!
+		* \fn operator==<>( const PointND<T> & a, const PointND<T> & b );
+		* \brief You can compare two point with this method
+	*/
 	friend bool operator==<>( const PointND<T> & a, const PointND<T> & b );
 
-	
+	/*!
+		* \fn operator+<>( const PointND<T> & a, const PointND<T> & b );
+		* \brief You use + between two point with this method
+	*/
 	friend	PointND<T> operator+<>(const PointND<T> &, const PointND<T> &);
+	/*!
+		* \fn operator-<>( const PointND<T> & a, const PointND<T> & b );
+		* \brief You can use - between two point with this method
+	*/
 	friend	PointND<T> operator-<>(const PointND<T> &, const PointND<T> &);
+	
+	/*!
+		* \fn operator*<>( const PointND<T> & a, const PointND<T> & b );
+		* \brief You can use - between two point with this method
+	*/
 	friend	PointND<T> operator*<>(const PointND<T> &, const PointND<T> &);
 };
 
@@ -172,7 +218,6 @@ template <typename T>
 PointND<T>::~PointND()
 {
 	myPositions.clear();
-	cout << "Destructeur" << endl;
 }
 
 template <typename T>
