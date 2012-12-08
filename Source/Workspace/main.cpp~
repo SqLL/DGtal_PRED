@@ -23,6 +23,7 @@ Picture<int> mySecondPicture(myNewPicture);
 
 cout << "x = " << mySecondPicture.getX() << " y = " << mySecondPicture.getY() << endl;
 
+cout << mySecondPicture << endl;
 
 return 0;
 }

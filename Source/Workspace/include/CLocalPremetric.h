@@ -15,20 +15,16 @@
 
 
 #include <iostream>
-#include "DGtal/base/Common.h"
-#include "DGtal/io/boards/Board2D.h"
-#include "DGtal/helpers/StdDefs.h"
 #include <cmath>
 
 
-/*! \DGtal
+/*! \std
 	* 
-	* We use datatype of DGtal 
+	* We use datatype of std
 	* 
 */
 using namespace std;
-using namespace DGtal;
-using namespace DGtal::Z2i;
+
 
 /*! \CLocalPremetric
 	*
@@ -68,7 +64,6 @@ class CLocalPremetric
 	*/
 	W	Distance(const T& p1, const T& p2); 
 };
-
 
 
 

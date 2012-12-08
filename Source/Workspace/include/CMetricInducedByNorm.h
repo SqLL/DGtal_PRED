@@ -15,20 +15,16 @@
 
 
 #include <iostream>
-#include "DGtal/base/Common.h"
-#include "DGtal/io/boards/Board2D.h"
-#include "DGtal/helpers/StdDefs.h"
 #include <cmath>
 
 
-/*! \DGtal
+/*! \std
 	* 
-	* We use datatype of DGtal 
+	* We use datatype of Standard template library
 	* 
 */
 using namespace std;
-using namespace DGtal;
-using namespace DGtal::Z2i;
+
 
 /*! \CMetricInducedByNorm
 	*
