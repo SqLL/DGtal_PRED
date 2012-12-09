@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "CLocalPremetric.h"
 
 
 /*! \std
@@ -32,7 +33,8 @@ using namespace std;
 	*
 */
 
-class CMetric : CLocalPremetric
+template <typename W,typename T>
+class CMetric : public CLocalPremetric<W,T>
 {
 
 	public:

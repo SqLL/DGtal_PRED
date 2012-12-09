@@ -3,7 +3,7 @@
  * \brief a CLocalPremetric 
  * \author Author Matéo Rémi
  * \version Version 0.0
- * \date 04/12/2012
+ * \date 9/12/2012
  *
  * This file represent an abstract CLocalPremetric which will be use to know a distance between points with a distance
  *
@@ -32,8 +32,8 @@ using namespace std;
 	*
 */
 
-template <class T>
-template <class W>
+
+template <typename W,typename T>
 class CLocalPremetric 
 {
 	private:
@@ -64,6 +64,8 @@ class CLocalPremetric
 	*/
 	W	Distance(const T& p1, const T& p2); 
 };
+
+
 
 
 

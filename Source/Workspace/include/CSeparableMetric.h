@@ -27,7 +27,8 @@ using namespace std;
 	*
 */
 
-class CSeparableMetric : public CMetric
+template <typename W,typename T>
+class CSeparableMetric : public CMetric<W,T>
 {
 
 	public:

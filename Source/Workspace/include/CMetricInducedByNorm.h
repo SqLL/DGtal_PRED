@@ -31,8 +31,8 @@ using namespace std;
 	* \brief Abstract class to make a metric
 	*
 */
-
-class CMetricInducedByNorm : public CMetric
+template <typename W,typename T>
+class CMetricInducedByNorm : public CMetric<W,T>
 {
 
 	public:

@@ -18,9 +18,9 @@
 #include <cmath>
 
 
-/*! \DGtal
+/*! \std
 	* 
-	* We use datatype of DGtal 
+	* We use datatype of Standard template library
 	* 
 */
 using namespace std;
@@ -31,8 +31,9 @@ using namespace std;
 	* \brief Abstract class to make a metric
 	*
 */
+template <typename W,typename T>
 
-class CMetricInducedByNorm : public CMetric
+class CMetricInducedByNorm : public CMetric<W,T>
 {
 
 	public:

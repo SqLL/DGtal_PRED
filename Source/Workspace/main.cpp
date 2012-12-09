@@ -1,7 +1,22 @@
-
-#include "./include/Picture.h"
+//General
 #include "./include/PointND.h"
+#include "./include/Picture.h"
 
+//Metric
+#include "./include/CLocalPremetric.h"
+#include "./include/CMetric.h"
+#include "./include/CSeparableMetric.h"
+#include "./include/CMetricInducedByNorm.h"
+#include "./include/CChampferMetric.h"
+
+//Mask
+#include "./include/Mask.h"
+#include "./include/SymetricMask.h"
+#include "./include/ChampferMask.h"
+
+//Algorithm
+#include "./include/MedialAxis.h"
+#include "./include/DistanceTransform.h"
 
 using namespace std;
 
