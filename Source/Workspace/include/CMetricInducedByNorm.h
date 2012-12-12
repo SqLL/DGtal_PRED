@@ -7,7 +7,7 @@
  *
  * This file represent an abstract CMetricInducedByNorm which will be use to know a distance between points with a distance
  *
- */
+*/
 
 
 #ifndef _CMETRICINDUCEDBYNORM_H_

@@ -23,7 +23,7 @@ using namespace std;
 
 /*! \SymetricMask
 	*
-	* \brief Abstract class to make a metric
+	* \brief class using by a metric
 	*
 */
 

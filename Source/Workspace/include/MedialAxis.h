@@ -23,7 +23,7 @@ using namespace std;
 
 /*! \MedialAxis
 	*
-	* \brief Abstract class to make a MedialAxis
+	* \brief class to make a MedialAxis
 	*
 */
 template <typename T>
@@ -50,6 +50,12 @@ class MedialAxis
 		* \brief To desalloc memory use by the MedialAxis
 	*/
 	~MedialAxis();
+	
+	/*!
+		* \fn void applyAlgorithm();
+		*	\brief Method who apply an algorithm using the metric member.
+	*/
+	void applyAlgorithm();
 
 };
 
