@@ -1,17 +1,18 @@
 //General
-#include "./include/PointND.h"
-#include "./include/Picture.h"
+#include "DGtal/kernel/PointVector.h"
+
 
 //Metric
 #include "./include/CLocalPremetric.h"
 #include "./include/CMetric.h"
-#include "./include/CSeparableMetric.h"
-#include "./include/CMetricInducedByNorm.h"
 #include "./include/CChamferMetric.h"
+
+//Point
+#include "./include/Weighting.h"
 
 //Mask
 #include "./include/Mask.h"
-#include "./include/SymetricMask.h"
+#include "./include/SymmetricMask.h"
 #include "./include/ChamferMask.h"
 
 //Mask Generator
@@ -27,23 +28,9 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-PointND<int> monSuper(6,10,50);
-PointND<int> mon(5,10,50);
+PointVector <2, int> monsuperpoint;
 
 
-Picture<int> myPicture;
-
-Picture<int> myNewPicture(2,1);
-
-myNewPicture.addPoint(monSuper);
-myNewPicture.addPoint(mon);
-
-
-Picture<int> mySecondPicture(myNewPicture);
-
-cout << "x = " << mySecondPicture.getX() << " y = " << mySecondPicture.getY() << endl;
-
-cout << mySecondPicture << endl;
 
 return 0;
 }

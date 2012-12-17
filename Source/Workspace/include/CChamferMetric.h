@@ -2,7 +2,7 @@
  * \file CChamferMetric.h
  * \brief a CChamferMetric 
  * \author Author Matéo Rémi
- * \version Version 0.0
+ * \version Version 0.5
  * \date 04/12/2012
  *
  * This file represent a CChamferMetric which will be use to know a distance between points with a distance
@@ -17,6 +17,7 @@
 #include <iostream>
 #include <cmath>
 #include "ChamferMask.h"
+#include "CMetric.h"
 
 //TODO il faudra surement surcharger la methode distance
 
@@ -29,7 +30,7 @@ using namespace std;
 */
 
 template <typename W,typename T>
-class CChamferMetric : public CMetricInducedByNorm<W,T>
+class CChamferMetric : public CMetric<W,T>
 {
 	private:
 	ChamferMask<T> myMask;

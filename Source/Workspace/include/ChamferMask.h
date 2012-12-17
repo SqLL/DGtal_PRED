@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "SymetricMask.h"
+#include "SymmetricMask.h"
 
 
 using namespace std;
@@ -28,7 +28,7 @@ using namespace std;
 */
 
 template <typename T>
-class ChamferMask : public SymetricMask<T>
+class ChamferMask : public SymmetricMask<T>
 {
 
 

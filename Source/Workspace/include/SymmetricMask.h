@@ -10,8 +10,8 @@
  */
 
 
-#ifndef _SYMETRICMASK_H_
-#define _SYMETRICMASK_H_
+#ifndef _SYMMETRICMASK_H_
+#define _SYMMETRICMASK_H_
 
 
 #include <iostream>
@@ -21,32 +21,32 @@
 
 using namespace std;
 
-/*! \SymetricMask
+/*! \SymmetricMask
 	*
 	* \brief class using by a metric
 	*
 */
 
 template <typename T>
-class SymetricMask : public Mask<T>
+class SymmetricMask : public Mask<T>
 {
 	public:
 	/*!
-		*	\fn SymetricMask();
+		*	\fn SymmetricMask();
 		*	\brief Constructor of a SymetricMask without parameters
 	*/
-	SymetricMask();
+	SymmetricMask();
 	/*!
-		* \fn SymetricMask(const SymetricMask &refSymetricMask);
-		* \brief Constructor to make a copy of the SymetricMask used as parameters
+		* \fn SymmetricMask(const SymetricMask &refSymmetricMask);
+		* \brief Constructor to make a copy of the SymmetricMask used as parameters
 	*/
 
-	SymetricMask(const SymetricMask &refSymetricMask);
+	SymmetricMask(const SymmetricMask &refSymmetricMask);
 	/*!
-		* \fn ~SymetricMask();
-		* \brief To desalloc memory use by the SymetricMask
+		* \fn ~SymmetricMask();
+		* \brief To desalloc memory use by the SymmetricMask
 	*/
-	~SymetricMask();
+	~SymmetricMask();
 
 };
 

@@ -16,6 +16,8 @@
 
 #include <iostream>
 #include <cmath>
+#include "Weighting.h"
+#include <vector>
 
 
 
@@ -32,7 +34,7 @@ class Mask
 {
 
 	private:
-	list< PointND<T> > myPointsMask; 
+	vector< Weighting<T> > myPointsMask; 
 	
 	public:
 	/*!

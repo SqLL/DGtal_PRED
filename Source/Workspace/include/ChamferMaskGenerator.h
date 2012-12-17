@@ -29,7 +29,7 @@ using namespace std;
 */
 
 template <typename T>
-class ChamferMaskGenerator : public SymetricMask<T>
+class ChamferMaskGenerator : public SymmetricMask<T>
 {
 	private:
 	ChamferMask<T> myMask;

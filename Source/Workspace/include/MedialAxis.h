@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "SymetricMask.h"
+#include "SymmetricMask.h"
 
 
 using namespace std;
@@ -31,7 +31,7 @@ class MedialAxis
 {
 
 	private:
-	SymetricMask<T> myMask;
+	SymmetricMask<T> myMask;
 	
 	public:
 	/*!
