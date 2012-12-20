@@ -21,13 +21,15 @@
 //Mask Generator
 #include "./include/MaskGenerator.h"
 #include "./include/ChamferMaskGenerator.h"
-#include "./include/SymmetricMaskGenerator.h"
+
 
 //Algorithm
 #include "./include/MedialAxis.h"
 #include "./include/DistanceTransform.h"
 #include "./include/ChamferDistanceTransform.h"
 
+
+#include "./include/SymmetricMaskGenerator.h"
 
 using namespace std;
 
@@ -80,15 +82,17 @@ cout << endl;
 beacoup d'erreur sur l'heritage ainsi que sur la signature du maskgenerator..
 il y a egalement d'autre questions concernant les templates
 
-In file included from /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/ChamferMask.h:19:0,
-                 from /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/CChamferMetric.h:19,
-                 from /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp:13:
-/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h: In copy constructor ‘SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>&)’:
-/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h:66:2: error: ‘myPointsMask’ was not declared in this scope
-/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h: In copy constructor ‘SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>&) [with T = Weighting<DGtal::PointVector<2u, int> >]’:
-/home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp:80:72:   instantiated from here
-/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h:68:24: error: ‘const class SymmetricMask<Weighting<DGtal::PointVector<2u, int> > >’ has no member named ‘begin’
-/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h:68:24: error: ‘const class SymmetricMask<Weighting<DGtal::PointVector<2u, int> > >’ has no member named ‘end’
+In file included from /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp:32:0:
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h: In member function ‘SymmetricMask<T> SymmetricMaskGenerator<T>::generateMask(const std::vector<T>&) [with T = Weighting<DGtal::PointVector<2u, int> >]’:
+/home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp:104:46:   instantiated from here
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h:63:3: error: no matching function for call to ‘SymmetricMask<Weighting<DGtal::PointVector<2u, int> > >::add(const Weighting<DGtal::PointVector<2u, int> >&)’
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h:63:3: note: candidate is:
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h:84:6: note: void SymmetricMask<T>::add(const Weighting<T>&) [with T = Weighting<DGtal::PointVector<2u, int> >]
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h:84:6: note:   no known conversion for argument 1 from ‘const Weighting<DGtal::PointVector<2u, int> >’ to ‘const Weighting<Weighting<DGtal::PointVector<2u, int> > >&’
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h:65:3: error: no matching function for call to ‘Weighting<DGtal::PointVector<2u, int> >::reverse() const’
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h:65:3: note: candidate is:
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Weighting.h:121:14: note: Weighting<T> Weighting<T>::reverse(const Weighting<T>&) [with T = DGtal::PointVector<2u, int>]
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Weighting.h:121:14: note:   candidate expects 1 argument, 0 provided
 make[2]: *** [CMakeFiles/main.dir/main.cpp.o] Error 1
 make[1]: *** [CMakeFiles/main.dir/all] Error 2
 make: *** [all] Error 2
@@ -96,8 +100,9 @@ make: *** [all] Error 2
 
 //Creation du masque avec generation de ce dernier
 
-//SymmetricMask<point2dWeighting> masque=SymmetricMask<point2dWeighting>();
-//SymmetricMaskGenerator<point2dWeighting> generateur=SymmetricMaskGenerator<point2dWeighting>();
+SymmetricMask<point2dWeighting> masque;
+SymmetricMaskGenerator<point2dWeighting> generateur;
+
 //masque = generateur.generateMask(vectorPoints);
 
 

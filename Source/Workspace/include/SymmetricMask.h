@@ -53,6 +53,9 @@ class SymmetricMask : public Mask<T>
 	*/
 	~SymmetricMask();
 
+
+	void add(const Weighting<T> &newPoint);
+
 };
 
 template <typename T>
@@ -63,19 +66,24 @@ SymmetricMask<T>::SymmetricMask()
 template <typename T>
 SymmetricMask<T>::SymmetricMask(const SymmetricMask<T> &refMask)
 {
-	myPointsMask.clear();//on vide le premier masque
-	typename vector< Weighting<T> >::iterator it;
-	for(it=refMask.begin(); it!=refMask.end();++it)
+	Mask<T>::myPointsMask.clear();//on vide le premier masque
+	typename vector< Weighting<T> >::const_iterator it;
+	for(it=refMask.myPointsMask.begin(); it!=refMask.myPointsMask.end();++it)
 	{
-		myPointsMask.push_back(*it);
+		Mask<T>::myPointsMask.push_back(*it);
 	}
 }
 
 template <typename T>
 SymmetricMask<T>::~SymmetricMask()
 {
-	//Impossible a cause error: request for member ‘myPointsMask’ in ‘this’, which is of non-class type ‘SymmetricMask<Weighting<DGtal::PointVector<2u, int> > >* const’
-	//this.myPointsMask.clear();
+	Mask<T>::myPointsMask.clear();
+}
+
+template <typename T>
+void SymmetricMask<T>::add(const Weighting<T> &newPoint)
+{
+	Mask<T>::myPointsMask.push_back(newPoint);
 }
 
 #endif // _SymetricMask_H_

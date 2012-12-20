@@ -36,6 +36,7 @@ class Mask
 {
 
 	protected:
+
 	vector< Weighting<T> > myPointsMask; 
 	
 	public:
@@ -60,7 +61,7 @@ class Mask
 		* \fn void add(const Weighting<T> &newPoint);
 		*	\brief To add a Weighting point in the mask
 	*/
-	void add(const Weighting<T> &newPoint);
+	void add(const T &newPoint);
 };
 
 template <typename T>
@@ -86,7 +87,7 @@ Mask<T>::~Mask()
 }
 	
 template <typename T>
-void Mask<T>::add(const Weighting<T> &newPoint)
+void Mask<T>::add(const T &newPoint)
 {
 	myPointsMask.push_back(newPoint);
 }
