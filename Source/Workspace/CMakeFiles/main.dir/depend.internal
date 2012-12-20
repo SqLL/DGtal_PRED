@@ -10,8 +10,10 @@ CMakeFiles/main.dir/main.cpp.o
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/ChamferMaskGenerator.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/DistanceTransform.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Mask.h
+ /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/MaskGenerator.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/MedialAxis.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h
+ /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Weighting.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp
  /usr/local/include/DGtal/base/Assert.h

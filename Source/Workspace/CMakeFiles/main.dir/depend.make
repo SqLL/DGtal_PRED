@@ -9,8 +9,10 @@ CMakeFiles/main.dir/main.cpp.o: ./include/ChamferMask.h
 CMakeFiles/main.dir/main.cpp.o: ./include/ChamferMaskGenerator.h
 CMakeFiles/main.dir/main.cpp.o: ./include/DistanceTransform.h
 CMakeFiles/main.dir/main.cpp.o: ./include/Mask.h
+CMakeFiles/main.dir/main.cpp.o: ./include/MaskGenerator.h
 CMakeFiles/main.dir/main.cpp.o: ./include/MedialAxis.h
 CMakeFiles/main.dir/main.cpp.o: ./include/SymmetricMask.h
+CMakeFiles/main.dir/main.cpp.o: ./include/SymmetricMaskGenerator.h
 CMakeFiles/main.dir/main.cpp.o: ./include/Weighting.h
 CMakeFiles/main.dir/main.cpp.o: main.cpp
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/DGtal/base/Assert.h

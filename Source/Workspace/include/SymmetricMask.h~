@@ -67,7 +67,7 @@ SymmetricMask<T>::SymmetricMask(const SymmetricMask<T> &refMask)
 	typename vector< Weighting<T> >::iterator it;
 	for(it=refMask.begin(); it!=refMask.end();++it)
 	{
-		myPointsMask.push_back(*it);
+		this.myPointsMask.push_back(*it);
 	}
 }
 

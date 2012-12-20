@@ -16,6 +16,8 @@
 
 #include <iostream>
 #include <cmath>
+#include "Weighting.h"
+#include <vector>
 
 
 
@@ -27,12 +29,14 @@ using namespace std;
 	*
 */
 
+
+
 template <typename T>
 class Mask 
 {
 
-	private:
-	list< PointND<T> > myPointsMask; 
+	protected:
+	vector< Weighting<T> > myPointsMask; 
 	
 	public:
 	/*!
@@ -51,8 +55,43 @@ class Mask
 		* \brief To desalloc memory use by the Mask
 	*/
 	~Mask();
-
+	
+	/*!
+		* \fn void add(const Weighting<T> &newPoint);
+		*	\brief To add a Weighting point in the mask
+	*/
+	void add(const Weighting<T> &newPoint);
 };
+
+template <typename T>
+Mask<T>::Mask()
+{
+}
+
+template <typename T>
+Mask<T>::Mask(const Mask<T> &refMask)
+{
+	this.myPointsMask.clear();//on vide le premier masque
+	typename vector< Weighting<T> >::iterator it;
+	for(it=refMask.begin(); it!=refMask.end();++it)
+	{
+		this.myPointsMask.push_back(*it);
+	}
+}
+
+template <typename T>
+Mask<T>::~Mask()
+{
+	myPointsMask.clear();
+}
+	
+template <typename T>
+void Mask<T>::add(const Weighting<T> &newPoint)
+{
+	myPointsMask.push_back(newPoint);
+}
+
+
 
 
 

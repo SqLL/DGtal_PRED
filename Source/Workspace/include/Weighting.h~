@@ -85,7 +85,7 @@ Weighting<T>::Weighting()
 }
 
 template <typename T>
-Weighting<T>::Weighting(const T &refpoint, const int &refWeight)
+Weighting<T>::	Weighting(const T &refpoint, const int &refWeight)
 {
 	myPoint=refpoint;
 	myWeight=refWeight;
