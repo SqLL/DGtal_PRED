@@ -37,7 +37,7 @@ class Mask
 
 	protected:
 
-	vector< Weighting<T> > myPointsMask; 
+	vector< T > myPointsMask; 
 	
 	public:
 	/*!
@@ -61,7 +61,7 @@ class Mask
 		* \fn void add(const Weighting<T> &newPoint);
 		*	\brief To add a Weighting point in the mask
 	*/
-	void add(const Weighting<T> &newPoint);
+	void add(const T &newPoint);
 };
 
 template <typename T>
@@ -72,11 +72,11 @@ Mask<T>::Mask()
 template <typename T>
 Mask<T>::Mask(const Mask<T> &refMask)
 {
-	this.myPointsMask.clear();//on vide le premier masque
+	this->myPointsMask.clear();//on vide le premier masque
 	typename vector< Weighting<T> >::iterator it;
 	for(it=refMask.begin(); it!=refMask.end();++it)
 	{
-		this.myPointsMask.push_back(*it);
+		this->myPointsMask.push_back(*it);
 	}
 }
 
@@ -87,7 +87,7 @@ Mask<T>::~Mask()
 }
 	
 template <typename T>
-void Mask<T>::add(const Weighting<T> &newPoint)
+void Mask<T>::add(const T &newPoint)
 {
 	myPointsMask.push_back(newPoint);
 }

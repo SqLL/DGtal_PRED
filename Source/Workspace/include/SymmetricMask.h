@@ -54,7 +54,7 @@ class SymmetricMask : public Mask<T>
 	~SymmetricMask();
 
 
-	void add(const Weighting<T> &newPoint);
+	void add(const T &newPoint);
 
 };
 
@@ -81,7 +81,7 @@ SymmetricMask<T>::~SymmetricMask()
 }
 
 template <typename T>
-void SymmetricMask<T>::add(const Weighting<T> &newPoint)
+void SymmetricMask<T>::add(const T &newPoint)
 {
 	Mask<T>::myPointsMask.push_back(newPoint);
 }

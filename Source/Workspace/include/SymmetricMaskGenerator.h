@@ -62,7 +62,7 @@ SymmetricMask<T> SymmetricMaskGenerator<T>::generateMask(const vector<T> & vecto
 		//Coordonnées basiques
 		result.add(*it);
 		//Coordonnées inversé
-		result.add( (*it).reverse());
+		//result.add( (*it).reverse());
 	}
 	//On retourne le masque complet
 	return result;

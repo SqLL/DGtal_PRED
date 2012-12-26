@@ -103,7 +103,7 @@ make: *** [all] Error 2
 SymmetricMask<point2dWeighting> masque;
 SymmetricMaskGenerator<point2dWeighting> generateur;
 
-//masque = generateur.generateMask(vectorPoints);
+masque = generateur.generateMask(vectorPoints);
 
 
 

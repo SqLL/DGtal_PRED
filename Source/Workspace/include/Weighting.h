@@ -53,13 +53,15 @@ class Weighting
 		* \fn Weighting(const SymetricMask &refWeighting);
 		* \brief Constructor to make a copy of the Weighting used as parameters
 	*/
-	Weighting(const Weighting &refWeighting);
+	Weighting(const Weighting<T> &refWeighting);
 
 	/*!
 		* \fn ~Weighting();
 		* \brief To desalloc memory use by the Weighting
 	*/
 	~Weighting();
+	
+	//Weighting<T>& operator=(const Weighting<T>& ref);
 
 	/*!
 		* \fn operator<< <>(ostream& os, const Weighting<T>& r);
@@ -92,7 +94,7 @@ Weighting<T>::Weighting(const T &refpoint, const int &refWeight)
 }
 
 template <typename T>
-Weighting<T>::Weighting( const Weighting &refWeighting)
+Weighting<T>::Weighting( const Weighting<T> &refWeighting)
 {
 	myPoint=refWeighting.myPoint;
 	myWeight=refWeighting.myWeight;
