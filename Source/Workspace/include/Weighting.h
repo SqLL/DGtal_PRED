@@ -37,6 +37,12 @@ class Weighting
 	int myWeight;
 	
 	public:
+	
+	typedef typename vector< T >::const_iterator constIterator;
+	typedef typename vector< T >::iterator Iterator;
+	typedef typename vector< T* >::const_iterator constIterator_ptr;
+	typedef typename vector< T* >::iterator Iterator_ptr;
+	
 	/*!
 		*	\fn Weighting();
 		*	\brief Constructor of a WeightPoint without parameters
@@ -61,7 +67,7 @@ class Weighting
 	*/
 	~Weighting();
 	
-	//Weighting<T>& operator=(const Weighting<T>& ref);
+	Weighting<T>& operator=(const Weighting<T>& refWeighting);
 
 	/*!
 		* \fn operator<< <>(ostream& os, const Weighting<T>& r);
@@ -103,6 +109,14 @@ Weighting<T>::Weighting( const Weighting<T> &refWeighting)
 template<typename T>
 Weighting<T>::~Weighting()
 {
+}
+
+template <typename T>
+Weighting<T>& Weighting<T>::operator=(const Weighting<T>& refWeighting)
+{
+	myPoint=refWeighting.myPoint;
+	myWeight=refWeighting.myWeight;
+	return *this;
 }
 
 template<typename T>

@@ -17,6 +17,7 @@
 #include <iostream>
 #include <cmath>
 #include "Mask.h"
+#include "Weighting.h"
 
 
 
@@ -28,12 +29,23 @@ using namespace std;
 	*
 */
 
+
+
+
 template <typename T>
 class SymmetricMask : public Mask<T>
 {
 
-	public:
 
+	
+	public:
+	
+	
+	typedef typename vector< T >::const_iterator constIterator;
+	typedef typename vector< T >::iterator Iterator;
+	typedef typename vector< T* >::const_iterator constIterator_ptr;
+	typedef typename vector< T* >::iterator Iterator_ptr;
+	
 	/*!
 		*	\fn SymmetricMask();
 		*	\brief Constructor of a SymetricMask without parameters
@@ -54,6 +66,8 @@ class SymmetricMask : public Mask<T>
 	~SymmetricMask();
 
 
+	SymmetricMask<T>& operator=(const SymmetricMask<T>& refmask);	
+
 	void add(const T &newPoint);
 
 };
@@ -64,14 +78,25 @@ SymmetricMask<T>::SymmetricMask()
 }
 
 template <typename T>
-SymmetricMask<T>::SymmetricMask(const SymmetricMask<T> &refMask)
+SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>& refMask)
 {
 	Mask<T>::myPointsMask.clear();//on vide le premier masque
-	typename vector< Weighting<T> >::const_iterator it;
-	for(it=refMask.myPointsMask.begin(); it!=refMask.myPointsMask.end();++it)
+	refMask.constIterator = refMask.myPointsMask.begin();
+	for(; refMask.constIterator !=refMask.myPointsMask.end();++refMask.constIterator)
 	{
-		Mask<T>::myPointsMask.push_back(*it);
+		Mask<T>::myPointsMask.push_back(*refMask.constIterator );
 	}
+}
+
+template <typename T>
+SymmetricMask<T>& SymmetricMask<T>::operator=(const SymmetricMask<T>& refMask)
+{
+	Mask<T>::myPointsMask.clear();//on vide le premier masque
+	for(refMask.constIterator = refMask.myPointsMask.begin(); refMask.constIterator !=refMask.myPointsMask.end();++refMask.constIterator)
+	{
+		Mask<T>::myPointsMask.push_back(*refMask.constIterator );
+	}
+	return *this;
 }
 
 template <typename T>

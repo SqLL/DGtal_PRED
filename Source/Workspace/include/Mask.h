@@ -37,9 +37,17 @@ class Mask
 
 	protected:
 
-	vector< T > myPointsMask; 
+	vector< Weighting<T> > myPointsMask; 
 	
 	public:
+	
+
+	
+	typedef typename vector< Weighting<T> >::const_iterator constIterator;
+	typedef typename vector< Weighting<T> >::iterator Iterator;
+	typedef typename vector< Weighting<T>* >::const_iterator constIterator_ptr;
+	typedef typename vector< Weighting<T>* >::iterator Iterator_ptr;
+	
 	/*!
 		*	\fn Mask();
 		*	\brief Constructor of a Mask without parameters
@@ -57,6 +65,9 @@ class Mask
 	*/
 	~Mask();
 	
+	
+	Mask<T>& operator=(const Mask<T>& refmask);
+	
 	/*!
 		* \fn void add(const Weighting<T> &newPoint);
 		*	\brief To add a Weighting point in the mask
@@ -73,10 +84,9 @@ template <typename T>
 Mask<T>::Mask(const Mask<T> &refMask)
 {
 	this->myPointsMask.clear();//on vide le premier masque
-	typename vector< Weighting<T> >::iterator it;
-	for(it=refMask.begin(); it!=refMask.end();++it)
+	for(refMask.constIterator=refMask.myPointsMask.begin(); refMask.constIterator!=refMask.myPointsMask.end();++refMask.constIterator)
 	{
-		this->myPointsMask.push_back(*it);
+		this->myPointsMask.push_back(*refMask.constIterator);
 	}
 }
 
@@ -93,8 +103,17 @@ void Mask<T>::add(const T &newPoint)
 }
 
 
-
-
+template <typename T>
+Mask<T>& Mask<T>::operator=(const Mask<T>& refMask)
+{
+	this->myPointsMask.clear();//on vide le premier masque
+	typename vector< Weighting<T> >::iterator it;
+	for(it=refMask.myPointsMask.begin(); it!=refMask.myPointsMask.end();++it)
+	{
+		this->myPointsMask.push_back(*it);
+	}
+	return *this;
+}
 
 
 #endif // _Mask_H_
