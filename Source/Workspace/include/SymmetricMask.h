@@ -87,20 +87,22 @@ template <typename T>
 SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>& refMask)
 {
 	Mask<T>::myPointsMask.clear();//on vide le premier masque
-	refMask.constIterator = refMask.myPointsMask.begin();
-	for(; refMask.constIterator !=refMask.myPointsMask.end();++refMask.constIterator)
+	typename SymmetricMask<T>::constIterator constIterator = refMask.myPointsMask.begin();
+	for(; constIterator !=refMask.myPointsMask.end();++constIterator)
 	{
-		Mask<T>::myPointsMask.push_back(*refMask.constIterator );
+		Mask<T>::myPointsMask.push_back(*constIterator );
 	}
 }
 
 template <typename T>
 SymmetricMask<T>& SymmetricMask<T>::operator=(const SymmetricMask<T>& refMask)
 {
+	// Problème sur les itérateurs possible
 	Mask<T>::myPointsMask.clear();//on vide le premier masque
-	for(refMask.constIterator = refMask.myPointsMask.begin(); refMask.constIterator !=refMask.myPointsMask.end();++refMask.constIterator)
+	typename SymmetricMask<T>::constIterator constIterator = refMask.myPointsMask.begin();
+	for(; constIterator !=refMask.myPointsMask.end();++constIterator)
 	{
-		Mask<T>::myPointsMask.push_back(*refMask.constIterator );
+		Mask<T>::myPointsMask.push_back(*constIterator );
 	}
 	return *this;
 }
