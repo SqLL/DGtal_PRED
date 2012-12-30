@@ -62,7 +62,7 @@ Weighting< point2d > pointponderer(base,1);
 vector <point2dWeighting > vectorPoints;
 
 //Ajouts
-point2dWeighting basep(base,1);
+point2dWeighting basep(pointNegatif,1);
 Weighting< point2d > pointNegatifp(pointNegatif,1);
 Weighting< point2d > pointPositifp(pointPositif,1);
 
@@ -102,7 +102,10 @@ make: *** [all] Error 2
 
 SymmetricMask<point2dWeighting> masque;
 SymmetricMaskGenerator<point2dWeighting> generateur;
-//masque.add(basep);
+masque.add(basep);
+
+masque.add(basep.reverse());
+cout << masque << endl;
 //masque = generateur.generateMask(vectorPoints);
 
 

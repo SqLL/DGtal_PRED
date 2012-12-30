@@ -37,16 +37,16 @@ class Mask
 
 	protected:
 
-	vector< Weighting<T> > myPointsMask; 
+	vector< T > myPointsMask; 
 	
 	public:
 	
 
 	
-	typedef typename vector< Weighting<T> >::const_iterator constIterator;
-	typedef typename vector< Weighting<T> >::iterator Iterator;
-	typedef typename vector< Weighting<T>* >::const_iterator constIterator_ptr;
-	typedef typename vector< Weighting<T>* >::iterator Iterator_ptr;
+	typedef typename vector< T >::const_iterator constIterator;
+	typedef typename vector< T >::iterator Iterator;
+	typedef typename vector< T >::const_iterator constIterator_ptr;
+	typedef typename vector< T >::iterator Iterator_ptr;
 	
 	/*!
 		*	\fn Mask();

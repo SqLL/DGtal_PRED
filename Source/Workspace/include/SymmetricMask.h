@@ -28,7 +28,11 @@ using namespace std;
 	* \brief class using by a metric
 	*
 */
+template <typename T>
+class SymmetricMask;
 
+template <typename T>
+ostream& operator<<(ostream &, const SymmetricMask <T> &);
 
 
 
@@ -67,6 +71,8 @@ class SymmetricMask : public Mask<T>
 
 
 	SymmetricMask<T>& operator=(const SymmetricMask<T>& refmask);	
+	
+	friend ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
 
 	void add(const T &newPoint);
 
@@ -108,7 +114,17 @@ SymmetricMask<T>::~SymmetricMask()
 template <typename T>
 void SymmetricMask<T>::add(const T &newPoint)
 {
-	Mask<T>::myPointsMask.push_back(newPoint);
+	this->myPointsMask.push_back(newPoint);
+}
+
+
+template<typename T>
+ostream& operator<<(ostream& os, const SymmetricMask<T>& r)
+{
+	typename vector<T>::const_iterator const_It=r.myPointsMask.begin();
+	for(;const_It !=r.myPointsMask.end();++const_It)
+		os << (*const_It);
+	return os;
 }
 
 #endif // _SymetricMask_H_
