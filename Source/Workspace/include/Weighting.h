@@ -27,7 +27,6 @@ ostream& operator<<(ostream &, const Weighting <T> &);
 template <typename T>
 bool operator==(const Weighting<T> &, const Weighting<T> &);
 
-
 template <typename T>
 class Weighting 
 {
@@ -76,6 +75,8 @@ class Weighting
 		* \brief You can compare two point with this method
 	*/
 	friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
+
+
 
 	/*!
 		* \fn reverse();
@@ -131,6 +132,8 @@ bool operator==(const Weighting<T> &e, const Weighting<T>& r)
 {
 	return (e.myPoint==r.myPoint && e.myWeight==r.myWeight);
 }
+
+
 
 template<typename T>
 Weighting<T> Weighting<T>::reverse()
