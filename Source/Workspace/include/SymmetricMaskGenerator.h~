@@ -29,7 +29,7 @@ using namespace std;
 template <typename T>
 class SymmetricMaskGenerator : public MaskGenerator<T>
 {
-//	friend class SymmetricMask<T>;
+	friend class SymmetricMask<T>;
 
 	public:
 	/*!
@@ -51,18 +51,30 @@ class SymmetricMaskGenerator : public MaskGenerator<T>
 	SymmetricMask<T> generateMask(const vector<T>& vectorPoint);
 };
 
+
+// Dans cette fonction le code est vraiment à ameliorer
 template<typename T>
 SymmetricMask<T> SymmetricMaskGenerator<T>::generateMask(const vector<T> & vectorPoint)
 {
 	SymmetricMask<T> result;
+	T tmp;
 	//Pour fabriquer un mask j'utilise les points et j'inverse leurs coordonnées pour obtenir le masque.
-	typename vector<T>::const_iterator it;
+	typename vector<T>::const_iterator it;	
 	for(it=vectorPoint.begin();it!=vectorPoint.end();++it)
 	{
 		//Coordonnées basiques
-		result::add(*it);
+		result.add(*it);
 		//Coordonnées inversé
-		result::add( (*it).reverse());
+		tmp=(*it);
+		tmp=tmp.reverse();
+		if( (*it) == tmp)
+		{
+			
+		}
+		else
+		{
+			result.add(tmp);
+		}
 	}
 	//On retourne le masque complet
 	return result;

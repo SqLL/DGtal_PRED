@@ -2,7 +2,7 @@
  * \file SymetricMask.h
  * \brief a SymetricMask 
  * \author Author Matéo Rémi
- * \version Version 0.0
+ * \version Version 0.3
  * \date 04/12/2012
  *
  * This file represent all of symetric mask herit from this class
@@ -69,11 +69,22 @@ class SymmetricMask : public Mask<T>
 	*/
 	~SymmetricMask();
 
-
+	/*!
+		* \fn 	SymmetricMask<T>& operator=(const SymmetricMask<T>& refmask);	
+		* \brief operator= for the class symmetricMask
+	*/
 	SymmetricMask<T>& operator=(const SymmetricMask<T>& refmask);	
 	
+	/*!
+		* \fn 	ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
+		* \brief a way to display a mask easily
+	*/
 	friend ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
 
+	/*!
+		* \fn void add(const T &newPoint);
+		* \brief with this void you can add a weighting<T> point in the mask
+	*/
 	void add(const T &newPoint);
 
 };

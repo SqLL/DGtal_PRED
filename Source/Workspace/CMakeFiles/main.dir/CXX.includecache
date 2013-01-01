@@ -99,6 +99,8 @@ cmath
 -
 Mask.h
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Mask.h
+Weighting.h
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Weighting.h
 
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h
 iostream
@@ -145,14 +147,14 @@ vector
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/MaskGenerator.h
 ./include/ChamferMaskGenerator.h
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/ChamferMaskGenerator.h
-./include/SymmetricMaskGenerator.h
-/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h
 ./include/MedialAxis.h
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/MedialAxis.h
 ./include/DistanceTransform.h
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/DistanceTransform.h
 ./include/ChamferDistanceTransform.h
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/ChamferDistanceTransform.h
+./include/SymmetricMaskGenerator.h
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h
 
 /usr/local/include/DGtal/base/Assert.h
 iostream

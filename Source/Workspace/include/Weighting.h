@@ -38,10 +38,6 @@ class Weighting
 	
 	public:
 	
-//	typedef typename vector< T >::const_iterator constIterator;
-//	typedef typename vector< T >::iterator Iterator;
-//	typedef typename vector< T* >::const_iterator constIterator_ptr;
-//	typedef typename vector< T* >::iterator Iterator_ptr;
 	
 	/*!
 		*	\fn Weighting();
@@ -81,7 +77,10 @@ class Weighting
 	*/
 	friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
 
-
+	/*!
+		* \fn reverse();
+		* \brief return the reverse point of the current point.
+	*/
 	Weighting<T> reverse();
 };
 
@@ -136,7 +135,7 @@ bool operator==(const Weighting<T> &e, const Weighting<T>& r)
 template<typename T>
 Weighting<T> Weighting<T>::reverse()
 {
-// Voir si dans DGtal il n'y a pas moyen d'obtenir un reverse de pointVector sinon on applique comme cela
+	// Voir si dans DGtal il n'y a pas moyen d'obtenir un reverse de pointVector sinon on applique comme cela
 	Weighting<T> result(*this);
 	//typename vector< PointVector <int N, T>>::const_iterator it;// = this->myPoint.begin();
 	typename T::Iterator it=this->myPoint.begin();
