@@ -32,8 +32,8 @@ class Weighting
 {
 
 	private:
-	T myPoint;
-	int myWeight;
+	T* myPoint;
+	int* myWeight;
 	
 	public:
 	
@@ -90,47 +90,53 @@ class Weighting
 template <typename T>
 Weighting<T>::Weighting()
 {
+	myPoint=new T();
+	myWeight=new int();
 }
 
 template <typename T>
 Weighting<T>::Weighting(const T &refpoint, const int &refWeight)
 {
-	myPoint=refpoint;
-	myWeight=refWeight;
+	myPoint=new T(refpoint);
+	myWeight=new int(refWeight);
 }
 
 template <typename T>
 Weighting<T>::Weighting( const Weighting<T> &refWeighting)
 {
-	myPoint=refWeighting.myPoint;
-	myWeight=refWeighting.myWeight;
+	myPoint=new T(*(refWeighting.myPoint));
+	myWeight=new int(*(refWeighting.myWeight));
 }
 
 template<typename T>
 Weighting<T>::~Weighting()
 {
+	delete myPoint;
+	delete myWeight;
 }
 
 template <typename T>
 Weighting<T>& Weighting<T>::operator=(const Weighting<T>& refWeighting)
 {
-	myPoint=refWeighting.myPoint;
-	myWeight=refWeighting.myWeight;
+	delete myPoint;
+	delete myWeight;
+	myPoint=new T(*(refWeighting.myPoint));
+	myWeight=new int(*(refWeighting.myWeight));
 	return *this;
 }
 
 template<typename T>
 ostream& operator<<(ostream& os, const Weighting<T>& r)
 {
-	r.myPoint.selfDisplay(os);
-	os << " [Weight] " << r.myWeight;
+	r.myPoint->selfDisplay(os);
+	os << " [Weight] " << *(r.myWeight);
 	return os;
 }
 
 template<typename T>
 bool operator==(const Weighting<T> &e, const Weighting<T>& r)
 {
-	return (e.myPoint==r.myPoint && e.myWeight==r.myWeight);
+	return (*(e.myPoint)==*(r.myPoint) && *(e.myWeight)==*(r.myWeight));
 }
 
 
@@ -141,8 +147,9 @@ Weighting<T> Weighting<T>::reverse()
 	// Voir si dans DGtal il n'y a pas moyen d'obtenir un reverse de pointVector sinon on applique comme cela
 	Weighting<T> result(*this);
 	//typename vector< PointVector <int N, T>>::const_iterator it;// = this->myPoint.begin();
-	typename T::Iterator it=this->myPoint.begin();
-	for(it=result.myPoint.begin(); it!=result.myPoint.end();++it)
+
+	typename T::Iterator it=this->myPoint->begin();
+	for(it=result.myPoint->begin(); it!=result.myPoint->end();++it)
 	{
 		*it = (*it) * (-1);
 	}

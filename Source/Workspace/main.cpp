@@ -66,6 +66,28 @@ point2dWeighting basep(base,1);
 Weighting< point2d > pointNegatifp(pointNegatif,1);
 Weighting< point2d > pointPositifp(pointPositif,1);
 
+cout << pointponderer << endl;
+
+if(basep==pointponderer)
+{
+	cout << "True"  << endl;
+}
+else
+{
+	cout << "False" << endl;
+}
+
+pointponderer=pointNegatifp;
+cout << basep << endl;
+
+Weighting< point2d > pointinverse;
+pointinverse=pointponderer.reverse();
+cout << pointinverse << endl;
+
+
+
+
+
 vectorPoints.push_back(basep);
 vectorPoints.push_back(pointNegatifp);
 vectorPoints.push_back(pointPositifp);
