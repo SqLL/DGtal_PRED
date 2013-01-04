@@ -43,8 +43,7 @@ class SymmetricMask : public Mask<T>
 
 	
 	public:
-	
-	
+		
 	typedef typename vector< T >::const_iterator constIterator;
 	typedef typename vector< T >::iterator Iterator;
 	typedef typename vector< T* >::const_iterator constIterator_ptr;
@@ -97,23 +96,35 @@ SymmetricMask<T>::SymmetricMask()
 template <typename T>
 SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>& refMask)
 {
+	// Problème sur les itérateurs possible
+	for(unsigned int iterator = 0; iterator < Mask<T>::myPointsMask.size(); iterator++)
+  { 
+     delete(Mask<T>::myPointsMask[iterator]);
+	}
 	Mask<T>::myPointsMask.clear();//on vide le premier masque
-	typename SymmetricMask<T>::constIterator constIterator = refMask.myPointsMask.begin();
+	
+	typename SymmetricMask<T>::constIterator_ptr constIterator = refMask.myPointsMask.begin();
 	for(; constIterator !=refMask.myPointsMask.end();++constIterator)
 	{
-		Mask<T>::myPointsMask.push_back(*constIterator );
+		Mask<T>::myPointsMask.push_back(new T( **constIterator ) );
 	}
 }
 
 template <typename T>
 SymmetricMask<T>& SymmetricMask<T>::operator=(const SymmetricMask<T>& refMask)
 {
+
 	// Problème sur les itérateurs possible
+	for(unsigned int iterator = 0; iterator < Mask<T>::myPointsMask.size(); iterator++)
+  { 
+     delete(Mask<T>::myPointsMask[iterator]);
+	}
 	Mask<T>::myPointsMask.clear();//on vide le premier masque
-	typename SymmetricMask<T>::constIterator constIterator = refMask.myPointsMask.begin();
+	
+	typename SymmetricMask<T>::constIterator_ptr constIterator = refMask.myPointsMask.begin();
 	for(; constIterator !=refMask.myPointsMask.end();++constIterator)
 	{
-		Mask<T>::myPointsMask.push_back(*constIterator );
+		Mask<T>::myPointsMask.push_back(new T(**constIterator ));
 	}
 	return *this;
 }
@@ -121,22 +132,26 @@ SymmetricMask<T>& SymmetricMask<T>::operator=(const SymmetricMask<T>& refMask)
 template <typename T>
 SymmetricMask<T>::~SymmetricMask()
 {
+	for(unsigned int iterator = 0; iterator < Mask<T>::myPointsMask.size(); iterator++)
+  { 
+     delete(Mask<T>::myPointsMask[iterator]);
+	}
 	Mask<T>::myPointsMask.clear();
 }
 
 template <typename T>
 void SymmetricMask<T>::add(const T &newPoint)
 {
-	this->myPointsMask.push_back(newPoint);
+	this->myPointsMask.push_back(new T(newPoint));
 }
 
 
 template<typename T>
 ostream& operator<<(ostream& os, const SymmetricMask<T>& r)
 {
-	typename vector<T>::const_iterator const_It=r.myPointsMask.begin();
+	typename vector<T*>::const_iterator const_It=r.myPointsMask.begin();
 	for(;const_It !=r.myPointsMask.end();++const_It)
-		os << (*const_It);
+		os << (**const_It);
 	return os;
 }
 

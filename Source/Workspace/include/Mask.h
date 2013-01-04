@@ -37,7 +37,7 @@ class Mask
 
 	protected:
 
-	vector< T > myPointsMask; 
+	vector< T* > myPointsMask; 
 	
 	public:
 	
@@ -45,8 +45,8 @@ class Mask
 	
 	typedef typename vector< T >::const_iterator constIterator;
 	typedef typename vector< T >::iterator Iterator;
-	typedef typename vector< T >::const_iterator constIterator_ptr;
-	typedef typename vector< T >::iterator Iterator_ptr;
+	typedef typename vector< T* >::const_iterator constIterator_ptr;
+	typedef typename vector< T* >::iterator Iterator_ptr;
 	
 	/*!
 		*	\fn Mask();
@@ -83,23 +83,33 @@ Mask<T>::Mask()
 template <typename T>
 Mask<T>::Mask(const Mask<T> &refMask)
 {
+	for(unsigned int iterator = 0; iterator < myPointsMask.size(); iterator++)
+  { 
+     delete(myPointsMask[iterator]);
+	}
 	this->myPointsMask.clear();//on vide le premier masque
+	
 	for(refMask.constIterator=refMask.myPointsMask.begin(); refMask.constIterator!=refMask.myPointsMask.end();++refMask.constIterator)
 	{
-		this->myPointsMask.push_back(*refMask.constIterator);
+		this->myPointsMask.push_back(new T(*refMask.constIterator));
 	}
 }
 
 template <typename T>
 Mask<T>::~Mask()
 {
+
+	for(unsigned int iterator = 0; iterator < myPointsMask.size(); iterator++)
+  { 
+     delete(myPointsMask[iterator]);
+	}
 	myPointsMask.clear();
 }
 	
 template <typename T>
 void Mask<T>::add(const T &newPoint)
 {
-	myPointsMask.push_back(newPoint);
+	myPointsMask.push_back(new T(newPoint));
 }
 
 
