@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "SymetricMask.h"
+#include "CMetric.h"
 
 
 using namespace std;
@@ -26,14 +26,19 @@ using namespace std;
 	* \brief Abstract class to make a DistanceTransform
 	*
 */
-template <typename T>
+
+
+template <typename W,typename T>
 class DistanceTransform 
 {
 
 	private:
-	SymetricMask<T> myMask;
+	CMetric<W,T> myMetric;
+	
+
 	
 	public:
+
 	/*!
 		*	\fn DistanceTransform();
 		*	\brief Constructor of a DistanceTransform without parameters
@@ -44,6 +49,8 @@ class DistanceTransform
 		* \brief Constructor to make a copy of the DistanceTransform used as parameters
 	*/
 
+	DistanceTransform(const CMetric<W,T>& myNewMetric);
+
 	DistanceTransform(const DistanceTransform &refDistanceTransform);
 	/*!
 		* \fn ~DistanceTransform();
@@ -51,9 +58,28 @@ class DistanceTransform
 	*/
 	~DistanceTransform();
 
+	/*!
+		* \fn void applyAlgorithm();
+		*	\brief Method who apply an algorithm using the metric member.
+	*/
+	void applyAlgorithm();
 };
 
+template <typename W,typename T>
+DistanceTransform<W,T>::DistanceTransform()
+{
 
+}
 
+template <typename W,typename T>
+DistanceTransform<W,T>::DistanceTransform(const CMetric<W,T>& myNewMetric)
+{
+	myMetric(myNewMetric);
+}
+
+template <typename W,typename T>
+DistanceTransform<W,T>::~DistanceTransform()
+{
+}
 
 #endif // _DistanceTransform_H_

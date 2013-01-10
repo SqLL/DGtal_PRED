@@ -59,7 +59,6 @@ class SymmetricMask : public Mask<T>
 		* \fn SymmetricMask(const SymetricMask &refSymmetricMask);
 		* \brief Constructor to make a copy of the SymmetricMask used as parameters
 	*/
-
 	SymmetricMask(const SymmetricMask &refSymmetricMask);
 
 	/*!
@@ -76,7 +75,7 @@ class SymmetricMask : public Mask<T>
 	
 	/*!
 		* \fn 	ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
-		* \brief a way to display a mask easily
+		* \brief  Allows an easy way to display an instance of the class
 	*/
 	friend ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
 
@@ -96,12 +95,12 @@ SymmetricMask<T>::SymmetricMask()
 template <typename T>
 SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>& refMask)
 {
-	// Problème sur les itérateurs possible
+	// Possible problem on iterator allocation
 	for(unsigned int iterator = 0; iterator < Mask<T>::myPointsMask.size(); iterator++)
   { 
      delete(Mask<T>::myPointsMask[iterator]);
 	}
-	Mask<T>::myPointsMask.clear();//on vide le premier masque
+	Mask<T>::myPointsMask.clear();//we clear the first mask
 	
 	typename SymmetricMask<T>::constIterator_ptr constIterator = refMask.myPointsMask.begin();
 	for(; constIterator !=refMask.myPointsMask.end();++constIterator)

@@ -29,7 +29,11 @@ using namespace std;
 	*
 */
 
+template <typename T>
+class Mask;
 
+template <typename T>
+ostream& operator<<(ostream &, const Mask <T> &);
 
 template <typename T>
 class Mask 
@@ -49,25 +53,35 @@ class Mask
 	typedef typename vector< T* >::iterator Iterator_ptr;
 	
 	/*!
-		*	\fn Mask();
+		*	\fn Mask()
 		*	\brief Constructor of a Mask without parameters
 	*/
 	Mask();
+
 	/*!
-		* \fn Mask(const Mask &refMask);
+		* \fn Mask(const Mask &refMask)
 		* \brief Constructor to make a copy of the Mask used as parameters
 	*/
-
 	Mask(const Mask &refMask);
+
 	/*!
-		* \fn ~Mask();
+		* \fn ~Mask()
 		* \brief To desalloc memory use by the Mask
 	*/
 	~Mask();
 	
-	
+	/*!
+		* \fn Mask<T>& operator=(const Mask<T>& refmask)
+		* \brief Allocation operator for the Mask class
+	*/
 	Mask<T>& operator=(const Mask<T>& refmask);
 	
+	/*!
+		* \fn friend ostream& operator<< <>(ostream& os, const Mask<T>& r)
+		* \brief Allows an easy way to display an instance of the class
+	*/
+	friend ostream& operator<< <>(ostream& os, const Mask<T>& r);
+
 	/*!
 		* \fn void add(const Weighting<T> &newPoint);
 		*	\brief To add a Weighting point in the mask
@@ -80,6 +94,8 @@ Mask<T>::Mask()
 {
 }
 
+
+
 template <typename T>
 Mask<T>::Mask(const Mask<T> &refMask)
 {
@@ -87,7 +103,7 @@ Mask<T>::Mask(const Mask<T> &refMask)
   { 
      delete(myPointsMask[iterator]);
 	}
-	this->myPointsMask.clear();//on vide le premier masque
+	this->myPointsMask.clear();//we clear the first mask
 	
 	for(refMask.constIterator=refMask.myPointsMask.begin(); refMask.constIterator!=refMask.myPointsMask.end();++refMask.constIterator)
 	{
@@ -113,10 +129,19 @@ void Mask<T>::add(const T &newPoint)
 }
 
 
+template<typename T>
+ostream& operator<<(ostream& os, const Mask<T>& r)
+{
+	typename vector<T*>::const_iterator const_It=r.myPointsMask.begin();
+	for(;const_It !=r.myPointsMask.end();++const_It)
+		os << (**const_It);
+	return os;
+}
+
 template <typename T>
 Mask<T>& Mask<T>::operator=(const Mask<T>& refMask)
 {
-	this->myPointsMask.clear();//on vide le premier masque
+	this->myPointsMask.clear();//we clear the first mask
 	typename vector< Weighting<T> >::iterator it;
 	for(it=refMask.myPointsMask.begin(); it!=refMask.myPointsMask.end();++it)
 	{

@@ -66,7 +66,7 @@ class Weighting
 
 	/*!
 		* \fn operator<< <>(ostream& os, const Weighting<T>& r);
-		* \brief With this operator you can display the class easily
+		* \brief Allows an easy way to display an instance of the class
 	*/
 	friend ostream& operator<< <>(ostream& os, const Weighting<T>& r);
 

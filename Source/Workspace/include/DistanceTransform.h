@@ -35,7 +35,10 @@ class DistanceTransform
 	private:
 	CMetric<W,T> myMetric;
 	
+
+	
 	public:
+
 	/*!
 		*	\fn DistanceTransform();
 		*	\brief Constructor of a DistanceTransform without parameters
@@ -45,6 +48,8 @@ class DistanceTransform
 		* \fn DistanceTransform(const DistanceTransform &refDistanceTransform);
 		* \brief Constructor to make a copy of the DistanceTransform used as parameters
 	*/
+
+	DistanceTransform(const CMetric<W,T>& myNewMetric);
 
 	DistanceTransform(const DistanceTransform &refDistanceTransform);
 	/*!
@@ -60,7 +65,21 @@ class DistanceTransform
 	void applyAlgorithm();
 };
 
+template <typename W,typename T>
+DistanceTransform<W,T>::DistanceTransform()
+{
 
+}
 
+template <typename W,typename T>
+DistanceTransform<W,T>::DistanceTransform(const CMetric<W,T>& myNewMetric)
+{
+	myMetric=myNewMetric;
+}
+
+template <typename W,typename T>
+DistanceTransform<W,T>::~DistanceTransform()
+{
+}
 
 #endif // _DistanceTransform_H_

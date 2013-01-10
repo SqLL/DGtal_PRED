@@ -65,6 +65,15 @@ class CLocalPremetric
 	W	Distance(const T& p1, const T& p2); 
 };
 
+template <typename W,typename T>
+CLocalPremetric<W,T>::CLocalPremetric()
+{
+}
+
+template <typename W,typename T>
+CLocalPremetric<W,T>::~CLocalPremetric()
+{
+}
 
 
 

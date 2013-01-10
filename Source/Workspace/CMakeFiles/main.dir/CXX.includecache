@@ -29,6 +29,12 @@ cmath
 -
 CLocalPremetric.h
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/CLocalPremetric.h
+Mask.h
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Mask.h
+SymmetricMask.h
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMask.h
+Weighting.h
+/home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Weighting.h
 
 /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/ChamferDistanceTransform.h
 iostream

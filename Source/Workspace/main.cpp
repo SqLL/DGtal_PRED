@@ -52,8 +52,6 @@ point2d pointPositif(0,1);
 	*	Cela correspond a *
 	*									 **
 */
-//base.selfDisplay(cout);
-///cout << endl;
 
 //Creation d'un WeightingPoint
 Weighting< point2d > pointponderer(base,1);
@@ -66,54 +64,26 @@ point2dWeighting basep(base,1);
 Weighting< point2d > pointNegatifp(pointNegatif,1);
 Weighting< point2d > pointPositifp(pointPositif,1);
 
-cout << pointponderer << endl;
-
-if(basep==pointponderer)
-{
-	cout << "True"  << endl;
-}
-else
-{
-	cout << "False" << endl;
-}
-
-pointponderer=pointNegatifp;
-cout << basep << endl;
-
-Weighting< point2d > pointinverse;
-pointinverse=pointponderer.reverse();
-cout << pointinverse << endl;
-
-
-
 
 
 vectorPoints.push_back(basep);
 vectorPoints.push_back(pointNegatifp);
 vectorPoints.push_back(pointPositifp);
 
-cout << "Here it's the vector of points " << endl;
-//Affichage de ces points
-vector<point2dWeighting>::const_iterator it;
-for(it=vectorPoints.begin();it!=vectorPoints.end();++it)
-{
-	cout << (*it);
-}
-cout << " end " << endl;
 
 
-//Creation du masque avec generation de ce dernier
-
-SymmetricMask<point2dWeighting> masque;
+SymmetricMask<point2dWeighting> myMask;
 SymmetricMaskGenerator<point2dWeighting> generateur;
-masque.add(basep);
 
-masque.add(basep.reverse());
-//cout << masque << endl;
-masque = generateur.generateMask(vectorPoints);
+myMask = generateur.generateMask(vectorPoints);
 cout << "Here it's SymmetricMask generated " << endl;
-cout << masque << endl;
+cout << myMask << endl;
 
+
+// definition of metric
+CMetric<int,point2d> myMetric(myMask);
+cout << myMetric << endl;
+//DistanceTransform<int,point2d> myDistance(myMetric);
 
 
 
