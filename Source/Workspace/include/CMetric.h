@@ -50,14 +50,12 @@ template <typename W,typename T>
 class CMetric : public CLocalPremetric<W,T>
 {
 
-	typedef Weighting< T > WeightedPoint;
-
+	typedef Weighting< T > WeightedPoint; 
 	Mask< Weighting <T> > *myMask;
 	
 
 	public:
-
-
+	
 	/*!
 		*	\fn CMetric();
 		*	\brief Constructor of a CMetric without parameters
@@ -69,6 +67,8 @@ class CMetric : public CLocalPremetric<W,T>
 		* \brief Constructor used to make a copy of the Mask used as parameter
 	*/
 	CMetric(const Mask<T>& refMask);
+
+	
 
 	/*!
 		* \fn CMetric(const SymmetricMask< WeightedPoint >& refMask)
@@ -92,7 +92,7 @@ class CMetric : public CLocalPremetric<W,T>
 		* \fn CMetric(const CMetric &refCMetric)
 		* \brief Constructor used to make a copy of the CMetric used as parameter
 	*/
-	CMetric(const CMetric &refCMetric);
+	CMetric(const CMetric<W,T> &refCMetric);
 
 	/*!
 		* \fn ~CMetric();
@@ -105,12 +105,13 @@ class CMetric : public CLocalPremetric<W,T>
 template <typename W,typename T>
 CMetric<W,T>::CMetric()
 {
+	myMask=new Mask<WeightedPoint>();
 }
 
 template <typename W,typename T>
 CMetric<W,T>::CMetric(const Mask<T>& refMask)
 {
-	myMask=new Mask<T>(refMask);
+	myMask=new Mask<WeightedPoint>(refMask);
 }
 
 template <typename W,typename T>
@@ -119,19 +120,23 @@ CMetric<W,T>::CMetric(const SymmetricMask< WeightedPoint >& refMask)
 	myMask=new SymmetricMask< WeightedPoint >(refMask);
 }
 
-
-
 template <typename W,typename T>
-CMetric<W,T>::CMetric(const CMetric &refCMetric)
+CMetric<W,T>::CMetric(const CMetric<W,T>& refCMetric)
 {
+	delete myMask;
+	cout << *(refCMetric.myMask) << endl;
+	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); //possible Memory Leaks 
+	//myMask=new Mask< WeightedPoint >(refCMetric.myMask);
+	//myMask=refCMetric.myMask;
 }
 
 template <typename W,typename T>
-CMetric<W,T>& CMetric<W,T>::operator=(const CMetric<W,T>& refMetric)
+CMetric<W,T>& CMetric<W,T>::operator=(const CMetric<W,T>& refCMetric)
 {
 	delete myMask;
-	myMask=new Mask<T>(); //possible Memory Leaks 
-	myMask=refMetric.myMask;
+	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); //possible Memory Leaks 
+	//myMask=refCMetric.myMask;
+	return *this;
 }
 
 template <typename W,typename T>

@@ -62,6 +62,10 @@ class Weighting
 	*/
 	~Weighting();
 	
+	/*!
+		* \fn Weighting<T>& operator=(const Weighting<T>& refWeighting);
+		* \brief Allow you to use the operator affectation
+	*/
 	Weighting<T>& operator=(const Weighting<T>& refWeighting);
 
 	/*!
@@ -75,8 +79,6 @@ class Weighting
 		* \brief You can compare two point with this method
 	*/
 	friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
-
-
 
 	/*!
 		* \fn reverse();

@@ -105,10 +105,17 @@ Mask<T>::Mask(const Mask<T> &refMask)
 	}
 	this->myPointsMask.clear();//we clear the first mask
 	
+	typename vector<T*>::const_iterator const_It=refMask.myPointsMask.begin();
+	for(;const_It !=refMask.myPointsMask.end();++const_It)
+	{
+		this->myPointsMask.push_back(new T(**const_It));
+	}
+	/**
 	for(refMask.constIterator=refMask.myPointsMask.begin(); refMask.constIterator!=refMask.myPointsMask.end();++refMask.constIterator)
 	{
 		this->myPointsMask.push_back(new T(*refMask.constIterator));
 	}
+	**/
 }
 
 template <typename T>

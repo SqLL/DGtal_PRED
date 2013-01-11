@@ -29,6 +29,12 @@ using namespace std;
 
 
 template <typename W,typename T>
+class DistanceTransform;
+
+template <typename W,typename T>
+ostream& operator<<(ostream &, const DistanceTransform<W,T> &);
+
+template <typename W,typename T>
 class DistanceTransform 
 {
 
@@ -52,6 +58,14 @@ class DistanceTransform
 	DistanceTransform(const CMetric<W,T>& myNewMetric);
 
 	DistanceTransform(const DistanceTransform &refDistanceTransform);
+	
+	
+	/*!
+		* \fn operator<< <>(ostream& os, const CMetric<W,T> & refMetric);
+		* \brief Allows an easy way to display an instance of the class
+	*/
+	friend ostream& operator<< <>(ostream &, const DistanceTransform<W,T> &);
+	
 	/*!
 		* \fn ~DistanceTransform();
 		* \brief To desalloc memory use by the DistanceTransform
@@ -68,7 +82,6 @@ class DistanceTransform
 template <typename W,typename T>
 DistanceTransform<W,T>::DistanceTransform()
 {
-
 }
 
 template <typename W,typename T>
@@ -80,6 +93,13 @@ DistanceTransform<W,T>::DistanceTransform(const CMetric<W,T>& myNewMetric)
 template <typename W,typename T>
 DistanceTransform<W,T>::~DistanceTransform()
 {
+}
+
+template <typename W,typename T>
+ostream& operator<< (ostream &os, const DistanceTransform<W,T> &refDistance)
+{
+	os << refDistance.myMetric << endl;
+	return os;
 }
 
 #endif // _DistanceTransform_H_

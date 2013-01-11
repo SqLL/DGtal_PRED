@@ -83,8 +83,14 @@ cout << myMask << endl;
 // definition of metric
 CMetric<int,point2d> myMetric(myMask);
 cout << myMetric << endl;
-//DistanceTransform<int,point2d> myDistance(myMetric);
 
+CMetric<int,point2d> myNewMetric(myMetric);
+//CMetric<int,point2d> myNewMetric;
+//myNewMetric=myMetric;
+
+cout << myNewMetric << endl;
+DistanceTransform<int,point2d> myDistance(myMetric);
+cout << myDistance << endl;
 
 
 return 0;
