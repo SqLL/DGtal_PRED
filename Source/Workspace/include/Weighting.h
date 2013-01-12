@@ -85,6 +85,9 @@ class Weighting
 		* \brief return the reverse point of the current point.
 	*/
 	Weighting<T> reverse();
+
+	int Weight();
+	T& Point();
 };
 
 
@@ -158,5 +161,18 @@ Weighting<T> Weighting<T>::reverse()
 	
 	return result;
 }
+
+template<typename T>
+int Weighting<T>::Weight()
+{
+	return *myWeight;
+}
+
+template<typename T>
+T& Weighting<T>::Point()
+{
+	return *myPoint;
+}
+
 
 #endif

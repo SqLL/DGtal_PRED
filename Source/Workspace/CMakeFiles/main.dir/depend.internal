@@ -16,34 +16,189 @@ CMakeFiles/main.dir/main.cpp.o
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/SymmetricMaskGenerator.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/./include/Weighting.h
  /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp
+ /usr/local/include/Board/Board.h
+ /usr/local/include/Board/Board.ih
+ /usr/local/include/Board/PSFonts.h
+ /usr/local/include/Board/Path.h
+ /usr/local/include/Board/Point.h
+ /usr/local/include/Board/Rect.h
+ /usr/local/include/Board/ShapeList.h
+ /usr/local/include/Board/ShapeList.ih
+ /usr/local/include/Board/Shapes.h
+ /usr/local/include/Board/Shapes.ih
+ /usr/local/include/Board/Tools.h
+ /usr/local/include/Board/Tools.ih
+ /usr/local/include/Board/Transforms.h
+ /usr/local/include/Board/Transforms.ih
+ /usr/local/include/DGtal/arithmetic/ModuloComputer.h
+ /usr/local/include/DGtal/arithmetic/ModuloComputer.ih
  /usr/local/include/DGtal/base/Assert.h
  /usr/local/include/DGtal/base/BasicArchetypes.h
  /usr/local/include/DGtal/base/BasicBoolFunctions.h
  /usr/local/include/DGtal/base/BasicBoolFunctions.ih
  /usr/local/include/DGtal/base/BasicFunctors.h
  /usr/local/include/DGtal/base/BasicTypes.h
+ /usr/local/include/DGtal/base/Bits.h
+ /usr/local/include/DGtal/base/CBidirectionalOutputRange.h
+ /usr/local/include/DGtal/base/CBidirectionalOutputRangeFromPoint.h
  /usr/local/include/DGtal/base/CBidirectionalRange.h
+ /usr/local/include/DGtal/base/CBidirectionalRangeFromPoint.h
  /usr/local/include/DGtal/base/CConstBidirectionalRange.h
+ /usr/local/include/DGtal/base/CConstBidirectionalRangeFromPoint.h
  /usr/local/include/DGtal/base/CConstSinglePassRange.h
+ /usr/local/include/DGtal/base/CLabel.h
+ /usr/local/include/DGtal/base/CPredicate.h
+ /usr/local/include/DGtal/base/CSinglePassOutputRange.h
+ /usr/local/include/DGtal/base/CUnaryFunctor.h
+ /usr/local/include/DGtal/base/Circulator.h
  /usr/local/include/DGtal/base/Clock.h
  /usr/local/include/DGtal/base/Clock.ih
  /usr/local/include/DGtal/base/Common.h
  /usr/local/include/DGtal/base/ConceptUtils.h
  /usr/local/include/DGtal/base/Config.h
+ /usr/local/include/DGtal/base/ConstIteratorAdapter.h
+ /usr/local/include/DGtal/base/ConstRangeAdapter.h
+ /usr/local/include/DGtal/base/CountedPtr.h
+ /usr/local/include/DGtal/base/CountedPtr.ih
+ /usr/local/include/DGtal/base/CowPtr.h
+ /usr/local/include/DGtal/base/CowPtr.ih
  /usr/local/include/DGtal/base/Exceptions.h
+ /usr/local/include/DGtal/base/ExpressionTemplates.h
  /usr/local/include/DGtal/base/GlobalFunctions.h
+ /usr/local/include/DGtal/base/IteratorAdapter.h
+ /usr/local/include/DGtal/base/IteratorFunctions.h
+ /usr/local/include/DGtal/base/IteratorTraits.h
+ /usr/local/include/DGtal/base/OpInSTLContainers.h
+ /usr/local/include/DGtal/base/OrderedAlphabet.h
+ /usr/local/include/DGtal/base/OrderedAlphabet.ih
+ /usr/local/include/DGtal/base/ReverseIterator.h
+ /usr/local/include/DGtal/base/SimpleRandomAccessConstRangeFromPoint.h
+ /usr/local/include/DGtal/base/SimpleRandomAccessRangeFromPoint.h
  /usr/local/include/DGtal/base/Trace.h
  /usr/local/include/DGtal/base/Trace.ih
  /usr/local/include/DGtal/base/TraceWriter.h
  /usr/local/include/DGtal/base/TraceWriterFile.h
  /usr/local/include/DGtal/base/TraceWriterTerm.h
+ /usr/local/include/DGtal/geometry/curves/ArithmeticalDSS.h
+ /usr/local/include/DGtal/geometry/curves/ArithmeticalDSS.ih
+ /usr/local/include/DGtal/geometry/curves/FP.h
+ /usr/local/include/DGtal/geometry/curves/FP.ih
+ /usr/local/include/DGtal/geometry/curves/FreemanChain.h
+ /usr/local/include/DGtal/geometry/curves/FreemanChain.ih
+ /usr/local/include/DGtal/geometry/curves/GeometricalDCA.h
+ /usr/local/include/DGtal/geometry/curves/GeometricalDCA.ih
+ /usr/local/include/DGtal/geometry/curves/GeometricalDSS.h
+ /usr/local/include/DGtal/geometry/curves/GeometricalDSS.ih
+ /usr/local/include/DGtal/geometry/curves/GridCurve.h
+ /usr/local/include/DGtal/geometry/curves/GridCurve.ih
+ /usr/local/include/DGtal/geometry/curves/SegmentComputerUtils.h
+ /usr/local/include/DGtal/geometry/tools/Preimage2D.h
+ /usr/local/include/DGtal/geometry/tools/Preimage2D.ih
+ /usr/local/include/DGtal/geometry/volumes/distance/DistanceTransformation.h
+ /usr/local/include/DGtal/geometry/volumes/distance/DistanceTransformation.ih
+ /usr/local/include/DGtal/geometry/volumes/distance/SeparableMetricHelper.h
+ /usr/local/include/DGtal/helpers/StdDefs.h
+ /usr/local/include/DGtal/images/CConstImage.h
+ /usr/local/include/DGtal/images/CImage.h
+ /usr/local/include/DGtal/images/CTrivialConstImage.h
+ /usr/local/include/DGtal/images/CTrivialImage.h
+ /usr/local/include/DGtal/images/DefaultConstImageRange.h
+ /usr/local/include/DGtal/images/DefaultImageRange.h
+ /usr/local/include/DGtal/images/ImageContainerByHashTree.h
+ /usr/local/include/DGtal/images/ImageContainerByHashTree.ih
+ /usr/local/include/DGtal/images/ImageContainerBySTLMap.h
+ /usr/local/include/DGtal/images/ImageContainerBySTLMap.ih
+ /usr/local/include/DGtal/images/ImageContainerBySTLVector.h
+ /usr/local/include/DGtal/images/ImageContainerBySTLVector.ih
+ /usr/local/include/DGtal/images/ImageHelper.h
+ /usr/local/include/DGtal/images/ImageHelper.ih
+ /usr/local/include/DGtal/images/Morton.h
+ /usr/local/include/DGtal/images/Morton.ih
+ /usr/local/include/DGtal/images/SetValueIterator.h
+ /usr/local/include/DGtal/images/imagesSetsUtils/ImageFromSet.h
+ /usr/local/include/DGtal/images/imagesSetsUtils/ImageFromSet.ih
+ /usr/local/include/DGtal/images/imagesSetsUtils/IntervalForegroundPredicate.h
  /usr/local/include/DGtal/io/Color.h
  /usr/local/include/DGtal/io/Color.ih
+ /usr/local/include/DGtal/io/Display2DFactory.h
+ /usr/local/include/DGtal/io/Display2DFactory.ih
+ /usr/local/include/DGtal/io/Style2DFactory.h
+ /usr/local/include/DGtal/io/Style2DFactory.ih
+ /usr/local/include/DGtal/io/boards/Board2D.h
+ /usr/local/include/DGtal/io/boards/Board2D.ih
+ /usr/local/include/DGtal/io/boards/CDrawableWithBoard2D.h
+ /usr/local/include/DGtal/io/colormaps/GrayscaleColorMap.h
+ /usr/local/include/DGtal/io/colormaps/GrayscaleColorMap.ih
+ /usr/local/include/DGtal/io/colormaps/HueShadeColorMap.h
+ /usr/local/include/DGtal/io/colormaps/HueShadeColorMap.ih
+ /usr/local/include/DGtal/io/readers/PNMReader.h
+ /usr/local/include/DGtal/io/readers/PNMReader.ih
+ /usr/local/include/DGtal/io/readers/PointListReader.h
+ /usr/local/include/DGtal/io/readers/PointListReader.ih
+ /usr/local/include/DGtal/kernel/BasicPointPredicates.h
+ /usr/local/include/DGtal/kernel/BasicPointPredicates.ih
+ /usr/local/include/DGtal/kernel/CBoundedInteger.h
  /usr/local/include/DGtal/kernel/CCommutativeRing.h
  /usr/local/include/DGtal/kernel/CEuclideanRing.h
  /usr/local/include/DGtal/kernel/CInteger.h
+ /usr/local/include/DGtal/kernel/CPointFunctor.h
+ /usr/local/include/DGtal/kernel/CPointPredicate.h
  /usr/local/include/DGtal/kernel/CSignedInteger.h
+ /usr/local/include/DGtal/kernel/CSpace.h
+ /usr/local/include/DGtal/kernel/CUnsignedInteger.h
  /usr/local/include/DGtal/kernel/NumberTraits.h
  /usr/local/include/DGtal/kernel/NumberTraits.ih
  /usr/local/include/DGtal/kernel/PointVector.h
  /usr/local/include/DGtal/kernel/PointVector.ih
+ /usr/local/include/DGtal/kernel/SpaceND.h
+ /usr/local/include/DGtal/kernel/domains/CDomain.h
+ /usr/local/include/DGtal/kernel/domains/DomainPredicate.h
+ /usr/local/include/DGtal/kernel/domains/DomainPredicate.ih
+ /usr/local/include/DGtal/kernel/domains/HyperRectDomain.h
+ /usr/local/include/DGtal/kernel/domains/HyperRectDomain.ih
+ /usr/local/include/DGtal/kernel/domains/HyperRectDomain_Iterator.h
+ /usr/local/include/DGtal/kernel/sets/CDigitalSet.h
+ /usr/local/include/DGtal/kernel/sets/CDigitalSet.ih
+ /usr/local/include/DGtal/kernel/sets/DigitalSetBySTLSet.h
+ /usr/local/include/DGtal/kernel/sets/DigitalSetBySTLSet.ih
+ /usr/local/include/DGtal/kernel/sets/DigitalSetBySTLVector.h
+ /usr/local/include/DGtal/kernel/sets/DigitalSetBySTLVector.ih
+ /usr/local/include/DGtal/kernel/sets/DigitalSetDomain.h
+ /usr/local/include/DGtal/kernel/sets/DigitalSetDomain.ih
+ /usr/local/include/DGtal/kernel/sets/DigitalSetFromMap.h
+ /usr/local/include/DGtal/kernel/sets/DigitalSetFromMap.ih
+ /usr/local/include/DGtal/kernel/sets/DigitalSetInserter.h
+ /usr/local/include/DGtal/kernel/sets/DigitalSetSelector.h
+ /usr/local/include/DGtal/kernel/sets/DigitalSetSelector.ih
+ /usr/local/include/DGtal/kernel/sets/SetPredicate.h
+ /usr/local/include/DGtal/kernel/sets/SetPredicate.ih
+ /usr/local/include/DGtal/math/AngleComputer.h
+ /usr/local/include/DGtal/math/AngleComputer.ih
+ /usr/local/include/DGtal/math/AngleLinearMinimizer.h
+ /usr/local/include/DGtal/math/AngleLinearMinimizer.ih
+ /usr/local/include/DGtal/shapes/fromPoints/CircleFrom2Points.h
+ /usr/local/include/DGtal/shapes/fromPoints/CircleFrom2Points.ih
+ /usr/local/include/DGtal/shapes/fromPoints/CircleFrom3Points.h
+ /usr/local/include/DGtal/shapes/fromPoints/CircleFrom3Points.ih
+ /usr/local/include/DGtal/shapes/fromPoints/Point2ShapePredicate.h
+ /usr/local/include/DGtal/shapes/fromPoints/Point2ShapePredicate.ih
+ /usr/local/include/DGtal/shapes/fromPoints/StraightLineFrom2Points.h
+ /usr/local/include/DGtal/shapes/fromPoints/StraightLineFrom2Points.ih
+ /usr/local/include/DGtal/topology/CAdjacency.h
+ /usr/local/include/DGtal/topology/CCellularGridSpaceND.h
+ /usr/local/include/DGtal/topology/CUndirectedSimpleLocalGraph.h
+ /usr/local/include/DGtal/topology/CVertexMap.h
+ /usr/local/include/DGtal/topology/DigitalTopology.h
+ /usr/local/include/DGtal/topology/DigitalTopology.ih
+ /usr/local/include/DGtal/topology/DomainAdjacency.h
+ /usr/local/include/DGtal/topology/DomainAdjacency.ih
+ /usr/local/include/DGtal/topology/Expander.h
+ /usr/local/include/DGtal/topology/Expander.ih
+ /usr/local/include/DGtal/topology/KhalimskySpaceND.h
+ /usr/local/include/DGtal/topology/KhalimskySpaceND.ih
+ /usr/local/include/DGtal/topology/MetricAdjacency.h
+ /usr/local/include/DGtal/topology/MetricAdjacency.ih
+ /usr/local/include/DGtal/topology/Object.h
+ /usr/local/include/DGtal/topology/Object.ih
+ /usr/local/include/DGtal/topology/SCellsFunctors.h
+ /usr/local/include/DGtal/topology/Topology.h

@@ -62,11 +62,15 @@ class Weighting
 	*/
 	~Weighting();
 	
+	/*!
+		* \fn Weighting<T>& operator=(const Weighting<T>& refWeighting);
+		* \brief Allow you to use the operator affectation
+	*/
 	Weighting<T>& operator=(const Weighting<T>& refWeighting);
 
 	/*!
 		* \fn operator<< <>(ostream& os, const Weighting<T>& r);
-		* \brief With this operator you can display the class easily
+		* \brief Allows an easy way to display an instance of the class
 	*/
 	friend ostream& operator<< <>(ostream& os, const Weighting<T>& r);
 
@@ -76,13 +80,14 @@ class Weighting
 	*/
 	friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
 
-
-
 	/*!
 		* \fn reverse();
 		* \brief return the reverse point of the current point.
 	*/
 	Weighting<T> reverse();
+
+	int Weight();
+	T& Point();
 };
 
 
@@ -156,5 +161,18 @@ Weighting<T> Weighting<T>::reverse()
 	
 	return result;
 }
+
+template<typename T>
+int Weighting<T>::Weight()
+{
+	return *myWeight;
+}
+
+template<typename T>
+T& Weighting<T>::Point()
+{
+	return myPoint;
+}
+
 
 #endif

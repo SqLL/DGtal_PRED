@@ -51,10 +51,12 @@ class CMetric : public CLocalPremetric<W,T>
 {
 
 	typedef Weighting< T > WeightedPoint; 
-	Mask< Weighting <T> > *myMask;
+
 	
 
 	public:
+
+		Mask< Weighting <T> > *myMask;
 	
 	/*!
 		*	\fn CMetric();
@@ -123,11 +125,8 @@ CMetric<W,T>::CMetric(const SymmetricMask< WeightedPoint >& refMask)
 template <typename W,typename T>
 CMetric<W,T>::CMetric(const CMetric<W,T>& refCMetric)
 {
-	delete myMask;
 	cout << *(refCMetric.myMask) << endl;
 	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); //possible Memory Leaks 
-	//myMask=new Mask< WeightedPoint >(refCMetric.myMask);
-	//myMask=refCMetric.myMask;
 }
 
 template <typename W,typename T>
@@ -135,7 +134,6 @@ CMetric<W,T>& CMetric<W,T>::operator=(const CMetric<W,T>& refCMetric)
 {
 	delete myMask;
 	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); //possible Memory Leaks 
-	//myMask=refCMetric.myMask;
 	return *this;
 }
 

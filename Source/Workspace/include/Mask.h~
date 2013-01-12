@@ -87,11 +87,15 @@ class Mask
 		*	\brief To add a Weighting point in the mask
 	*/
 	void add(const T &newPoint);
+	int Size();
+	T getWeightingPoint(int number);
+	//int getWeight(int number);
 };
 
 template <typename T>
 Mask<T>::Mask()
 {
+	myPointsMask.clear();
 }
 
 
@@ -103,12 +107,19 @@ Mask<T>::Mask(const Mask<T> &refMask)
   { 
      delete(myPointsMask[iterator]);
 	}
-	this->myPointsMask.clear();//on vide le premier masque
+	this->myPointsMask.clear();//we clear the first mask
 	
+	typename vector<T*>::const_iterator const_It=refMask.myPointsMask.begin();
+	for(;const_It !=refMask.myPointsMask.end();++const_It)
+	{
+		this->myPointsMask.push_back(new T(**const_It));
+	}
+	/**
 	for(refMask.constIterator=refMask.myPointsMask.begin(); refMask.constIterator!=refMask.myPointsMask.end();++refMask.constIterator)
 	{
 		this->myPointsMask.push_back(new T(*refMask.constIterator));
 	}
+	**/
 }
 
 template <typename T>
@@ -150,5 +161,19 @@ Mask<T>& Mask<T>::operator=(const Mask<T>& refMask)
 	return *this;
 }
 
+template <typename T>
+int Mask<T>::Size()
+{
+	return this->myPointsMask.size();
+}
+
+template <typename T>
+T& Mask<T>::getWeightingPoint(int number)
+{	
+	if(number < myPointsMask.size())
+	{
+		return *(this->myPointsMask[number]);
+	}
+}
 
 #endif // _Mask_H_

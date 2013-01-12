@@ -16,10 +16,18 @@
 
 #include <iostream>
 #include <cmath>
+#include <climits>
 #include "CMetric.h"
+#include "DGtal/base/Common.h"
+#include "DGtal/helpers/StdDefs.h"
+#include "DGtal/images/ImageContainerBySTLVector.h"
 
 
 using namespace std;
+
+typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> ImageChar; //more efficient for color/gray values
+
+typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt; // used for distance transform maps
 
 /*! \DistanceTransform
 	*
@@ -76,7 +84,7 @@ class DistanceTransform
 		* \fn void applyAlgorithm();
 		*	\brief Method who apply an algorithm using the metric member.
 	*/
-	void applyAlgorithm();
+	void applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero);
 };
 
 template <typename W,typename T>
@@ -100,6 +108,47 @@ ostream& operator<< (ostream &os, const DistanceTransform<W,T> &refDistance)
 {
 	os << refDistance.myMetric << endl;
 	return os;
+}
+
+template <typename W,typename T>
+void DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero)
+{
+	/**
+		cout << myMetric.myMask->Size() << endl;
+		cout << myMetric.myMask->getWeightingPoint(1) << endl;	
+		cout << myMetric.myMask->getWeightingPoint(1).Point() << endl;		
+	**/
+	
+	//ImageInt output();
+
+	Z2i::Domain monsuperdomaine=input.domain();
+	ImageInt output(monsuperdomaine);
+	
+	//output.Size=input.Size;
+	//output.Dimension=input.Dimension;
+	//output.translateDomain(input.extent());
+	//output.domain=input.domain();
+	
+	//Initialisation
+	typename ImageInt::Domain::ConstIterator iteratorOuput = output.domain().begin();	
+	typename ImageInt::Domain::ConstIterator iteratorInput = input.domain().begin();	
+	for(;iteratorOuput != output.domain().end() && iteratorInput != input.domain().end() ;++iteratorOuput, ++iteratorInput)
+	{
+
+		if(input(*iteratorInput) > (int) threshold)
+		{
+			output.setValue( (*iteratorOuput) , 0);
+		}
+		else
+		{
+			output.setValue(*iteratorOuput, INT_MAX);
+		}
+		
+		cout << (*iteratorOuput) << " : " << (int)output(*iteratorOuput) << endl;			
+	}
+	
+
+	
 }
 
 #endif // _DistanceTransform_H_

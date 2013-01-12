@@ -87,11 +87,15 @@ class Mask
 		*	\brief To add a Weighting point in the mask
 	*/
 	void add(const T &newPoint);
+	int Size();
+	T& getWeightingPoint(int number);
+	//int getWeight(int number);
 };
 
 template <typename T>
 Mask<T>::Mask()
 {
+	myPointsMask.clear();
 }
 
 
@@ -157,5 +161,19 @@ Mask<T>& Mask<T>::operator=(const Mask<T>& refMask)
 	return *this;
 }
 
+template <typename T>
+int Mask<T>::Size()
+{
+	return this->myPointsMask.size();
+}
+
+template <typename T>
+T& Mask<T>::getWeightingPoint(int number)
+{	
+	if(number < myPointsMask.size())
+	{
+		return *(this->myPointsMask[number]);
+	}
+}
 
 #endif // _Mask_H_
