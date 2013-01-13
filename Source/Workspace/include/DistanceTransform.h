@@ -84,7 +84,7 @@ class DistanceTransform
 		* \fn void applyAlgorithm();
 		*	\brief Method who apply an algorithm using the metric member.
 	*/
-	void applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero);
+	ImageInt applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero);
 };
 
 template <typename W,typename T>
@@ -111,7 +111,7 @@ ostream& operator<< (ostream &os, const DistanceTransform<W,T> &refDistance)
 }
 
 template <typename W,typename T>
-void DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero)
+ImageInt DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero)
 {
 	/**
 		cout << myMetric.myMask->Size() << endl;
@@ -121,8 +121,8 @@ void DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char thres
 	
 	//ImageInt output();
 
-	Z2i::Domain monsuperdomaine=input.domain();
-	ImageInt output(monsuperdomaine);
+	Z2i::Domain aDomain=input.domain();
+	ImageInt output(aDomain);
 	
 	//output.Size=input.Size;
 	//output.Dimension=input.Dimension;
@@ -144,11 +144,77 @@ void DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char thres
 			output.setValue(*iteratorOuput, INT_MAX);
 		}
 		
-		cout << (*iteratorOuput) << " : " << (int)output(*iteratorOuput) << endl;			
+		//cout << (*iteratorOuput) << " : " << (int)output(*iteratorOuput) << endl;			
 	}
 	
 
+	//Main Algorithm
 	
+	iteratorOuput = output.domain().begin();// restart iterator
+	
+	//forward step
+	for(;iteratorOuput != output.domain().end(); ++iteratorOuput){
+		//cout << "Point :" << *(iteratorOuput) << endl;
+		for(int i = 0; i < myMetric.myMask->Size(); i=i+1){
+		
+		//cout << "Upper - " << myMetric.myMask->isUpperPart(myMetric.myMask->getWeightingPoint(i)) << endl;
+		//cout << "Lower - " << myMetric.myMask->isLowerPart(myMetric.myMask->getWeightingPoint(i)) << endl;
+		
+		bool outOfBounds = false;
+		for(int j = 0 ; j < (myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput)).size(); j=j+1){
+			if( (myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput))[j] < output.domain().lowerBound().at(j) 
+				|| (myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput))[j] > output.domain().upperBound().at(j)){
+					outOfBounds = true;
+				}				
+		}
+		
+
+			if(myMetric.myMask->isUpperPart(myMetric.myMask->getWeightingPoint(i))){ // upper part of mask
+				if(!outOfBounds){ //not out of bound									
+					output.setValue(*iteratorOuput,min(output(*iteratorOuput), 
+						(output(myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput))) 
+															+ (unsigned int)myMetric.myMask->getWeightingPoint(i).Weight()));
+				}
+				else{
+					if(outrangeAtZero){
+						output.setValue(*iteratorOuput,min(output(*iteratorOuput), (unsigned int)(0 + myMetric.myMask->getWeightingPoint(i).Weight())));
+					}
+				}
+
+			}
+		}
+	}
+	
+	//backward step
+	
+	typename ImageInt::Domain::ConstReverseIterator reverseIteratorOuput = output.domain().rbegin();
+	for(;reverseIteratorOuput != output.domain().rend(); ++reverseIteratorOuput){
+		for(int i = 0; i < myMetric.myMask->Size(); i=i+1){
+		bool outOfBounds = false;
+		for(int j = 0 ; j < (myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput)).size(); j=j+1){
+			if( (myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput))[j] < output.domain().lowerBound().at(j) 
+				|| (myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput))[j] > output.domain().upperBound().at(j)){
+					outOfBounds = true;
+				}				
+		}
+		
+			if(myMetric.myMask->isLowerPart(myMetric.myMask->getWeightingPoint(i))){ // lower part of mask
+				if(!outOfBounds){ //not out of bound
+					output.setValue(*reverseIteratorOuput,min(output(*reverseIteratorOuput), 
+						(output(myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput))) 
+															+ myMetric.myMask->getWeightingPoint(i).Weight()));
+				}
+				else{
+					if(outrangeAtZero){
+						output.setValue(*reverseIteratorOuput,min(output(*reverseIteratorOuput), (unsigned int)(0 + myMetric.myMask->getWeightingPoint(i).Weight())));
+					}
+				}
+
+			}
+		}
+	}
+
+	return output;
 }
 
 #endif // _DistanceTransform_H_

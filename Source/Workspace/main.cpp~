@@ -52,6 +52,7 @@
 using namespace std;
 
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> Image;
+typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt;
 
 typedef DGtal::GrayscaleColorMap<unsigned char> Gray;
 
@@ -100,8 +101,18 @@ DistanceTransform<int,point2d> myDistance(myMetric);
 
 const std::string examplesPath= "/home/remi/Pred/DGtal_PRED/Source/Workspace/Ressources/";	
 std::string filename =  examplesPath + "contourS.pgm";
-Image image = DGtal::PNMReader<Image>::importPGM(filename); 
-myDistance.applyAlgorithm(image,135,true);
+Image image = DGtal::PNMReader<Image>::importPGM(filename, true); 
+
+ImageInt output = myDistance.applyAlgorithm(image,135,true);
+
+DGtal::Board2D aBoard;
+ImageInt::Value maxDT = (*std::max_element(output.begin(), 
+                                                output.end()));
+  typedef DGtal::HueShadeColorMap<ImageInt::Value,2> HueTwice;
+
+  aBoard.clear();
+  Display2DFactory::drawImage<HueTwice>(aBoard, output, (ImageInt::Value)0, (ImageInt::Value)maxDT);
+  aBoard.saveEPS("DistanceTransformOutput.eps");
 
 
 

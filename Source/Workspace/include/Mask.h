@@ -89,6 +89,9 @@ class Mask
 	void add(const T &newPoint);
 	int Size();
 	T& getWeightingPoint(int number);
+	
+	bool isUpperPart(const T & aPoint);
+	bool isLowerPart(const T & aPoint);
 	//int getWeight(int number);
 };
 
@@ -174,6 +177,41 @@ T& Mask<T>::getWeightingPoint(int number)
 	{
 		return *(this->myPointsMask[number]);
 	}
+}
+template <typename T>
+bool Mask<T>::isUpperPart(const T& aPoint){
+	T tmpPoint(aPoint);
+	bool onlyZeros = true;
+	for (int i = tmpPoint.Point().size() -1 ; i > 0; i=i-1){	
+		if(tmpPoint.Point()[i] < 0){ // already analized part
+			return true;
+		}
+		if(tmpPoint.Point()[i] != 0){
+			onlyZeros = false;
+		}
+	}
+	if(tmpPoint.Point()[0] < 0 && onlyZeros){ // current ligne, already analized element
+		return true;
+	}
+	return false;
+}
+
+template <typename T>
+bool Mask<T>::isLowerPart(const T& aPoint){
+	T tmpPoint(aPoint);
+	bool onlyZeros = true;
+	for (int i = tmpPoint.Point().size() -1 ; i > 0; i=i-1){	
+		if(tmpPoint.Point()[i] > 0){ // already analized part
+			return true;
+		}
+		if(tmpPoint.Point()[i] != 0){
+			onlyZeros = false;
+		}
+	}
+	if(tmpPoint.Point()[0] > 0 && onlyZeros){ // current ligne, already analized element
+		return true;
+	}
+	return false;
 }
 
 #endif // _Mask_H_
