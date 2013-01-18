@@ -86,7 +86,16 @@ class Weighting
 	*/
 	Weighting<T> reverse();
 
+	/*!
+		* \fn int Weight();
+		* \brief return the Weight of the current weighting Point
+	*/
 	int Weight();
+	
+	/*!
+		* \fn 	T& Point();
+		* \brief return a reference to the Point of dgtal
+	*/
 	T& Point();
 };
 
@@ -143,8 +152,6 @@ bool operator==(const Weighting<T> &e, const Weighting<T>& r)
 {
 	return (*(e.myPoint)==*(r.myPoint) && *(e.myWeight)==*(r.myWeight));
 }
-
-
 
 template<typename T>
 Weighting<T> Weighting<T>::reverse()

@@ -70,8 +70,6 @@ class CMetric : public CLocalPremetric<W,T>
 	*/
 	CMetric(const Mask<T>& refMask);
 
-	
-
 	/*!
 		* \fn CMetric(const SymmetricMask< WeightedPoint >& refMask)
 		* \brief Constructor used to make a copy of the SymmetricMask used as parameter

@@ -39,11 +39,6 @@ class MaskGenerator
 	*/
 	virtual ~MaskGenerator()=0;
 
-	/*!
-		* \fn virtual Mask<T> generateMask(const Vector < Weighting<T> > & vector)=0;
-		*	\brief Method have to be defined in the herited class
-	*/
-	//virtual Mask<T> generateMask(const vector < Weighting<T> > & vector)=0;
 };
 
 template <typename T>

@@ -33,17 +33,19 @@ class ChamferMask : public SymmetricMask<T>
 
 
 	public:
+
 	/*!
 		*	\fn ChamferMask();
 		*	\brief Constructor of a ChamferMask without parameters
 	*/
 	ChamferMask();
+
 	/*!
 		* \fn ChamferMask(const ChamferMask &refChamferMask);
 		* \brief Constructor to make a copy of the ChamferMask used as parameters
 	*/
-
 	ChamferMask(const ChamferMask &refChamferMask);
+
 	/*!
 		* \fn ~ChamferMask();
 		* \brief To desalloc memory use by the ChamferMask

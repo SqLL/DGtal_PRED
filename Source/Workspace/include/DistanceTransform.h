@@ -5,7 +5,7 @@
  * \version Version 0.0
  * \date 04/12/2012
  *
- * This file is abstract represent a DistanceTransform it's a class which contains a symetric mask and can apply it to a picture
+ * This file represent a DistanceTransform it's a class which contains a symetric mask and can apply it to a picture
  *
  */
 
@@ -58,16 +58,19 @@ class DistanceTransform
 		*	\brief Constructor of a DistanceTransform without parameters
 	*/
 	DistanceTransform();
+	
 	/*!
 		* \fn DistanceTransform(const DistanceTransform &refDistanceTransform);
 		* \brief Constructor to make a copy of the DistanceTransform used as parameters
 	*/
-
-	DistanceTransform(const CMetric<W,T>& myNewMetric);
-
 	DistanceTransform(const DistanceTransform &refDistanceTransform);
 	
-	
+	/*!
+		* \fn DistanceTransform(const CMetric<W,T>& myNewMetric);
+		* \brief Constructor to make a copy of the metric
+	*/
+	DistanceTransform(const CMetric<W,T>& myNewMetric);
+
 	/*!
 		* \fn operator<< <>(ostream& os, const CMetric<W,T> & refMetric);
 		* \brief Allows an easy way to display an instance of the class

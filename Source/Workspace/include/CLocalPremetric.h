@@ -40,22 +40,25 @@ class CLocalPremetric
 		T myPoint; /*!< myPoint is a Point which will be use to know the distance */																																					
 		W value; /*!< x,y are the dimension of the CLocalPremetric */
 	public:
+	
 	/*!
 		*	\fn CLocalPremetric();
 		*	\brief Constructor of a CLocalPremetric without parameters
 	*/
 	CLocalPremetric();
+	
 	/*!
 		* \fn CLocalPremetric(const CLocalPremetric &refCLocalPremetric);
 		* \brief Constructor to make a copy of the CLocalPremetric used as parameters
 	*/
-
 	CLocalPremetric(const CLocalPremetric &refCLocalPremetric);
+	
 	/*!
 		* \fn ~CLocalPremetric();
 		* \brief To desalloc memory use by the CLocalPremetric
 	*/
 	virtual ~CLocalPremetric() = 0;
+	
 	/*!
 		* \fn W	Distance(const T& p1, const T& p2); 
 		* \brief get the vector distance between two points

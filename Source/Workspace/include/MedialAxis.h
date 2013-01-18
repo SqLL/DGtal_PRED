@@ -39,12 +39,13 @@ class MedialAxis
 		*	\brief Constructor of a MedialAxis without parameters
 	*/
 	MedialAxis();
+	
 	/*!
 		* \fn MedialAxis(const MedialAxis &refMedialAxis);
 		* \brief Constructor to make a copy of the MedialAxis used as parameters
 	*/
-
 	MedialAxis(const MedialAxis &refMedialAxis);
+	
 	/*!
 		* \fn ~MedialAxis();
 		* \brief To desalloc memory use by the MedialAxis
@@ -53,7 +54,7 @@ class MedialAxis
 	
 	/*!
 		* \fn void applyAlgorithm();
-		*	\brief Method who apply an algorithm using the metric member.
+		*	\brief Method who apply an algorithm using the metric member. UNimplemented yet
 	*/
 	void applyAlgorithm();
 

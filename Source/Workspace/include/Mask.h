@@ -87,12 +87,33 @@ class Mask
 		*	\brief To add a Weighting point in the mask
 	*/
 	void add(const T &newPoint);
+	
+	/*!
+		* \fn 	int Size();
+		*	\brief Return the size of Mask
+	*/
 	int Size();
+	
+	/*!
+		* \fn T& getWeightingPoint(int number);
+		*	\brief Get the specific WeightingPoint Which is the Vector[number]
+	*/
 	T& getWeightingPoint(int number);
 	
+	/*!
+		* \fn bool isUpperPart(const T & aPoint);
+		*	\brief Define if the point is in the upper part or not
+		* \return a simple boolean
+	*/	
 	bool isUpperPart(const T & aPoint);
+
+	/*!
+		* \fn bool isLowerPart(const T & aPoint);
+		*	\brief Define if the point is in the lower part or not
+		* \return a simple boolean
+	*/
 	bool isLowerPart(const T & aPoint);
-	//int getWeight(int number);
+
 };
 
 template <typename T>

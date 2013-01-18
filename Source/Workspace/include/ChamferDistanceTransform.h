@@ -36,23 +36,24 @@ class ChamferDistanceTransform
 	CChamferMetric<W,T> myMetric;
 	
 	public:
+
 	/*!
 		*	\fn ChamferDistanceTransform();
 		*	\brief Constructor of a ChamferDistanceTransform without parameters
 	*/
 	ChamferDistanceTransform();
+
 	/*!
 		* \fn ChamferDistanceTransform(const ChamferDistanceTransform &refChamferDistanceTransform);
 		* \brief Constructor to make a copy of the ChamferDistanceTransform used as parameters
 	*/
-
 	ChamferDistanceTransform(const ChamferDistanceTransform &refChamferDistanceTransform);
+
 	/*!
 		* \fn ~ChamferDistanceTransform();
 		* \brief To desalloc memory use by the ChamferDistanceTransform
 	*/
 	~ChamferDistanceTransform();
-
 
 	/*!
 		* \fn void applyAlgorithm();

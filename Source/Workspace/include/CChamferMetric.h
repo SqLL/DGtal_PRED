@@ -36,17 +36,19 @@ class CChamferMetric : public CMetric<W,T>
 	ChamferMask<T> myMask;
 	
 	public:
+
 	/*!
 		*	\fn CChamferMetric();
 		*	\brief Constructor of a CChamferMetric without parameters
 	*/
 	CChamferMetric();
+
 	/*!
 		* \fn CChamferMetric(const CChamferMetric &refCChamferMetric);
 		* \brief Constructor to make a copy of the CChamferMetric used as parameters
 	*/
-
 	CChamferMetric(const CChamferMetric &refCChamferMetric);
+
 	/*!
 		* \fn ~CChamferMetric();
 		* \brief To desalloc memory use by the CChamferMetric
