@@ -26,16 +26,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.10.1/bin/cmake
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/local/Cellar/cmake/2.8.10.1/bin/cmake -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
+
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.10.1/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/remi/Pred/DGtal_PRED/Source/Workspace
+CMAKE_SOURCE_DIR = /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/remi/Pred/DGtal_PRED/Source/Workspace
+CMAKE_BINARY_DIR = /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -48,17 +54,17 @@ include CMakeFiles/main.dir/flags.make
 
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/remi/Pred/DGtal_PRED/Source/Workspace/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace/main.cpp
 
 CMakeFiles/main.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp > CMakeFiles/main.dir/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace/main.cpp > CMakeFiles/main.dir/main.cpp.i
 
 CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/remi/Pred/DGtal_PRED/Source/Workspace/main.cpp -o CMakeFiles/main.dir/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
 CMakeFiles/main.dir/main.cpp.o.requires:
 .PHONY : CMakeFiles/main.dir/main.cpp.o.requires
@@ -77,11 +83,11 @@ main_OBJECTS = \
 main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/main.cpp.o
-main: /usr/local/lib/libDGtal.so
-main: /usr/local/lib/libDGtalIO.so
-main: /usr/local/lib/libDGtal.so
-main: /usr/lib/libboost_program_options-mt.a
 main: CMakeFiles/main.dir/build.make
+main: /usr/local/lib/libDGtal.dylib
+main: /usr/local/lib/libDGtalIO.dylib
+main: /usr/local/lib/libDGtal.dylib
+main: /usr/local/Cellar/boost/1.52.0/lib/libboost_program_options-mt.a
 main: CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
@@ -98,6 +104,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	cd /home/remi/Pred/DGtal_PRED/Source/Workspace && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/remi/Pred/DGtal_PRED/Source/Workspace /home/remi/Pred/DGtal_PRED/Source/Workspace /home/remi/Pred/DGtal_PRED/Source/Workspace /home/remi/Pred/DGtal_PRED/Source/Workspace /home/remi/Pred/DGtal_PRED/Source/Workspace/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace /Users/Squall/Documents/workspace/DGtal_PRED/Source/Workspace/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main.dir/depend
 
