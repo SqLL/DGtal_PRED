@@ -31,7 +31,6 @@
 
 #include "./include/SymmetricMaskGenerator.h"
 
-
 #include "DGtal/base/Common.h"
 #include "DGtal/helpers/StdDefs.h"
 
@@ -49,119 +48,134 @@
 #include "DGtal/io/colormaps/HueShadeColorMap.h"
 #include "DGtal/io/colormaps/GrayscaleColorMap.h"
 
+/**
+	This is the property of Polytech Nantes and University of Provence
+	This files is example of Discret Geometry's Algorithm
+	This files has been written by Rémi Matéo
+**/
+
 using namespace std;
 
+typedef PointVector <2, int> point2d;
+typedef Weighting< point2d > point2dWeighting;
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> Image;
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt;
-
 typedef DGtal::GrayscaleColorMap<unsigned char> Gray;
+const std::string examplesPath= "/home/remi/Pred/DGtal_PRED/Source/Workspace/Ressources/";
+const char* outputNameFile= "distanceTransform4connexityOutput";
+
+
+void make4Connexity(vector<point2dWeighting>& myWeightingVector)
+{
+	vector<point2d> mySimpleVector;
+
+	//Creation du point dans un vector de point DGtal
+	mySimpleVector.push_back(point2d(0,0));
+	mySimpleVector.push_back(point2d(-1,0));
+	mySimpleVector.push_back(point2d(0,1));
+
+	//Creation de Weighting Point
+	for (std::vector<point2d>::const_iterator it = mySimpleVector.begin() ; it != mySimpleVector.end(); ++it)
+	{
+		myWeightingVector.push_back(point2dWeighting(*it,1));
+	}
+}
+
+void make8Connexity(vector<point2dWeighting>& myWeightingVector)
+{
+	vector<point2d> mySimpleVector;
+
+	//Creation du point dans un vector de point DGtal
+	mySimpleVector.push_back(point2d(0,0));
+	mySimpleVector.push_back(point2d(-1,0));
+	mySimpleVector.push_back(point2d(0,1));
+	mySimpleVector.push_back(point2d(-1,1));
+	mySimpleVector.push_back(point2d(1,1));
+
+	//Creation de Weighting Point
+	for (std::vector<point2d>::const_iterator it = mySimpleVector.begin() ; it != mySimpleVector.end(); ++it)
+	{
+		myWeightingVector.push_back(point2dWeighting(*it,1));
+	}
+}
+
+void makeSimpleChamfrein(vector<point2dWeighting>& myWeightingVector)
+{
+	point2d base(0,0);
+	point2d pointNegatif(-1,0);
+	point2d pointPositif(0,1);
+	point2d pointFullPositif(1,1);
+	point2d pointHalfPositif(-1,1);
+	point2d pointChamfer1(-1,2);
+	point2d pointChamfer2(1,2);
+	point2d pointChamfer3(2,1);
+	point2d pointChamfer4(2,-1);
+
+	myWeightingVector.push_back(point2dWeighting(pointNegatif,5));
+	myWeightingVector.push_back(point2dWeighting(pointPositif,5));
+	myWeightingVector.push_back(point2dWeighting(pointFullPositif,7));
+	myWeightingVector.push_back(point2dWeighting(pointChamfer1,11));
+	myWeightingVector.push_back(point2dWeighting(pointChamfer2,11));
+	myWeightingVector.push_back(point2dWeighting(pointChamfer3,11));
+	myWeightingVector.push_back(point2dWeighting(pointChamfer4,11));
+
+}
+
 
 int main(int argc, char** argv)
 {
+
 /**																													 *
 	*	Construction des differents point pour un masque simple ***
 	*																													 *
 **/																													
 
-//Renommage obligatoire pour les template
-typedef PointVector <2, int> point2d;
-typedef Weighting< point2d > point2dWeighting;
 
-//Création des points
-point2d base(0,0);
-point2d pointNegatif(-1,0);
-point2d pointPositif(0,1);
-/*
-	*	Cela correspond a *
-	*									 **
-*/
 
-//Creation d'un WeightingPoint
-Weighting< point2d > pointponderer(base,1);
 
-//Creation du vector de point
-vector <point2dWeighting > vectorPoints;
+//vector<point2d> mySimpleVector;
+vector<point2dWeighting> myWeightingVector;
 
-//Ajouts
-point2dWeighting basep(base,1);
-Weighting< point2d > pointNegatifp(pointNegatif,1);
-Weighting< point2d > pointPositifp(pointPositif,1);
 
-vectorPoints.push_back(basep);
-vectorPoints.push_back(pointNegatifp);
-vectorPoints.push_back(pointPositifp);
+makeSimpleChamfrein(myWeightingVector);
 
+//Création du mask
 SymmetricMask<point2dWeighting> myMask;
 SymmetricMaskGenerator<point2dWeighting> generateur;
-myMask = generateur.generateMask(vectorPoints);
+myMask = generateur.generateMask(myWeightingVector);
 
-// definition of metric
+
+
+// Instance de CMETRIC et distance Transform
 CMetric<int,point2d> myMetric(myMask);
 DistanceTransform<int,point2d> myDistance(myMetric);
 
-const std::string examplesPath= "/home/remi/Pred/DGtal_PRED/Source/Workspace/Ressources/";	
+
 std::string filename =  examplesPath + "contourS.pgm";
 Image image = DGtal::PNMReader<Image>::importPGM(filename, true); 
 
-ImageInt output = myDistance.applyAlgorithm(image,135,false);
 
+/** On applique l'algo **/
+ImageInt output = myDistance.applyAlgorithm(image,135,true);
+
+
+/** Colorisation de l'image **/
 DGtal::Board2D aBoard;
 ImageInt::Value maxDT = (*std::max_element(output.begin(), 
                                                 output.end()));
-  typedef DGtal::HueShadeColorMap<ImageInt::Value,2> HueTwice;
-
-  aBoard.clear();
-  Display2DFactory::drawImage<HueTwice>(aBoard, output, (ImageInt::Value)0, (ImageInt::Value)maxDT);
-  aBoard.saveEPS("DistanceTransformOutput.eps");
-
-
+typedef DGtal::HueShadeColorMap<ImageInt::Value,2> HueTwice;
+aBoard.clear();
+Display2DFactory::drawImage<HueTwice>(aBoard, output, (ImageInt::Value)0, (ImageInt::Value)maxDT);
+aBoard.saveEPS(outputNameFile);
 
 /**
- DGtal::Board2D aBoard;
-  aBoard << image.domain();  
-  //aBoard.saveSVG("imageDomainTuto.svg");
-  aBoard.clear();
-  Display2DFactory::drawImage<Gray>(aBoard, image, (unsigned char)0, (unsigned char)255);
-  //aBoard.saveEPS("imageDomainTuto2.eps");
-
-	//cout << image.range() << endl;
-	//cout << image.constRange() << endl;
-	cout << image.size() << endl;
-	//cout << image.extent() << endl;
-	//cout << image.domain() << endl;
-	//cout << image << endl;
-	image.selfDisplay(cout);
-
-
-
-
-	typename Image::Domain::ConstIterator dit= image.domain().begin();	
-	for(;dit != image.domain().end();++dit)
-	{
-			cout << (*dit) << " : " << (int)image(*dit) << endl;			
-	}
-
-	//for(image.Iterator =(image.Iterator.begin()) ; image.Iterator!= image.Iterator.end(); image.Iterator++){
-		//cout << *i << endl;
-	//}
-
-  typedef IntervalForegroundPredicate<Image> Binarizer; 
-  Binarizer b(image,1, 135);
- 
-  typedef DGtal::DistanceTransformation<Z2i::Space, Binarizer, 2> DTL2;
-  typedef DTL2::OutputImage OutputImage;
-  DTL2 dt(image.domain(),b);
-
-  OutputImage result = dt.compute(); 
-
-  OutputImage::Value maxDT = (*std::max_element(result.begin(), 
-                                                result.end()));
-  typedef DGtal::HueShadeColorMap<OutputImage::Value,2> HueTwice;
-
-  aBoard.clear();
-  Display2DFactory::drawImage<HueTwice>(aBoard, result, (OutputImage::Value)0, (OutputImage::Value)maxDT);
-  //aBoard.saveEPS("imageDomainTuto3.eps");
+typename Image::Domain::ConstIterator dit= image.domain().begin();	
+for(;dit != image.domain().end();++dit)
+{
+		cout << (*dit) << " : " << (int)image(*dit) << endl;			
+}
 **/
+
 return 0;
 }
 
