@@ -18,12 +18,6 @@
 #include <cmath>
 
 
-/*! \std
-	* 
-	* We use datatype of std
-	* 
-*/
-using namespace std;
 
 
 /*! \CLocalPremetric

@@ -18,6 +18,8 @@
 #include <cmath>
 #include "DGtal/kernel/PointVector.h"
 
+
+
 template <typename T>
 class Weighting;
 

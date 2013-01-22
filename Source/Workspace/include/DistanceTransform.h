@@ -24,7 +24,6 @@
 #include "DGtal/images/ImageContainerBySTLVector.h"
 
 
-using namespace std;
 
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> ImageChar; //more efficient for color/gray values
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt; // used for distance transform maps

@@ -19,7 +19,7 @@
 #include "CChamferMetric.h"
 
 
-using namespace std;
+
 
 /*! \ChamferDistanceTransform
 	*

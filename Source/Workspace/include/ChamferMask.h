@@ -19,7 +19,6 @@
 #include "SymmetricMask.h"
 
 
-using namespace std;
 
 /*! \ChamferMask
 	*

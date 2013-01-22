@@ -21,7 +21,7 @@
 
 //TODO il faudra surement surcharger la methode distance
 
-using namespace std;
+
 
 /*! \CChamferMetric
 	*
