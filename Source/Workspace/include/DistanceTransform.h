@@ -17,6 +17,7 @@
 #include <iostream>
 #include <cmath>
 #include <climits>
+#include "Weighting.h"
 #include "CMetric.h"
 #include "DGtal/base/Common.h"
 #include "DGtal/helpers/StdDefs.h"
@@ -26,7 +27,6 @@
 using namespace std;
 
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> ImageChar; //more efficient for color/gray values
-
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt; // used for distance transform maps
 
 /*! \DistanceTransform
@@ -34,6 +34,7 @@ typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt; /
 	* \brief Abstract class to make a DistanceTransform
 	*
 */
+
 
 
 template <typename W,typename T>
@@ -132,9 +133,7 @@ ImageInt DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char t
 	//output.translateDomain(input.extent());
 	//output.domain=input.domain();
 	
-	//Initialisation
-	typename ImageInt::Domain::ConstIterator iteratorOuput = output.domain().begin();	
-	typename ImageInt::Domain::ConstIterator iteratorInput = input.domain().begin();	
+	/**
 	for(;iteratorOuput != output.domain().end() && iteratorInput != input.domain().end() ;++iteratorOuput, ++iteratorInput)
 	{
 
@@ -149,71 +148,65 @@ ImageInt DistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char t
 		
 		//cout << (*iteratorOuput) << " : " << (int)output(*iteratorOuput) << endl;			
 	}
-	
+	**/
 
 	//Main Algorithm
 	
-	iteratorOuput = output.domain().begin();// restart iterator
+	//iteratorOuput = output.domain().begin();// restart iterator
 	
-	//forward step
-	for(;iteratorOuput != output.domain().end(); ++iteratorOuput){
-		//cout << "Point :" << *(iteratorOuput) << endl;
-		for(int i = 0; i < myMetric.myMask->Size(); i=i+1){
-		
-		//cout << "Upper - " << myMetric.myMask->isUpperPart(myMetric.myMask->getWeightingPoint(i)) << endl;
-		//cout << "Lower - " << myMetric.myMask->isLowerPart(myMetric.myMask->getWeightingPoint(i)) << endl;
-		
-		bool outOfBounds = false;
-		for(int j = 0 ; j < (myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput)).size(); j=j+1){
-			if( (myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput))[j] < output.domain().lowerBound().at(j) 
-				|| (myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput))[j] > output.domain().upperBound().at(j)){
-					outOfBounds = true;
-				}				
-		}
-		
-
-			if(myMetric.myMask->isUpperPart(myMetric.myMask->getWeightingPoint(i))){ // upper part of mask
-				if(!outOfBounds){ //not out of bound									
-					output.setValue(*iteratorOuput,min(output(*iteratorOuput), 
-						(output(myMetric.myMask->getWeightingPoint(i).Point() + *(iteratorOuput))) 
-															+ (unsigned int)myMetric.myMask->getWeightingPoint(i).Weight()));
-				}
-				else{
-					if(outrangeAtZero){
-						output.setValue(*iteratorOuput,min(output(*iteratorOuput), (unsigned int)(0 + myMetric.myMask->getWeightingPoint(i).Weight())));
-					}
-				}
-
-			}
-		}
+	
+	/** CREATION DU MASK TEMPORAIRE **/
+	
+	vector < Weighting<T> > maskTemp;
+	for (unsigned int i = 0; i < myMetric.myMask->Size(); i++)
+	{
+			if (myMetric.myMask->isUpperPart(myMetric.myMask->getWeightingPoint(i)))
+					maskTemp.push_back(myMetric.myMask->getWeightingPoint(i));
 	}
 	
-	//backward step
 	
-	typename ImageInt::Domain::ConstReverseIterator reverseIteratorOuput = output.domain().rbegin();
-	for(;reverseIteratorOuput != output.domain().rend(); ++reverseIteratorOuput){
-		for(int i = 0; i < myMetric.myMask->Size(); i=i+1){
-		bool outOfBounds = false;
-		for(int j = 0 ; j < (myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput)).size(); j=j+1){
-			if( (myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput))[j] < output.domain().lowerBound().at(j) 
-				|| (myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput))[j] > output.domain().upperBound().at(j)){
-					outOfBounds = true;
-				}				
-		}
-		
-			if(myMetric.myMask->isLowerPart(myMetric.myMask->getWeightingPoint(i))){ // lower part of mask
-				if(!outOfBounds){ //not out of bound
-					output.setValue(*reverseIteratorOuput,min(output(*reverseIteratorOuput), 
-						(output(myMetric.myMask->getWeightingPoint(i).Point() + *(reverseIteratorOuput))) 
-															+ myMetric.myMask->getWeightingPoint(i).Weight()));
-				}
-				else{
-					if(outrangeAtZero){
-						output.setValue(*reverseIteratorOuput,min(output(*reverseIteratorOuput), (unsigned int)(0 + myMetric.myMask->getWeightingPoint(i).Weight())));
-					}
-				}
+	
+	//forward step
+	for (
+		//Initialisation
+		typename ImageInt::Domain::ConstIterator iteratorOutput = output.domain().begin(),	iteratorInput = input.domain().begin();
+		iteratorOutput != output.domain().end();
+		++iteratorOutput, ++iteratorInput) {
 
+		if (input(*iteratorInput) > (int) threshold)
+			output.setValue((*iteratorOutput), 0);
+		else
+		{
+			unsigned int val = INT_MAX;
+
+			typename vector < Weighting<T> >::iterator it;
+			for (it = maskTemp.begin(); it != maskTemp.end(); it++)
+			{
+				if (output.domain().isInside(*iteratorOutput + (*it).Point()))
+				val = min(val, (output(*iteratorOutput + (*it).Point())) + (unsigned int) (*it).Weight());
 			}
+
+			output.setValue(*iteratorOutput, val);
+		}
+	}
+	//backward step
+	for (
+		//Initialisation
+		typename ImageInt::Domain::ConstReverseIterator iteratorOutput = output.domain().rbegin();
+		iteratorOutput != output.domain().rend();
+		++iteratorOutput) {
+
+		unsigned int val = output(*iteratorOutput);
+		if (val != 0)
+		{
+			typename vector < Weighting<T> >::iterator it;
+			for (it = maskTemp.begin(); it != maskTemp.end(); it++)
+			{
+				if (output.domain().isInside(*iteratorOutput - (*it).Point()))
+				val = min(val, (output(*iteratorOutput - (*it).Point())) + (unsigned int) (*it).Weight());
+			}
+
+			output.setValue(*iteratorOutput, val);
 		}
 	}
 
