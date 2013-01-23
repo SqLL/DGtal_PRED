@@ -61,7 +61,6 @@ typedef Weighting< point2d > point2dWeighting;
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> Image;
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt;
 typedef DGtal::GrayscaleColorMap<unsigned char> Gray;
-const std::string examplesPath= "/home/remi/Pred/DGtal_PRED/Source/Workspace/Ressources/";
 const char* outputNameFile= "distanceTransform4connexityOutput";
 
 
@@ -69,12 +68,12 @@ void make4Connexity(vector<point2dWeighting>& myWeightingVector)
 {
 	vector<point2d> mySimpleVector;
 
-	//Creation du point dans un vector de point DGtal
+	// point creation in a DGtal point vector
 	mySimpleVector.push_back(point2d(0,0));
 	mySimpleVector.push_back(point2d(-1,0));
 	mySimpleVector.push_back(point2d(0,1));
 
-	//Creation de Weighting Point
+	// Creation of Weighting Point
 	for (std::vector<point2d>::const_iterator it = mySimpleVector.begin() ; it != mySimpleVector.end(); ++it)
 	{
 		myWeightingVector.push_back(point2dWeighting(*it,1));
@@ -85,14 +84,14 @@ void make8Connexity(vector<point2dWeighting>& myWeightingVector)
 {
 	vector<point2d> mySimpleVector;
 
-	//Creation du point dans un vector de point DGtal
+	// point creation in a DGtal point vector
 	mySimpleVector.push_back(point2d(0,0));
 	mySimpleVector.push_back(point2d(-1,0));
 	mySimpleVector.push_back(point2d(0,1));
 	mySimpleVector.push_back(point2d(-1,1));
 	mySimpleVector.push_back(point2d(1,1));
 
-	//Creation de Weighting Point
+	// Creation of Weighting Point
 	for (std::vector<point2d>::const_iterator it = mySimpleVector.begin() ; it != mySimpleVector.end(); ++it)
 	{
 		myWeightingVector.push_back(point2dWeighting(*it,1));
@@ -126,57 +125,73 @@ void makeSimpleChamfrein(vector<point2dWeighting>& myWeightingVector)
 int main(int argc, char** argv)
 {
 
-/**																													 *
-	*	Construction des differents point pour un masque simple ***
-	*																													 *
-**/																													
-
-
-
-
-//vector<point2d> mySimpleVector;
-vector<point2dWeighting> myWeightingVector;
-
-
-makeSimpleChamfrein(myWeightingVector);
-
-//Création du mask
-SymmetricMask<point2dWeighting> myMask;
-SymmetricMaskGenerator<point2dWeighting> generateur;
-myMask = generateur.generateMask(myWeightingVector);
-
-
-
-// Instance de CMETRIC et distance Transform
-CMetric<int,point2d> myMetric(myMask);
-DistanceTransform<int,point2d> myDistance(myMetric);
-
-
-std::string filename =  examplesPath + "image.pgm";
-Image image = DGtal::PNMReader<Image>::importPGM(filename, true); 
-
-
-/** On applique l'algo **/
-ImageInt output = myDistance.applyAlgorithm(image,0,true);
-
-
-/** Colorisation de l'image **/
-DGtal::Board2D aBoard;
-ImageInt::Value maxDT = (*std::max_element(output.begin(), 
-                                                output.end()));
-typedef DGtal::HueShadeColorMap<ImageInt::Value,2> HueTwice;
-aBoard.clear();
-Display2DFactory::drawImage<HueTwice>(aBoard, output, (ImageInt::Value)0, (ImageInt::Value)maxDT);
-aBoard.saveEPS(outputNameFile);
-
-/*
-typename Image::Domain::ConstIterator dit= image.domain().begin();	
-for(;dit != image.domain().end();++dit)
+if(argc != 4)
 {
-		cout << (*dit) << " : " << (int)output(*dit) << endl;			
-}*/
+	cout << argc << endl;
+	cout << "to use this program you have to enter this command line ./main path/of/the/picture connexity threshold " << endl;
+	cout << "Threshold should be in 0-255" << endl;
+	cout << "connexity should be 4connexity or 8connexity or chamfer5711" << endl;
+}
+else 
+{
+	int threshold = atoi(argv[2]);
+
+	if(threshold <= 255 && threshold >= 0 && ( (strcmp(argv[3],"4connexity") == 0 ) || (strcmp(argv[3],"8connexity") == 0 ) || strcmp(argv[3],"chamfer5711") == 0) )
+	{
+		vector<point2dWeighting> myWeightingVector;
+
+	   if(strcmp(argv[3],"4connexity") == 0 )
+	   {
+		   make4Connexity(myWeightingVector);
+	   }
+	   else if(strcmp(argv[3],"8connexity") == 0)
+	   {
+		   make8Connexity(myWeightingVector);
+	   }
+	   else
+	   {
+		   makeSimpleChamfrein(myWeightingVector);
+	   }
 
 
+      // mask creation
+      SymmetricMask<point2dWeighting> myMask;
+      SymmetricMaskGenerator<point2dWeighting> generateur;
+      myMask = generateur.generateMask(myWeightingVector);
+
+
+
+      // CMETRIC and distance Transform instanciation
+      CMetric<int,point2d> myMetric(myMask);
+      DistanceTransform<int,point2d> myDistance(myMetric);
+
+
+
+      Image image = DGtal::PNMReader<Image>::importPGM(argv[1], true); 
+
+
+      /** distance transformation **/
+      ImageInt output = myDistance.applyAlgorithm(image,threshold,true);
+
+
+      /** output colorisation **/
+      DGtal::Board2D aBoard;
+      ImageInt::Value maxDT = (*std::max_element(output.begin(), 
+                                                      output.end()));
+      typedef DGtal::HueShadeColorMap<ImageInt::Value,2> HueTwice;
+      aBoard.clear();
+      Display2DFactory::drawImage<HueTwice>(aBoard, output, (ImageInt::Value)0, (ImageInt::Value)maxDT);
+      aBoard.saveEPS(outputNameFile);
+
+      /** distance transformation numeric output **/
+      /*
+      typename Image::Domain::ConstIterator dit= image.domain().begin();	
+      for(;dit != image.domain().end();++dit)
+      {
+		      cout << (*dit) << " : " << (int)output(*dit) << endl;			
+      }*/
+	}
+}
 return 0;
 }
 
