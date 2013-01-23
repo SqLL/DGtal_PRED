@@ -102,18 +102,19 @@ void make8Connexity(vector<point2dWeighting>& myWeightingVector)
 void makeSimpleChamfrein(vector<point2dWeighting>& myWeightingVector)
 {
 	point2d base(0,0);
-	point2d pointNegatif(-1,0);
+	point2d pointNegatif(1,0);
 	point2d pointPositif(0,1);
 	point2d pointFullPositif(1,1);
 	point2d pointHalfPositif(-1,1);
 	point2d pointChamfer1(-1,2);
 	point2d pointChamfer2(1,2);
 	point2d pointChamfer3(2,1);
-	point2d pointChamfer4(2,-1);
+	point2d pointChamfer4(-2,1);
 
 	myWeightingVector.push_back(point2dWeighting(pointNegatif,5));
 	myWeightingVector.push_back(point2dWeighting(pointPositif,5));
 	myWeightingVector.push_back(point2dWeighting(pointFullPositif,7));
+	myWeightingVector.push_back(point2dWeighting(pointHalfPositif,7));
 	myWeightingVector.push_back(point2dWeighting(pointChamfer1,11));
 	myWeightingVector.push_back(point2dWeighting(pointChamfer2,11));
 	myWeightingVector.push_back(point2dWeighting(pointChamfer3,11));
@@ -151,12 +152,12 @@ CMetric<int,point2d> myMetric(myMask);
 DistanceTransform<int,point2d> myDistance(myMetric);
 
 
-std::string filename =  examplesPath + "contourS.pgm";
+std::string filename =  examplesPath + "image.pgm";
 Image image = DGtal::PNMReader<Image>::importPGM(filename, true); 
 
 
 /** On applique l'algo **/
-ImageInt output = myDistance.applyAlgorithm(image,135,true);
+ImageInt output = myDistance.applyAlgorithm(image,0,true);
 
 
 /** Colorisation de l'image **/
@@ -168,13 +169,13 @@ aBoard.clear();
 Display2DFactory::drawImage<HueTwice>(aBoard, output, (ImageInt::Value)0, (ImageInt::Value)maxDT);
 aBoard.saveEPS(outputNameFile);
 
-/**
+/*
 typename Image::Domain::ConstIterator dit= image.domain().begin();	
 for(;dit != image.domain().end();++dit)
 {
-		cout << (*dit) << " : " << (int)image(*dit) << endl;			
-}
-**/
+		cout << (*dit) << " : " << (int)output(*dit) << endl;			
+}*/
+
 
 return 0;
 }
