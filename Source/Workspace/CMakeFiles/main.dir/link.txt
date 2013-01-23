@@ -1,1 +1,0 @@
-/usr/bin/c++    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/main.dir/main.cpp.o  -o main  -L/usr/local/lib  /usr/local/lib/libDGtal.dylib /usr/local/lib/libDGtalIO.dylib /usr/local/lib/libDGtal.dylib /usr/local/Cellar/boost/1.52.0/lib/libboost_program_options-mt.a 
