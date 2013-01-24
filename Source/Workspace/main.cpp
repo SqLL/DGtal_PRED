@@ -61,7 +61,7 @@ typedef Weighting< point2d > point2dWeighting;
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> Image;
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt;
 typedef DGtal::GrayscaleColorMap<unsigned char> Gray;
-const char* outputNameFile= "distanceTransform4connexityOutput";
+const char* outputNameFile= "distanceTransformOutput";
 
 
 void make4Connexity(vector<point2dWeighting>& myWeightingVector)
