@@ -28,7 +28,7 @@ template <typename T>
    * \fn operator<<(ostream& os, const Weighting<T>& r);
    * \brief Allows an easy way to display an instance of the class
 */
-ostream& operator<<(ostream& os, const Weighting<T>& r);
+std::ostream& operator<<(std::ostream& os, const Weighting<T>& r);
 
 template <typename T>
 /*!
@@ -87,7 +87,7 @@ class Weighting
      * \fn operator<<(ostream& os, const Weighting<T>& r);
      * \brief Allows an easy way to display an instance of the class
   */
-   friend ostream& operator<< <>(ostream& os, const Weighting<T>& r);
+   friend std::ostream& operator<< <>(std::ostream& os, const Weighting<T>& r);
 
 
   /*!
@@ -156,7 +156,7 @@ Weighting<T>& Weighting<T>::operator=(const Weighting<T>& refWeighting)
 }
 
 template<typename T>
-ostream& operator<<(ostream& os, const Weighting<T>& r)
+std::ostream& operator<<(std::ostream& os, const Weighting<T>& r)
 {
    r.myPoint->selfDisplay(os);
    os << " [Weight] " << *(r.myWeight);

@@ -21,6 +21,17 @@
 
 
 
+template <typename W,typename T>
+class ChamferDistanceTransform;
+
+template <typename W,typename T>
+/*!
+   * \fn ostream& operator<<(ostream &os, const DistanceTransform<W,T> &refDistance);
+   * \brief Allows an easy way to display an instance of the class
+*/
+std::ostream& operator<<(std::ostream &os, const ChamferDistanceTransform<W,T> &refDistance);
+
+
 /*! \class ChamferDistanceTransform
    *
    * \brief Abstract class to make a ChamferDistanceTransform
@@ -61,6 +72,8 @@ class ChamferDistanceTransform : DistanceTransform<W,T>
    */
    ~ChamferDistanceTransform();
 
+	 friend std::ostream& operator<< <>(std::ostream &os, const ChamferDistanceTransform<W,T> &refDistance);
+
    /*!
       * \fn void applyAlgorithm();
       * \cite demming2010introduction
@@ -87,9 +100,9 @@ ChamferDistanceTransform<W,T>::~ChamferDistanceTransform()
 }
 
 template <typename W,typename T>
-ostream& operator<< (ostream &os, const ChamferDistanceTransform<W,T> &refDistance)
+std::ostream& operator<< (std::ostream &os, const ChamferDistanceTransform<W,T> &refDistance)
 {
-   os << refDistance.myChamferMetric << endl;
+   os << refDistance.myChamferMetric << std::endl;
    return os;
 }
 

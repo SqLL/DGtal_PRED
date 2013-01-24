@@ -37,10 +37,10 @@ class Weighting;
 template <typename W,typename T>
 
 /*!
-   * \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
+   * \fn std::ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
    * \brief Allows an easy way to display an instance of the class
 */
-ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric);
+std::ostream& operator<<(std::ostream & os, const CMetric<W,T> &refMetric);
 
 /*! \class CMetric
    *
@@ -89,7 +89,7 @@ class CMetric : public CLocalPremetric<W,T>
       * \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
       * \brief Allows an easy way to display an instance of the class
    */
-   friend ostream& operator<< <>(ostream & os, const CMetric<W,T> &refMetric);
+   friend std::ostream& operator<< <>(std::ostream & os, const CMetric<W,T> &refMetric);
 
    /*!
       * \fn CMetric(const CMetric &refCMetric)
@@ -148,9 +148,9 @@ const Mask<Weighting<T> >& CMetric<W,T>::getMask()
 }
 
 template <typename W,typename T>
-ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
+std::ostream& operator<<(std::ostream & os, const CMetric<W,T> &refMetric)
 {
-   os << "[Mask] " << *(refMetric.myMask) << endl;
+   os << "[Mask] " << *(refMetric.myMask) << std::endl;
    return os;
 }
 

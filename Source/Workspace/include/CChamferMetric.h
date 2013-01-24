@@ -34,7 +34,7 @@ template <typename W,typename T>
    * \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
    * \brief Allows an easy way to display an instance of the class
 */
-ostream& operator<<(ostream & os, const CChamferMetric<W,T> &refMetric);
+std::ostream& operator<<(std::ostream & os, const CChamferMetric<W,T> &refMetric);
 
 
 /*! \class CChamferMetric
@@ -81,7 +81,7 @@ class CChamferMetric : public CMetric<W,T>
       * \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
       * \brief Allows an easy way to display an instance of the class
    */
-   friend ostream& operator<< <>(ostream & os, const CChamferMetric<W,T> &refMetric);
+   friend std::ostream& operator<< <>(std::ostream & os, const CChamferMetric<W,T> &refMetric);
 
    /*!
       * \fn CChamferMetric(const CChamferMetric &refCChamferMetric);
@@ -128,7 +128,7 @@ CChamferMetric<W,T>& CChamferMetric<W,T>::operator=(const CChamferMetric<W,T>& r
 }
 
 template <typename W,typename T>
-ostream& operator<<(ostream & os, const CChamferMetric<W,T> &refMetric)
+std::ostream& operator<<(std::ostream & os, const CChamferMetric<W,T> &refMetric)
 {
    os << "[Mask] " << *(refMetric.myMask) << std::endl;
    return os;

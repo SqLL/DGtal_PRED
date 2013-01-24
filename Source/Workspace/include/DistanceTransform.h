@@ -55,15 +55,15 @@ class DistanceTransform
    private:
    CMetric<W,T> myMetric;
 
-
-
-   public:
-
+	 protected:
    /*!
       *   \fn DistanceTransform();
       *   \brief Constructor of a DistanceTransform without parameters
    */
    DistanceTransform();
+
+   public:
+
 
    /*!
       * \fn DistanceTransform(const DistanceTransform &refDistanceTransform);
@@ -87,7 +87,7 @@ class DistanceTransform
       * \fn ~DistanceTransform();
       * \brief To desalloc memory use by the DistanceTransform
    */
-   ~DistanceTransform();
+   virtual ~DistanceTransform()=0;
 
    /*!
       * \fn void applyAlgorithm();
@@ -106,6 +106,13 @@ DistanceTransform<W,T>::DistanceTransform()
 template <typename W,typename T>
 DistanceTransform<W,T>::~DistanceTransform()
 {
+}
+
+template <typename W,typename T>
+std::ostream& operator<< (std::ostream &os, const DistanceTransform<W,T> &refDistance)
+{
+   os << refDistance.myChamferMetric << std::endl;
+   return os;
 }
 
 #endif // _DistanceTransform_H_

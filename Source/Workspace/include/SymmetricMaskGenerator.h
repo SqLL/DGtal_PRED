@@ -56,19 +56,17 @@ class SymmetricMaskGenerator : public MaskGenerator<T>
 };
 
 
-// Dans cette fonction le code est vraiment à ameliorer
+
 template<typename T>
 SymmetricMask<T> SymmetricMaskGenerator<T>::generateMask(const vector<T> & vectorPoint)
 {
    SymmetricMask<T> result;
    T tmp;
-   //Pour fabriquer un mask j'utilise les points et j'inverse leurs coordonnées pour obtenir le masque.
+
    typename vector<T>::const_iterator it;
    for(it=vectorPoint.begin();it!=vectorPoint.end();++it)
    {
-      //Coordonnées basiques
       result.add(*it);
-      //Coordonnées inversé
       tmp=(*it);
       tmp=tmp.reverse();
       if( !(tmp == (*it)) )
@@ -76,7 +74,6 @@ SymmetricMask<T> SymmetricMaskGenerator<T>::generateMask(const vector<T> & vecto
          result.add(tmp);
       }
    }
-   //On retourne le masque complet
    return result;
 }
 

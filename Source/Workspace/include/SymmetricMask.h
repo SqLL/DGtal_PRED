@@ -32,7 +32,7 @@ template <typename T>
    * \fn    ostream& operator<<(ostream& os, const SymmetricMask<T>& r);
    * \brief  Allows an easy way to display an instance of the class
 */
-ostream& operator<<(ostream& os, const SymmetricMask<T>& r);
+std::ostream& operator<<(std::ostream& os, const SymmetricMask<T>& r);
 
 
 /*! \class SymmetricMask
@@ -81,7 +81,7 @@ class SymmetricMask : public Mask<T>
       * \fn    ostream& operator<<(ostream& os, const SymmetricMask<T>& r);
       * \brief  Allows an easy way to display an instance of the class
    */
-   friend ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
+   friend std::ostream& operator<< <>(std::ostream& os, const SymmetricMask<T>& r);
 
    /*!
       * \fn void add(const T &newPoint);
@@ -151,7 +151,7 @@ void SymmetricMask<T>::add(const T &newPoint)
 
 
 template<typename T>
-ostream& operator<<(ostream& os, const SymmetricMask<T>& r)
+std::ostream& operator<<(std::ostream& os, const SymmetricMask<T>& r)
 {
    typename vector<T*>::const_iterator const_It=r.myPointsMask.begin();
    for(;const_It !=r.myPointsMask.end();++const_It)

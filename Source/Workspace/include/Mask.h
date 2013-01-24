@@ -33,7 +33,7 @@ template <typename T>
    * \fn friend ostream& operator<<(ostream &, const Mask <T> &);
    * \brief Allows an easy way to display an instance of the class
 */
-ostream& operator<<(ostream &, const Mask <T> &);
+std::ostream& operator<<(std::ostream &, const Mask <T> &);
 
 /*! \class Mask
    *
@@ -86,7 +86,7 @@ class Mask
       * \fn friend ostream& operator<<(ostream &, const Mask <T> &);
       * \brief Allows an easy way to display an instance of the class
    */
-   friend ostream& operator<< <>(ostream& os, const Mask<T>& r);
+   friend std::ostream& operator<< <>(std::ostream& os, const Mask<T>& r);
 
    /*!
       * \fn void add(const Weighting<T> &newPoint);
@@ -144,12 +144,6 @@ Mask<T>::Mask(const Mask<T> &refMask)
    {
       this->myPointsMask.push_back(new T(**const_It));
    }
-   /**
-   for(refMask.constIterator=refMask.myPointsMask.begin(); refMask.constIterator!=refMask.myPointsMask.end();++refMask.constIterator)
-   {
-      this->myPointsMask.push_back(new T(*refMask.constIterator));
-   }
-   **/
 }
 
 template <typename T>
@@ -171,7 +165,7 @@ void Mask<T>::add(const T &newPoint)
 
 
 template<typename T>
-ostream& operator<<(ostream& os, const Mask<T>& r)
+std::ostream& operator<<(std::ostream& os, const Mask<T>& r)
 {
    typename vector<T*>::const_iterator const_It=r.myPointsMask.begin();
    for(;const_It !=r.myPointsMask.end();++const_It)
