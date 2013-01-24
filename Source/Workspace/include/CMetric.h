@@ -54,11 +54,12 @@ class CMetric : public CLocalPremetric<W,T>
 
 	typedef Weighting< T > WeightedPoint; 
 
-	
+	protected:
+	Mask< Weighting <T> > *myMask;
 
 	public:
 
-		Mask< Weighting <T> > *myMask;
+
 	
 	/*!
 		*	\fn CMetric();
@@ -84,7 +85,6 @@ class CMetric : public CLocalPremetric<W,T>
 	*/
 	CMetric<W,T>& operator=(const CMetric<W,T>& refMetric);
 
-
 	/*!
 		* \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
 		* \brief Allows an easy way to display an instance of the class
@@ -96,6 +96,9 @@ class CMetric : public CLocalPremetric<W,T>
 		* \brief Constructor used to make a copy of the CMetric used as parameter
 	*/
 	CMetric(const CMetric<W,T> &refCMetric);
+
+
+	const Mask< Weighting <T> >& getMask();
 
 	/*!
 		* \fn ~CMetric();
@@ -136,6 +139,12 @@ CMetric<W,T>& CMetric<W,T>::operator=(const CMetric<W,T>& refCMetric)
 	delete myMask;
 	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); 
 	return *this;
+}
+
+template <typename W,typename T>
+const Mask<Weighting<T> >& CMetric<W,T>::getMask() 
+{
+	return *this->myMask;
 }
 
 template <typename W,typename T>

@@ -17,9 +17,24 @@
 #include <iostream>
 #include <cmath>
 #include "ChamferMask.h"
-#include "CMetric.h"
+#include "CChamferMetric.h"
+#include "Weighting.h"
+
+template <typename W,typename T>
+class CChamferMetric;
+
+template <typename T>
+class Weighting;
 
 
+
+
+template <typename W,typename T>
+/*!
+	* \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
+	* \brief Allows an easy way to display an instance of the class
+*/
+ostream& operator<<(ostream & os, const CChamferMetric<W,T> &refMetric);
 
 
 /*! \class CChamferMetric
@@ -31,8 +46,9 @@
 template <typename W,typename T>
 class CChamferMetric : public CMetric<W,T>
 {
-	private:
-	ChamferMask<T> myMask;
+
+	typedef Weighting< T > WeightedPoint; 
+
 	
 	public:
 
@@ -41,6 +57,31 @@ class CChamferMetric : public CMetric<W,T>
 		*	\brief Constructor of a CChamferMetric without parameters
 	*/
 	CChamferMetric();
+
+	/*!
+		* \fn CMetric(const Mask<T>& refMask)
+		* \brief Constructor used to make a copy of the Mask used as parameter
+	*/
+	CChamferMetric(const Mask<T>& refMask);
+
+	/*!
+		* \fn CMetric(const SymmetricMask< WeightedPoint >& refMask)
+		* \brief Constructor used to make a copy of the SymmetricMask used as parameter
+	*/
+	CChamferMetric(const SymmetricMask< WeightedPoint >& refMask);
+
+	/*!
+		* \fn CMetric<W,T>& operator=(const CMetric<W,T>& refMetric)
+		* \brief Allocation operator for the CMetric class
+	*/
+	CChamferMetric<W,T>& operator=(const CChamferMetric<W,T>& refMetric);
+
+
+	/*!
+		* \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
+		* \brief Allows an easy way to display an instance of the class
+	*/
+	friend ostream& operator<< <>(ostream & os, const CChamferMetric<W,T> &refMetric);
 
 	/*!
 		* \fn CChamferMetric(const CChamferMetric &refCChamferMetric);
@@ -56,6 +97,47 @@ class CChamferMetric : public CMetric<W,T>
 
 };
 
+template <typename W,typename T>
+CChamferMetric<W,T>::CChamferMetric():CMetric<W,T>()
+{
+}
+
+template <typename W,typename T>
+CChamferMetric<W,T>::CChamferMetric(const Mask<T>& refMask):CMetric<W,T>(refMask)
+{
+}
+
+template <typename W,typename T>
+CChamferMetric<W,T>::CChamferMetric(const SymmetricMask< WeightedPoint >& refMask):CMetric<W,T>(refMask)
+{
+}
+
+template <typename W,typename T>
+CChamferMetric<W,T>::CChamferMetric(const CChamferMetric<W,T>& refCChamferMetric)
+{
+	std::cout << *(refCChamferMetric.myMask) << std::endl;
+	this.myMask=new Mask< WeightedPoint >(*(refCChamferMetric.myMask));  
+}
+
+template <typename W,typename T>
+CChamferMetric<W,T>& CChamferMetric<W,T>::operator=(const CChamferMetric<W,T>& refCChamferMetric)
+{
+	delete CChamferMetric<W,T>::myMask;
+	CChamferMetric<W,T>::myMask=new Mask< WeightedPoint >(*(refCChamferMetric.myMask)); 
+	return *this;
+}
+
+template <typename W,typename T>
+ostream& operator<<(ostream & os, const CChamferMetric<W,T> &refMetric)
+{
+	os << "[Mask] " << *(refMetric.myMask) << std::endl;
+	return os;
+}
+	
+template <typename W,typename T>
+CChamferMetric<W,T>::~CChamferMetric()
+{
+}
 
 
 

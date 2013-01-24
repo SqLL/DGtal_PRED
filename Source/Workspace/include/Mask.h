@@ -98,27 +98,27 @@ class Mask
 		* \fn 	int Size();
 		*	\brief Return the size of Mask
 	*/
-	int Size();
+	int Size() const;
 	
 	/*!
 		* \fn T& getWeightingPoint(int number);
 		*	\brief Get the specific WeightingPoint Which is the Vector[number]
 	*/
-	T& getWeightingPoint(int number);
+	T& getWeightingPoint(int number) const;
 	
 	/*!
 		* \fn bool isUpperPart(const T & aPoint);
 		*	\brief Define if the point is in the upper part or not
 		* \return a simple boolean
 	*/	
-	bool isUpperPart(const T & aPoint);
+	bool isUpperPart(const T & aPoint) const;
 
 	/*!
 		* \fn bool isLowerPart(const T & aPoint);
 		*	\brief Define if the point is in the lower part or not
 		* \return a simple boolean
 	*/
-	bool isLowerPart(const T & aPoint);
+	bool isLowerPart(const T & aPoint) const;
 
 };
 
@@ -192,21 +192,23 @@ Mask<T>& Mask<T>::operator=(const Mask<T>& refMask)
 }
 
 template <typename T>
-int Mask<T>::Size()
+int Mask<T>::Size() const
 {
 	return this->myPointsMask.size();
 }
 
 template <typename T>
-T& Mask<T>::getWeightingPoint(int number)
+T& Mask<T>::getWeightingPoint(int number) const
 {	
 	if(number < myPointsMask.size())
 	{
 		return *(this->myPointsMask[number]);
 	}
 }
+
 template <typename T>
-bool Mask<T>::isUpperPart(const T& aPoint){
+bool Mask<T>::isUpperPart(const T& aPoint) const
+{
 	T tmpPoint(aPoint);
 	bool onlyZeros = true;
 	for (int i = tmpPoint.Point().size() -1 ; i > 0; i=i-1){	
@@ -224,7 +226,8 @@ bool Mask<T>::isUpperPart(const T& aPoint){
 }
 
 template <typename T>
-bool Mask<T>::isLowerPart(const T& aPoint){
+bool Mask<T>::isLowerPart(const T& aPoint) const
+{
 	T tmpPoint(aPoint);
 	bool onlyZeros = true;
 	for (int i = tmpPoint.Point().size() -1 ; i > 0; i=i-1){	

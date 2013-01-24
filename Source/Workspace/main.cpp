@@ -162,8 +162,8 @@ else
 
 
       // CMETRIC and distance Transform instanciation
-      CMetric<int,point2d> myMetric(myMask);
-      DistanceTransform<int,point2d> myDistance(myMetric);
+      CChamferMetric<int,point2d> myMetric(myMask);
+      ChamferDistanceTransform<int,point2d> myDistance(myMetric);
 
 
 

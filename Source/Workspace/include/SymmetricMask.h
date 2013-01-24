@@ -21,8 +21,8 @@
 
 
 
-using namespace std;
-
+template <typename T>
+class Mask;
 
 template <typename T>
 class SymmetricMask;
@@ -99,6 +99,7 @@ SymmetricMask<T>::SymmetricMask()
 template <typename T>
 SymmetricMask<T>::SymmetricMask(const SymmetricMask<T>& refMask)
 {
+
 	// Possible problem on iterator allocation
 	for(unsigned int iterator = 0; iterator < Mask<T>::myPointsMask.size(); iterator++)
   { 
