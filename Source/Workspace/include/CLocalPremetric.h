@@ -20,7 +20,7 @@
 
 
 
-/*! \CLocalPremetric
+/*! \class CLocalPremetric
 	*
 	* \brief Abstract class to make a metric
 	*
@@ -56,7 +56,6 @@ class CLocalPremetric
 	/*!
 		* \fn W	Distance(const T& p1, const T& p2); 
 		* \brief get the vector distance between two points
-		* \param Two points this maybe point in 2 or n dimensions
 		* \return Vector of distance
 	*/
 	W	Distance(const T& p1, const T& p2); 

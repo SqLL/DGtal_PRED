@@ -1,5 +1,5 @@
 /*!
- * \file SymetricMask.h
+ * \file SymmetricMask.h
  * \brief a SymetricMask 
  * \author Author Matéo Rémi
  * \version Version 0.3
@@ -23,19 +23,23 @@
 
 using namespace std;
 
-/*! \SymmetricMask
-	*
-	* \brief class using by a metric
-	*
-*/
+
 template <typename T>
 class SymmetricMask;
 
 template <typename T>
-ostream& operator<<(ostream &, const SymmetricMask <T> &);
+/*!
+	* \fn 	ostream& operator<<(ostream& os, const SymmetricMask<T>& r);
+	* \brief  Allows an easy way to display an instance of the class
+*/
+ostream& operator<<(ostream& os, const SymmetricMask<T>& r);
 
 
-
+/*! \class SymmetricMask
+	*
+	* \brief class using by a metric
+	*
+*/
 template <typename T>
 class SymmetricMask : public Mask<T>
 {
@@ -51,12 +55,12 @@ class SymmetricMask : public Mask<T>
 	
 	/*!
 		*	\fn SymmetricMask();
-		*	\brief Constructor of a SymetricMask without parameters
+		*	\brief Constructor of a SymmetricMask without parameters
 	*/
 	SymmetricMask();
 
 	/*!
-		* \fn SymmetricMask(const SymetricMask &refSymmetricMask);
+		* \fn SymmetricMask(const SymmetricMask &refSymmetricMask);
 		* \brief Constructor to make a copy of the SymmetricMask used as parameters
 	*/
 	SymmetricMask(const SymmetricMask &refSymmetricMask);
@@ -74,7 +78,7 @@ class SymmetricMask : public Mask<T>
 	SymmetricMask<T>& operator=(const SymmetricMask<T>& refmask);	
 	
 	/*!
-		* \fn 	ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);
+		* \fn 	ostream& operator<<(ostream& os, const SymmetricMask<T>& r);
 		* \brief  Allows an easy way to display an instance of the class
 	*/
 	friend ostream& operator<< <>(ostream& os, const SymmetricMask<T>& r);

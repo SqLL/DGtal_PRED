@@ -22,7 +22,7 @@
 
 
 
-/*! \ChamferMaskGenerator
+/*! \class ChamferMaskGenerator
 	*
 	* \brief Abstract class to generate a ChamferMask
 	*

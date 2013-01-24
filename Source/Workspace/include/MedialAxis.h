@@ -20,7 +20,7 @@
 
 
 
-/*! \MedialAxis
+/*! \class MedialAxis
 	*
 	* \brief class to make a MedialAxis
 	*

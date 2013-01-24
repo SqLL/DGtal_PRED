@@ -25,11 +25,7 @@
 
 
 
-/*! \CMetric
-	*
-	* \brief Abstract class to make a metric
-	*
-*/
+
 
 
 template <typename W,typename T>
@@ -39,7 +35,18 @@ template <typename T>
 class Weighting;
 
 template <typename W,typename T>
-ostream& operator<<(ostream &, const CMetric<W,T> &);
+
+/*!
+	* \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
+	* \brief Allows an easy way to display an instance of the class
+*/
+ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric);
+
+/*! \class CMetric
+	*
+	* \brief Abstract class to make a metric
+	*
+*/
 
 template <typename W,typename T>
 class CMetric : public CLocalPremetric<W,T>
@@ -77,11 +84,12 @@ class CMetric : public CLocalPremetric<W,T>
 	*/
 	CMetric<W,T>& operator=(const CMetric<W,T>& refMetric);
 
+
 	/*!
-		* \fn operator<< <>(ostream& os, const CMetric<W,T> & refMetric);
+		* \fn ostream& operator<<(ostream & os, const CMetric<W,T> &refMetric)
 		* \brief Allows an easy way to display an instance of the class
 	*/
-	friend ostream& operator<< <>(ostream &, const CMetric<W,T> &);
+	friend ostream& operator<< <>(ostream & os, const CMetric<W,T> &refMetric);
 	
 	/*!
 		* \fn CMetric(const CMetric &refCMetric)
@@ -119,14 +127,14 @@ template <typename W,typename T>
 CMetric<W,T>::CMetric(const CMetric<W,T>& refCMetric)
 {
 	cout << *(refCMetric.myMask) << endl;
-	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); //possible Memory Leaks 
+	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask));  
 }
 
 template <typename W,typename T>
 CMetric<W,T>& CMetric<W,T>::operator=(const CMetric<W,T>& refCMetric)
 {
 	delete myMask;
-	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); //possible Memory Leaks 
+	myMask=new Mask< WeightedPoint >(*(refCMetric.myMask)); 
 	return *this;
 }
 

@@ -23,17 +23,23 @@
 
 
 
-/*! \Mask
-	*
-	* \brief Abstract class to make a mask
-	*
-*/
+
 
 template <typename T>
 class Mask;
 
 template <typename T>
+/*!
+	* \fn friend ostream& operator<<(ostream &, const Mask <T> &);
+	* \brief Allows an easy way to display an instance of the class
+*/
 ostream& operator<<(ostream &, const Mask <T> &);
+
+/*! \class Mask
+	*
+	* \brief Abstract class to make a mask
+	*
+*/
 
 template <typename T>
 class Mask 
@@ -77,7 +83,7 @@ class Mask
 	Mask<T>& operator=(const Mask<T>& refmask);
 	
 	/*!
-		* \fn friend ostream& operator<< <>(ostream& os, const Mask<T>& r)
+		* \fn friend ostream& operator<<(ostream &, const Mask <T> &);
 		* \brief Allows an easy way to display an instance of the class
 	*/
 	friend ostream& operator<< <>(ostream& os, const Mask<T>& r);

@@ -19,13 +19,12 @@
 #include "ChamferMask.h"
 #include "CMetric.h"
 
-//TODO il faudra surement surcharger la methode distance
 
 
 
-/*! \CChamferMetric
+/*! \class CChamferMetric
 	*
-	* \brief Abstract class to make a metric
+	* \brief Abstract class to make a chamfer metric
 	*
 */
 

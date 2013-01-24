@@ -6,7 +6,7 @@
  * \date 19/12/2012
  *
  *
- */
+*/
 
 
 #ifndef _SYMMETRICMASKGENERATOR_H_
@@ -26,20 +26,25 @@
 
 
 template <typename T>
+/*! \class SymmetricMaskGenerator
+	*
+	* \brief class within a vector of weighting point generate a SymmetricMask
+	*
+*/
 class SymmetricMaskGenerator : public MaskGenerator<T>
 {
 	friend class SymmetricMask<T>;
 
 	public:
 	/*!
-		*	\fn Weighting();
-		*	\brief Constructor of a WeightPoint without parameters
+		*	\fn SymmetricMaskGenerator();
+		*	\brief Constructor without parameter
 	*/
 	SymmetricMaskGenerator();
 
 	/*!
-		* \fn ~Weighting();
-		* \brief To desalloc memory use by the Weighting
+		* \fn 	~SymmetricMaskGenerator();
+		* \brief to desalloc the generator
 	*/
 	~SymmetricMaskGenerator();
 

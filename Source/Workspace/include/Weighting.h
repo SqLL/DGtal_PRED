@@ -24,11 +24,24 @@ template <typename T>
 class Weighting;
 
 template <typename T>
-ostream& operator<<(ostream &, const Weighting <T> &);
+/*!
+	* \fn operator<<(ostream& os, const Weighting<T>& r);
+	* \brief Allows an easy way to display an instance of the class
+*/
+ostream& operator<<(ostream& os, const Weighting<T>& r);
 
 template <typename T>
-bool operator==(const Weighting<T> &, const Weighting<T> &);
+/*!
+	* \fn bool operator==( const Weighting<T> & a, const Weighting<T> & b );
+	* \brief You can compare two point with this method
+*/
+bool operator==( const Weighting<T> & a, const Weighting<T> & b );
 
+/*! \class Weighting
+	*
+	* \brief Class of Weighting which got a PointVector of DGtal
+	*
+*/
 template <typename T>
 class Weighting 
 {
@@ -53,7 +66,7 @@ class Weighting
 	Weighting(const T &refpoint, const int &myWeight);
 
 	/*!
-		* \fn Weighting(const SymetricMask &refWeighting);
+		* \fn Weighting(const Weighting<T> &refWeighting);
 		* \brief Constructor to make a copy of the Weighting used as parameters
 	*/
 	Weighting(const Weighting<T> &refWeighting);
@@ -70,16 +83,17 @@ class Weighting
 	*/
 	Weighting<T>& operator=(const Weighting<T>& refWeighting);
 
-	/*!
-		* \fn operator<< <>(ostream& os, const Weighting<T>& r);
-		* \brief Allows an easy way to display an instance of the class
-	*/
+  /*!
+	  * \fn operator<<(ostream& os, const Weighting<T>& r);
+	  * \brief Allows an easy way to display an instance of the class
+  */
 	friend ostream& operator<< <>(ostream& os, const Weighting<T>& r);
 
-	/*!
-		* \fn operator==<>( const Weighting<T> & a, const Weighting<T> & b );
-		* \brief You can compare two point with this method
-	*/
+
+  /*!
+  	* \fn bool operator==( const Weighting<T> & a, const Weighting<T> & b );
+	  * \brief You can compare two point with this method
+  */
 	friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
 
 	/*!

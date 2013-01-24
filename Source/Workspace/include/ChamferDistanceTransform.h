@@ -21,7 +21,7 @@
 
 
 
-/*! \ChamferDistanceTransform
+/*! \class ChamferDistanceTransform
 	*
 	* \brief Abstract class to make a ChamferDistanceTransform
 	*

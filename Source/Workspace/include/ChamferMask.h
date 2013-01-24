@@ -20,7 +20,7 @@
 
 
 
-/*! \ChamferMask
+/*! \class ChamferMask
 	*
 	* \brief this class is using by a metric
 	*

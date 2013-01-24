@@ -23,18 +23,23 @@
 
 
 template <typename T>
+/*! \class MaskGenerator 
+	*
+	* \brief abstract class within to generate a mask
+	*
+*/
 class MaskGenerator 
 {
 	public:
 	/*!
-		*	\fn Weighting();
-		*	\brief Constructor of a WeightPoint without parameters
+		*	\fn 	MaskGenerator();
+		*	\brief Constructor of a 	MaskGenerator without parameters
 	*/
 	MaskGenerator();
 
 	/*!
-		* \fn ~Weighting();
-		* \brief To desalloc memory use by the Weighting
+		* \fn virtual ~MaskGenerator()=0;
+		* \brief pure virtual for a virtual class
 	*/
 	virtual ~MaskGenerator()=0;
 

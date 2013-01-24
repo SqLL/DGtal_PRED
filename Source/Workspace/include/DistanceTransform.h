@@ -25,22 +25,31 @@
 
 
 
+
+
+
+
+
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned char> ImageChar; //more efficient for color/gray values
 typedef DGtal::ImageContainerBySTLVector< Z2i::Domain, unsigned int> ImageInt; // used for distance transform maps
-
-/*! \DistanceTransform
-	*
-	* \brief Abstract class to make a DistanceTransform
-	*
-*/
-
-
 
 template <typename W,typename T>
 class DistanceTransform;
 
 template <typename W,typename T>
-ostream& operator<<(ostream &, const DistanceTransform<W,T> &);
+
+/*!
+	* \fn ostream& operator<<(ostream &os, const DistanceTransform<W,T> &refDistance);
+	* \brief Allows an easy way to display an instance of the class
+*/
+ostream& operator<<(ostream &os, const DistanceTransform<W,T> &refDistance);
+
+
+/*! \class DistanceTransform
+	*
+	* \brief Abstract class to make a DistanceTransform
+	*
+*/
 
 template <typename W,typename T>
 class DistanceTransform 
@@ -71,11 +80,12 @@ class DistanceTransform
 	*/
 	DistanceTransform(const CMetric<W,T>& myNewMetric);
 
+
 	/*!
-		* \fn operator<< <>(ostream& os, const CMetric<W,T> & refMetric);
-		* \brief Allows an easy way to display an instance of the class
-	*/
-	friend ostream& operator<< <>(ostream &, const DistanceTransform<W,T> &);
+	  * \fn ostream& operator<<(ostream &os, const DistanceTransform<W,T> &refDistance);
+	  * \brief Allows an easy way to display an instance of the class
+  */
+	friend ostream& operator<< <>(ostream &os, const DistanceTransform<W,T> &refDistance);
 	
 	/*!
 		* \fn ~DistanceTransform();
@@ -85,6 +95,7 @@ class DistanceTransform
 
 	/*!
 		* \fn void applyAlgorithm();
+		* \cite demming2010introduction
 		*	\brief Method who apply an algorithm using the metric member.
 	*/
 	ImageInt applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero);
