@@ -1,6 +1,6 @@
 /*!
  * \file ChamferMask.h
- * \brief a ChamferMask 
+ * \brief a ChamferMask
  * \author Author Matéo Rémi
  * \version Version 0.0
  * \date 04/12/2012
@@ -21,9 +21,9 @@
 
 
 /*! \class ChamferMask
-	*
-	* \brief this class is using by a metric
-	*
+   *
+   * \brief this class is using by a metric
+   *
 */
 
 template <typename T>
@@ -31,25 +31,25 @@ class ChamferMask : public SymmetricMask<T>
 {
 
 
-	public:
+   public:
 
-	/*!
-		*	\fn ChamferMask();
-		*	\brief Constructor of a ChamferMask without parameters
-	*/
-	ChamferMask();
+   /*!
+      *   \fn ChamferMask();
+      *   \brief Constructor of a ChamferMask without parameters
+   */
+   ChamferMask();
 
-	/*!
-		* \fn ChamferMask(const ChamferMask &refChamferMask);
-		* \brief Constructor to make a copy of the ChamferMask used as parameters
-	*/
-	ChamferMask(const ChamferMask &refChamferMask);
+   /*!
+      * \fn ChamferMask(const ChamferMask &refChamferMask);
+      * \brief Constructor to make a copy of the ChamferMask used as parameters
+   */
+   ChamferMask(const ChamferMask &refChamferMask);
 
-	/*!
-		* \fn ~ChamferMask();
-		* \brief To desalloc memory use by the ChamferMask
-	*/
-	~ChamferMask();
+   /*!
+      * \fn ~ChamferMask();
+      * \brief To desalloc memory use by the ChamferMask
+   */
+   ~ChamferMask();
 
 };
 

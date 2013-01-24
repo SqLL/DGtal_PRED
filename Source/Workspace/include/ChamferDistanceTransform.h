@@ -1,6 +1,6 @@
 /*!
  * \file ChamferDistanceTransform.h
- * \brief a ChamferDistanceTransform 
+ * \brief a ChamferDistanceTransform
  * \author Author Matéo Rémi
  * \version Version 0.0
  * \date 04/12/2012
@@ -22,9 +22,9 @@
 
 
 /*! \class ChamferDistanceTransform
-	*
-	* \brief Abstract class to make a ChamferDistanceTransform
-	*
+   *
+   * \brief Abstract class to make a ChamferDistanceTransform
+   *
 */
 
 
@@ -32,41 +32,41 @@ template <typename W,typename T>
 class ChamferDistanceTransform : DistanceTransform<W,T>
 {
 
-	protected:
-	CChamferMetric<W,T> myChamferMetric;
-	
-	public:
+   protected:
+   CChamferMetric<W,T> myChamferMetric;
 
-	/*!
-		*	\fn ChamferDistanceTransform();
-		*	\brief Constructor of a ChamferDistanceTransform without parameters
-	*/
-	ChamferDistanceTransform();
+   public:
 
-	/*!
-		* \fn ChamferDistanceTransform(const ChamferDistanceTransform &refChamferDistanceTransform);
-		* \brief Constructor to make a copy of the ChamferDistanceTransform used as parameters
-	*/
-	ChamferDistanceTransform(const ChamferDistanceTransform &refChamferDistanceTransform);
+   /*!
+      *   \fn ChamferDistanceTransform();
+      *   \brief Constructor of a ChamferDistanceTransform without parameters
+   */
+   ChamferDistanceTransform();
 
-	/*!
-		* \fn DistanceTransform(const CMetric<W,T>& myNewMetric);
-		* \brief Constructor to make a copy of the metric
-	*/
-	ChamferDistanceTransform(const CChamferMetric<W,T>& myNewMetric);
+   /*!
+      * \fn ChamferDistanceTransform(const ChamferDistanceTransform &refChamferDistanceTransform);
+      * \brief Constructor to make a copy of the ChamferDistanceTransform used as parameters
+   */
+   ChamferDistanceTransform(const ChamferDistanceTransform &refChamferDistanceTransform);
 
-	/*!
-		* \fn ~ChamferDistanceTransform();
-		* \brief To desalloc memory use by the ChamferDistanceTransform
-	*/
-	~ChamferDistanceTransform();
+   /*!
+      * \fn DistanceTransform(const CMetric<W,T>& myNewMetric);
+      * \brief Constructor to make a copy of the metric
+   */
+   ChamferDistanceTransform(const CChamferMetric<W,T>& myNewMetric);
 
-	/*!
-		* \fn void applyAlgorithm();
-		* \cite demming2010introduction
-		*	\brief Method who apply an algorithm using the metric member.
-	*/
-	ImageInt applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero);
+   /*!
+      * \fn ~ChamferDistanceTransform();
+      * \brief To desalloc memory use by the ChamferDistanceTransform
+   */
+   ~ChamferDistanceTransform();
+
+   /*!
+      * \fn void applyAlgorithm();
+      * \cite demming2010introduction
+      *   \brief Method who apply an algorithm using the metric member.
+   */
+   ImageInt applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero);
 };
 
 
@@ -78,7 +78,7 @@ ChamferDistanceTransform<W,T>::ChamferDistanceTransform()
 template <typename W,typename T>
 ChamferDistanceTransform<W,T>::ChamferDistanceTransform(const CChamferMetric<W,T>& myNewMetric)
 {
-	myChamferMetric=myNewMetric;
+   myChamferMetric=myNewMetric;
 }
 
 template <typename W,typename T>
@@ -89,76 +89,76 @@ ChamferDistanceTransform<W,T>::~ChamferDistanceTransform()
 template <typename W,typename T>
 ostream& operator<< (ostream &os, const ChamferDistanceTransform<W,T> &refDistance)
 {
-	os << refDistance.myChamferMetric << endl;
-	return os;
+   os << refDistance.myChamferMetric << endl;
+   return os;
 }
 
 template <typename W,typename T>
 ImageInt ChamferDistanceTransform<W,T>::applyAlgorithm(ImageChar input, unsigned char threshold, bool outrangeAtZero)
 {
 
-	//ImageInt output();
+   //ImageInt output();
 
-	Z2i::Domain aDomain=input.domain();
-	ImageInt output(aDomain);
-	
+   Z2i::Domain aDomain=input.domain();
+   ImageInt output(aDomain);
 
-	
-	/** CREATION DU MASK TEMPORAIRE **/
 
-	vector < Weighting<T> > maskTemp;
-	for (unsigned int i = 0; i < myChamferMetric.getMask().Size(); i++)
-	{
-			if (myChamferMetric.getMask().isUpperPart(myChamferMetric.getMask().getWeightingPoint(i)))
-					maskTemp.push_back(myChamferMetric.getMask().getWeightingPoint(i));
-	}
-	
-	//forward step
-	for (
-		//Initialisation
-		typename ImageInt::Domain::ConstIterator iteratorOutput = output.domain().begin(),	iteratorInput = input.domain().begin();
-		iteratorOutput != output.domain().end();
-		++iteratorOutput, ++iteratorInput) {
 
-		if (input(*iteratorInput) > (int) threshold)
-			output.setValue((*iteratorOutput), 0);
-		else
-		{
-			unsigned int val = INT_MAX;
+   /** CREATION DU MASK TEMPORAIRE **/
 
-			typename vector < Weighting<T> >::iterator it;
-			for (it = maskTemp.begin(); it != maskTemp.end(); it++)
-			{
-				if (output.domain().isInside(*iteratorOutput + (*it).Point()))
-				val = min(val, (output(*iteratorOutput + (*it).Point())) + (unsigned int) (*it).Weight());
-			}
+   vector < Weighting<T> > maskTemp;
+   for (unsigned int i = 0; i < myChamferMetric.getMask().Size(); i++)
+   {
+         if (myChamferMetric.getMask().isUpperPart(myChamferMetric.getMask().getWeightingPoint(i)))
+               maskTemp.push_back(myChamferMetric.getMask().getWeightingPoint(i));
+   }
 
-			output.setValue(*iteratorOutput, val);
-		}
-	}
+   //forward step
+   for (
+      //Initialisation
+      typename ImageInt::Domain::ConstIterator iteratorOutput = output.domain().begin(),   iteratorInput = input.domain().begin();
+      iteratorOutput != output.domain().end();
+      ++iteratorOutput, ++iteratorInput) {
 
-	//backward step
-	for (
-		//Initialisation
-		typename ImageInt::Domain::ConstReverseIterator iteratorOutput = output.domain().rbegin();
-		iteratorOutput != output.domain().rend();
-		++iteratorOutput) {
+      if (input(*iteratorInput) > (int) threshold)
+         output.setValue((*iteratorOutput), 0);
+      else
+      {
+         unsigned int val = INT_MAX;
 
-		unsigned int val = output(*iteratorOutput);
-		if (val != 0)
-		{
-			typename vector < Weighting<T> >::iterator it;
-			for (it = maskTemp.begin(); it != maskTemp.end(); it++)
-			{
-				if (output.domain().isInside(*iteratorOutput - (*it).Point()))
-				val = min(val, (output(*iteratorOutput - (*it).Point())) + (unsigned int) (*it).Weight());
-			}
+         typename vector < Weighting<T> >::iterator it;
+         for (it = maskTemp.begin(); it != maskTemp.end(); it++)
+         {
+            if (output.domain().isInside(*iteratorOutput + (*it).Point()))
+            val = min(val, (output(*iteratorOutput + (*it).Point())) + (unsigned int) (*it).Weight());
+         }
 
-			output.setValue(*iteratorOutput, val);
-		}
-	}
+         output.setValue(*iteratorOutput, val);
+      }
+   }
 
-	return output;
+   //backward step
+   for (
+      //Initialisation
+      typename ImageInt::Domain::ConstReverseIterator iteratorOutput = output.domain().rbegin();
+      iteratorOutput != output.domain().rend();
+      ++iteratorOutput) {
+
+      unsigned int val = output(*iteratorOutput);
+      if (val != 0)
+      {
+         typename vector < Weighting<T> >::iterator it;
+         for (it = maskTemp.begin(); it != maskTemp.end(); it++)
+         {
+            if (output.domain().isInside(*iteratorOutput - (*it).Point()))
+            val = min(val, (output(*iteratorOutput - (*it).Point())) + (unsigned int) (*it).Weight());
+         }
+
+         output.setValue(*iteratorOutput, val);
+      }
+   }
+
+   return output;
 }
 
 #endif // _ChamferDistanceTransform_H_

@@ -1,6 +1,6 @@
 /*!
  * \file MedialAxis.h
- * \brief a MedialAxis 
+ * \brief a MedialAxis
  * \author Author Matéo Rémi
  * \version Version 0.0
  * \date 04/12/2012
@@ -21,41 +21,41 @@
 
 
 /*! \class MedialAxis
-	*
-	* \brief class to make a MedialAxis
-	*
+   *
+   * \brief class to make a MedialAxis
+   *
 */
 template <typename T>
-class MedialAxis 
+class MedialAxis
 {
 
-	private:
-	SymmetricMask<T> myMask;
-	
-	public:
-	/*!
-		*	\fn MedialAxis();
-		*	\brief Constructor of a MedialAxis without parameters
-	*/
-	MedialAxis();
-	
-	/*!
-		* \fn MedialAxis(const MedialAxis &refMedialAxis);
-		* \brief Constructor to make a copy of the MedialAxis used as parameters
-	*/
-	MedialAxis(const MedialAxis &refMedialAxis);
-	
-	/*!
-		* \fn ~MedialAxis();
-		* \brief To desalloc memory use by the MedialAxis
-	*/
-	~MedialAxis();
-	
-	/*!
-		* \fn void applyAlgorithm();
-		*	\brief Method who apply an algorithm using the metric member. UNimplemented yet
-	*/
-	void applyAlgorithm();
+   private:
+   SymmetricMask<T> myMask;
+
+   public:
+   /*!
+      *   \fn MedialAxis();
+      *   \brief Constructor of a MedialAxis without parameters
+   */
+   MedialAxis();
+
+   /*!
+      * \fn MedialAxis(const MedialAxis &refMedialAxis);
+      * \brief Constructor to make a copy of the MedialAxis used as parameters
+   */
+   MedialAxis(const MedialAxis &refMedialAxis);
+
+   /*!
+      * \fn ~MedialAxis();
+      * \brief To desalloc memory use by the MedialAxis
+   */
+   ~MedialAxis();
+
+   /*!
+      * \fn void applyAlgorithm();
+      *   \brief Method who apply an algorithm using the metric member. UNimplemented yet
+   */
+   void applyAlgorithm();
 
 };
 

@@ -25,94 +25,94 @@ class Weighting;
 
 template <typename T>
 /*!
-	* \fn operator<<(ostream& os, const Weighting<T>& r);
-	* \brief Allows an easy way to display an instance of the class
+   * \fn operator<<(ostream& os, const Weighting<T>& r);
+   * \brief Allows an easy way to display an instance of the class
 */
 ostream& operator<<(ostream& os, const Weighting<T>& r);
 
 template <typename T>
 /*!
-	* \fn bool operator==( const Weighting<T> & a, const Weighting<T> & b );
-	* \brief You can compare two point with this method
+   * \fn bool operator==( const Weighting<T> & a, const Weighting<T> & b );
+   * \brief You can compare two point with this method
 */
 bool operator==( const Weighting<T> & a, const Weighting<T> & b );
 
 /*! \class Weighting
-	*
-	* \brief Class of Weighting which got a PointVector of DGtal
-	*
+   *
+   * \brief Class of Weighting which got a PointVector of DGtal
+   *
 */
 template <typename T>
-class Weighting 
+class Weighting
 {
 
-	private:
-	T* myPoint;
-	int* myWeight;
-	
-	public:
-	
-	
-	/*!
-		*	\fn Weighting();
-		*	\brief Constructor of a WeightPoint without parameters
-	*/
-	Weighting();
+   private:
+   T* myPoint;
+   int* myWeight;
 
-	/*!
-		*	\fn Weighting(const T &refpoint, const int &myWeight);
-		*	\brief Constructor of weighting with all it need
-	*/
-	Weighting(const T &refpoint, const int &myWeight);
+   public:
 
-	/*!
-		* \fn Weighting(const Weighting<T> &refWeighting);
-		* \brief Constructor to make a copy of the Weighting used as parameters
-	*/
-	Weighting(const Weighting<T> &refWeighting);
 
-	/*!
-		* \fn ~Weighting();
-		* \brief To desalloc memory use by the Weighting
-	*/
-	~Weighting();
-	
-	/*!
-		* \fn Weighting<T>& operator=(const Weighting<T>& refWeighting);
-		* \brief Allow you to use the operator affectation
-	*/
-	Weighting<T>& operator=(const Weighting<T>& refWeighting);
+   /*!
+      *   \fn Weighting();
+      *   \brief Constructor of a WeightPoint without parameters
+   */
+   Weighting();
 
-  /*!
-	  * \fn operator<<(ostream& os, const Weighting<T>& r);
-	  * \brief Allows an easy way to display an instance of the class
-  */
-	friend ostream& operator<< <>(ostream& os, const Weighting<T>& r);
+   /*!
+      *   \fn Weighting(const T &refpoint, const int &myWeight);
+      *   \brief Constructor of weighting with all it need
+   */
+   Weighting(const T &refpoint, const int &myWeight);
 
+   /*!
+      * \fn Weighting(const Weighting<T> &refWeighting);
+      * \brief Constructor to make a copy of the Weighting used as parameters
+   */
+   Weighting(const Weighting<T> &refWeighting);
+
+   /*!
+      * \fn ~Weighting();
+      * \brief To desalloc memory use by the Weighting
+   */
+   ~Weighting();
+
+   /*!
+      * \fn Weighting<T>& operator=(const Weighting<T>& refWeighting);
+      * \brief Allow you to use the operator affectation
+   */
+   Weighting<T>& operator=(const Weighting<T>& refWeighting);
 
   /*!
-  	* \fn bool operator==( const Weighting<T> & a, const Weighting<T> & b );
-	  * \brief You can compare two point with this method
+     * \fn operator<<(ostream& os, const Weighting<T>& r);
+     * \brief Allows an easy way to display an instance of the class
   */
-	friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
+   friend ostream& operator<< <>(ostream& os, const Weighting<T>& r);
 
-	/*!
-		* \fn reverse();
-		* \brief return the reverse point of the current point.
-	*/
-	Weighting<T> reverse();
 
-	/*!
-		* \fn int Weight();
-		* \brief return the Weight of the current weighting Point
-	*/
-	int Weight();
-	
-	/*!
-		* \fn 	T& Point();
-		* \brief return a reference to the Point of dgtal
-	*/
-	T& Point();
+  /*!
+     * \fn bool operator==( const Weighting<T> & a, const Weighting<T> & b );
+     * \brief You can compare two point with this method
+  */
+   friend bool operator==<>( const Weighting<T> & a, const Weighting<T> & b );
+
+   /*!
+      * \fn reverse();
+      * \brief return the reverse point of the current point.
+   */
+   Weighting<T> reverse();
+
+   /*!
+      * \fn int Weight();
+      * \brief return the Weight of the current weighting Point
+   */
+   int Weight();
+
+   /*!
+      * \fn    T& Point();
+      * \brief return a reference to the Point of dgtal
+   */
+   T& Point();
 };
 
 
@@ -120,81 +120,81 @@ class Weighting
 template <typename T>
 Weighting<T>::Weighting()
 {
-	myPoint=new T();
-	myWeight=new int();
+   myPoint=new T();
+   myWeight=new int();
 }
 
 template <typename T>
 Weighting<T>::Weighting(const T &refpoint, const int &refWeight)
 {
-	myPoint=new T(refpoint);
-	myWeight=new int(refWeight);
+   myPoint=new T(refpoint);
+   myWeight=new int(refWeight);
 }
 
 template <typename T>
 Weighting<T>::Weighting( const Weighting<T> &refWeighting)
 {
-	myPoint=new T(*(refWeighting.myPoint));
-	myWeight=new int(*(refWeighting.myWeight));
+   myPoint=new T(*(refWeighting.myPoint));
+   myWeight=new int(*(refWeighting.myWeight));
 }
 
 template<typename T>
 Weighting<T>::~Weighting()
 {
-	delete myPoint;
-	delete myWeight;
+   delete myPoint;
+   delete myWeight;
 }
 
 template <typename T>
 Weighting<T>& Weighting<T>::operator=(const Weighting<T>& refWeighting)
 {
-	delete myPoint;
-	delete myWeight;
-	myPoint=new T(*(refWeighting.myPoint));
-	myWeight=new int(*(refWeighting.myWeight));
-	return *this;
+   delete myPoint;
+   delete myWeight;
+   myPoint=new T(*(refWeighting.myPoint));
+   myWeight=new int(*(refWeighting.myWeight));
+   return *this;
 }
 
 template<typename T>
 ostream& operator<<(ostream& os, const Weighting<T>& r)
 {
-	r.myPoint->selfDisplay(os);
-	os << " [Weight] " << *(r.myWeight);
-	return os;
+   r.myPoint->selfDisplay(os);
+   os << " [Weight] " << *(r.myWeight);
+   return os;
 }
 
 template<typename T>
 bool operator==(const Weighting<T> &e, const Weighting<T>& r)
 {
-	return (*(e.myPoint)==*(r.myPoint) && *(e.myWeight)==*(r.myWeight));
+   return (*(e.myPoint)==*(r.myPoint) && *(e.myWeight)==*(r.myWeight));
 }
 
 template<typename T>
 Weighting<T> Weighting<T>::reverse()
 {
-	// Voir si dans DGtal il n'y a pas moyen d'obtenir un reverse de pointVector sinon on applique comme cela
-	Weighting<T> result(*this);
-	//typename vector< PointVector <int N, T>>::const_iterator it;// = this->myPoint.begin();
+   // Voir si dans DGtal il n'y a pas moyen d'obtenir un reverse de pointVector sinon on applique comme cela
+   Weighting<T> result(*this);
+   //typename vector< PointVector <int N, T>>::const_iterator it;// = this->myPoint.begin();
 
-	typename T::Iterator it=this->myPoint->begin();
-	for(it=result.myPoint->begin(); it!=result.myPoint->end();++it)
-	{
-		*it = (*it) * (-1);
-	}
-	
-	return result;
+   typename T::Iterator it=this->myPoint->begin();
+   for(it=result.myPoint->begin(); it!=result.myPoint->end();++it)
+   {
+      *it = (*it) * (-1);
+   }
+
+   return result;
 }
 
 template<typename T>
 int Weighting<T>::Weight()
 {
-	return *myWeight;
+   return *myWeight;
 }
 
 template<typename T>
 T& Weighting<T>::Point()
 {
-	return *myPoint;
+   return *myPoint;
 }
 
 

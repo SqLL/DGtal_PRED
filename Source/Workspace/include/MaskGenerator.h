@@ -23,25 +23,25 @@
 
 
 template <typename T>
-/*! \class MaskGenerator 
-	*
-	* \brief abstract class within to generate a mask
-	*
+/*! \class MaskGenerator
+   *
+   * \brief abstract class within to generate a mask
+   *
 */
-class MaskGenerator 
+class MaskGenerator
 {
-	public:
-	/*!
-		*	\fn 	MaskGenerator();
-		*	\brief Constructor of a 	MaskGenerator without parameters
-	*/
-	MaskGenerator();
+   public:
+   /*!
+      *   \fn    MaskGenerator();
+      *   \brief Constructor of a    MaskGenerator without parameters
+   */
+   MaskGenerator();
 
-	/*!
-		* \fn virtual ~MaskGenerator()=0;
-		* \brief pure virtual for a virtual class
-	*/
-	virtual ~MaskGenerator()=0;
+   /*!
+      * \fn virtual ~MaskGenerator()=0;
+      * \brief pure virtual for a virtual class
+   */
+   virtual ~MaskGenerator()=0;
 
 };
 

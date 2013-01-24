@@ -27,32 +27,32 @@
 
 template <typename T>
 /*! \class SymmetricMaskGenerator
-	*
-	* \brief class within a vector of weighting point generate a SymmetricMask
-	*
+   *
+   * \brief class within a vector of weighting point generate a SymmetricMask
+   *
 */
 class SymmetricMaskGenerator : public MaskGenerator<T>
 {
-	friend class SymmetricMask<T>;
+   friend class SymmetricMask<T>;
 
-	public:
-	/*!
-		*	\fn SymmetricMaskGenerator();
-		*	\brief Constructor without parameter
-	*/
-	SymmetricMaskGenerator();
+   public:
+   /*!
+      *   \fn SymmetricMaskGenerator();
+      *   \brief Constructor without parameter
+   */
+   SymmetricMaskGenerator();
 
-	/*!
-		* \fn 	~SymmetricMaskGenerator();
-		* \brief to desalloc the generator
-	*/
-	~SymmetricMaskGenerator();
+   /*!
+      * \fn    ~SymmetricMaskGenerator();
+      * \brief to desalloc the generator
+   */
+   ~SymmetricMaskGenerator();
 
-	/*!
-		* \fn Mask<T> generateMask(const Vector < Weighting<T> > & vector);
-		*	\brief In this method you have to make a mask and initial
-	*/
-	SymmetricMask<T> generateMask(const vector<T>& vectorPoint);
+   /*!
+      * \fn Mask<T> generateMask(const Vector < Weighting<T> > & vector);
+      *   \brief In this method you have to make a mask and initial
+   */
+   SymmetricMask<T> generateMask(const vector<T>& vectorPoint);
 };
 
 
@@ -60,24 +60,24 @@ class SymmetricMaskGenerator : public MaskGenerator<T>
 template<typename T>
 SymmetricMask<T> SymmetricMaskGenerator<T>::generateMask(const vector<T> & vectorPoint)
 {
-	SymmetricMask<T> result;
-	T tmp;
-	//Pour fabriquer un mask j'utilise les points et j'inverse leurs coordonnées pour obtenir le masque.
-	typename vector<T>::const_iterator it;	
-	for(it=vectorPoint.begin();it!=vectorPoint.end();++it)
-	{
-		//Coordonnées basiques
-		result.add(*it);
-		//Coordonnées inversé
-		tmp=(*it);
-		tmp=tmp.reverse();
-		if( !(tmp == (*it)) )	
-		{
-			result.add(tmp);
-		}
-	}
-	//On retourne le masque complet
-	return result;
+   SymmetricMask<T> result;
+   T tmp;
+   //Pour fabriquer un mask j'utilise les points et j'inverse leurs coordonnées pour obtenir le masque.
+   typename vector<T>::const_iterator it;
+   for(it=vectorPoint.begin();it!=vectorPoint.end();++it)
+   {
+      //Coordonnées basiques
+      result.add(*it);
+      //Coordonnées inversé
+      tmp=(*it);
+      tmp=tmp.reverse();
+      if( !(tmp == (*it)) )
+      {
+         result.add(tmp);
+      }
+   }
+   //On retourne le masque complet
+   return result;
 }
 
 
