@@ -194,10 +194,16 @@ int Mask<T>::Size() const
 template <typename T>
 T& Mask<T>::getWeightingPoint(int number) const
 {
-   if(number < myPointsMask.size())
-   {
-      return *(this->myPointsMask[number]);
-   }
+	T* tmp;
+    try
+    {
+			tmp=this->myPointsMask[number];
+    }
+    catch ( const std::exception & e )
+    {
+        std::cerr << e.what();
+    }
+    return *tmp;
 }
 
 template <typename T>
